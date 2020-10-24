@@ -4,6 +4,12 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Location must be enabled to play Treasure Hunter!</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Location must be enabled to play Treasure Hunter!</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Location must be enabled to play Treasure Hunter!</string>
 	<key>CFBundleDisplayName</key>
 	<string>Treasure Hunter</string>
 	<key>CFBundleExecutable</key>

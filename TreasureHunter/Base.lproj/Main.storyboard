@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9nc-aC-k8g">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -35,14 +35,81 @@
                             <constraint firstItem="xHe-Jt-5SJ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="zZa-jX-69a"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Log in" id="iyK-6q-h1f"/>
+                    <navigationItem key="navigationItem" title="Log in" id="iyK-6q-h1f">
+                        <barButtonItem key="backBarButtonItem" title="Log Out" id="JT0-WJ-qWq"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="qef-E5-GaS"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="signINButton" destination="xHe-Jt-5SJ" id="gZK-e4-bFN"/>
+                        <segue destination="6sU-5b-pVJ" kind="show" identifier="loginSegue" id="h6G-07-a1i"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1047.2" y="138.0809595202399"/>
+            <point key="canvasLocation" x="1014" y="138"/>
+        </scene>
+        <!--Home-->
+        <scene sceneID="ued-ZB-dFZ">
+            <objects>
+                <viewController id="6sU-5b-pVJ" customClass="HomeViewController" customModule="TreasureHunter" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Wuo-J0-gkr">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KMY-va-oft">
+                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                            </mapView>
+                            <tabBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aGd-6D-I0j">
+                                <rect key="frame" x="0.0" y="618" width="375" height="49"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <items>
+                                    <tabBarItem title="CHAT" image="chat" id="LaD-gv-iza" userLabel="Chat"/>
+                                    <tabBarItem title="HOME" image="homeIcon" id="d65-RM-N7h" userLabel="Home"/>
+                                    <tabBarItem title="bag" image="chest" id="odx-EY-31n" userLabel="Bag"/>
+                                </items>
+                            </tabBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k3x-ee-bzg">
+                                <rect key="frame" x="317.5" y="60" width="41.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="QrH-Me-RCm"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="KMY-va-oft" firstAttribute="leading" secondItem="QrH-Me-RCm" secondAttribute="leading" id="C2u-Y4-vef"/>
+                            <constraint firstItem="KMY-va-oft" firstAttribute="trailing" secondItem="QrH-Me-RCm" secondAttribute="trailing" id="DbT-Vg-IQ8"/>
+                            <constraint firstItem="QrH-Me-RCm" firstAttribute="trailing" secondItem="k3x-ee-bzg" secondAttribute="trailing" constant="16" id="HbJ-nf-mdT"/>
+                            <constraint firstItem="KMY-va-oft" firstAttribute="bottom" secondItem="QrH-Me-RCm" secondAttribute="bottom" id="PYW-z6-DhA"/>
+                            <constraint firstItem="k3x-ee-bzg" firstAttribute="top" secondItem="QrH-Me-RCm" secondAttribute="top" constant="16" id="QsP-eg-dSq"/>
+                            <constraint firstItem="KMY-va-oft" firstAttribute="top" secondItem="QrH-Me-RCm" secondAttribute="top" id="R0W-BK-kid"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Home" id="vLO-sN-krf"/>
+                    <connections>
+                        <outlet property="timerLabel" destination="k3x-ee-bzg" id="fYi-7J-6c3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1GF-RI-YKR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1885.5999999999999" y="137.18140929535232"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="g6A-sJ-M1h">
+            <objects>
+                <viewController id="eiH-P6-KmB" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hFd-Wy-iF4">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="6k3-vF-QJb"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zCb-K6-TLe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2882" y="142"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Get-lv-R7o">
@@ -65,6 +132,9 @@
     </scenes>
     <resources>
         <image name="background-login" width="1920" height="1080"/>
+        <image name="chat" width="42" height="42"/>
+        <image name="chest" width="42" height="42"/>
+        <image name="homeIcon" width="42" height="42"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

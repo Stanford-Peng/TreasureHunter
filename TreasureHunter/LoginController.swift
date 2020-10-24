@@ -11,11 +11,12 @@ class LoginController: UIViewController {
     
     @IBOutlet var signINButton:GIDSignInButton!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background-login")!)
         GIDSignIn.sharedInstance()?.presentingViewController = self
+        
+        
         
 //        if GIDSignIn.sharedInstance()?.currentUser != nil{
 //
@@ -23,11 +24,6 @@ class LoginController: UIViewController {
 //            //silent sign in
 //            GIDSignIn.sharedInstance()?.signIn()
 //        }
-        
-        
-        
-        
-        
         // Do any additional setup after loading the view.
     }
     
