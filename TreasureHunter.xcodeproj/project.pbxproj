@@ -12,13 +12,13 @@
 		AF90694AA16AE14A747EE883 /* Pods_TreasureHunterTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE0464D516257C770E3848A2 /* Pods_TreasureHunterTests.framework */; };
 		E6CC24A82542F2BB004EF299 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CC24A72542F2BB004EF299 /* AppDelegate.swift */; };
 		E6CC24AA2542F2BB004EF299 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CC24A92542F2BB004EF299 /* SceneDelegate.swift */; };
-		E6CC24AC2542F2BB004EF299 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CC24AB2542F2BB004EF299 /* ViewController.swift */; };
 		E6CC24AF2542F2BB004EF299 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6CC24AD2542F2BB004EF299 /* Main.storyboard */; };
 		E6CC24B12542F2BD004EF299 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6CC24B02542F2BD004EF299 /* Assets.xcassets */; };
 		E6CC24B42542F2BD004EF299 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6CC24B22542F2BD004EF299 /* LaunchScreen.storyboard */; };
 		E6CC24BF2542F2BD004EF299 /* TreasureHunterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CC24BE2542F2BD004EF299 /* TreasureHunterTests.swift */; };
 		E6CC24CA2542F2BD004EF299 /* TreasureHunterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CC24C92542F2BD004EF299 /* TreasureHunterUITests.swift */; };
 		E6CC24FE2543EEF9004EF299 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E6CC24FD2543EEF9004EF299 /* GoogleService-Info.plist */; };
+		E6CC25322543FAEB004EF299 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CC25312543FAEB004EF299 /* LoginController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,7 +51,6 @@
 		E6CC24A42542F2BB004EF299 /* TreasureHunter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TreasureHunter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6CC24A72542F2BB004EF299 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E6CC24A92542F2BB004EF299 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		E6CC24AB2542F2BB004EF299 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E6CC24AE2542F2BB004EF299 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E6CC24B02542F2BD004EF299 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E6CC24B32542F2BD004EF299 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -63,6 +62,7 @@
 		E6CC24C92542F2BD004EF299 /* TreasureHunterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreasureHunterUITests.swift; sourceTree = "<group>"; };
 		E6CC24CB2542F2BD004EF299 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E6CC24FD2543EEF9004EF299 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E6CC25312543FAEB004EF299 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,12 +143,12 @@
 			children = (
 				E6CC24A72542F2BB004EF299 /* AppDelegate.swift */,
 				E6CC24A92542F2BB004EF299 /* SceneDelegate.swift */,
-				E6CC24AB2542F2BB004EF299 /* ViewController.swift */,
 				E6CC24AD2542F2BB004EF299 /* Main.storyboard */,
 				E6CC24B02542F2BD004EF299 /* Assets.xcassets */,
 				E6CC24B22542F2BD004EF299 /* LaunchScreen.storyboard */,
 				E6CC24B52542F2BD004EF299 /* Info.plist */,
 				E6CC24FD2543EEF9004EF299 /* GoogleService-Info.plist */,
+				E6CC25312543FAEB004EF299 /* LoginController.swift */,
 			);
 			path = TreasureHunter;
 			sourceTree = "<group>";
@@ -183,6 +183,7 @@
 				E6CC24A12542F2BB004EF299 /* Frameworks */,
 				E6CC24A22542F2BB004EF299 /* Resources */,
 				EB142D2BC2D3766F5E44B668 /* [CP] Embed Pods Frameworks */,
+				35FDCA6295FEB9B29E52CAFB /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -221,6 +222,7 @@
 				E6CC24C22542F2BD004EF299 /* Frameworks */,
 				E6CC24C32542F2BD004EF299 /* Resources */,
 				74D90399467D7A19448A1F25 /* [CP] Embed Pods Frameworks */,
+				AB96698274519E867A66FD46 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -303,6 +305,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		35FDCA6295FEB9B29E52CAFB /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TreasureHunter/Pods-TreasureHunter-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TreasureHunter/Pods-TreasureHunter-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TreasureHunter/Pods-TreasureHunter-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		3F8FBA64AFF7A4ED25C38D6F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -340,6 +359,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TreasureHunter-TreasureHunterUITests/Pods-TreasureHunter-TreasureHunterUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AB96698274519E867A66FD46 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TreasureHunter-TreasureHunterUITests/Pods-TreasureHunter-TreasureHunterUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TreasureHunter-TreasureHunterUITests/Pods-TreasureHunter-TreasureHunterUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TreasureHunter-TreasureHunterUITests/Pods-TreasureHunter-TreasureHunterUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C570DC7ED6C5C4C702AC3575 /* [CP] Check Pods Manifest.lock */ = {
@@ -410,8 +446,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E6CC24AC2542F2BB004EF299 /* ViewController.swift in Sources */,
 				E6CC24A82542F2BB004EF299 /* AppDelegate.swift in Sources */,
+				E6CC25322543FAEB004EF299 /* LoginController.swift in Sources */,
 				E6CC24AA2542F2BB004EF299 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

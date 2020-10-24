@@ -12,6 +12,7 @@ target 'TreasureHunter' do
 	pod 'Firebase/Firestore'
 	pod 'FirebaseFirestoreSwift'
 	pod 'MessageKit'
+  pod 'FirebaseUI'
   target 'TreasureHunterTests' do
     inherit! :search_paths
     # Pods for testing

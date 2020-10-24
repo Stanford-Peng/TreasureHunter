@@ -6,14 +6,30 @@
 //
 
 import UIKit
-
+import Firebase
+import GoogleSignIn
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
+class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate{
+    
+    
+    //for google sign
+    //https://www.youtube.com/watch?v=20Qlho0G3YQ&t=669s
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        print("\(user.profile.email ?? "No Email")")
+        //print("\(user.profile.name)")
+    }
+    //for opening url(goole sign in web interface)
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        return GIDSignIn.sharedInstance().handle(url)
+    }
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        FirebaseApp.configure()
+        
+        GIDSignIn.sharedInstance()?.clientID = "1026623119501-db5uqnrsqpdae01qm2l710o9fpvvi6cf.apps.googleusercontent.com"
+        GIDSignIn.sharedInstance()?.delegate = self
         return true
     }
 
