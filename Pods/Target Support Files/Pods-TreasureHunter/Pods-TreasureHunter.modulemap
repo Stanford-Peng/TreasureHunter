@@ -1,0 +1,6 @@
+framework module Pods_TreasureHunter {
+  umbrella header "Pods-TreasureHunter-umbrella.h"
+
+  export *
+  module * { export * }
+}
