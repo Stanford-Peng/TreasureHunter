@@ -13,6 +13,9 @@
 		BAE5E3E425453C6800E4FCFA /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE5E3E325453C6800E4FCFA /* SettingsViewController.swift */; };
 		BAE5E3E925453C8500E4FCFA /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE5E3E825453C8500E4FCFA /* ChatViewController.swift */; };
 		BAE5E3EE25453C9A00E4FCFA /* BagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE5E3ED25453C9A00E4FCFA /* BagViewController.swift */; };
+		BAE5E3F52545618100E4FCFA /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE5E3F42545618100E4FCFA /* SettingsCell.swift */; };
+		BAE5E3FD2545625900E4FCFA /* UserInfoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE5E3FC2545625900E4FCFA /* UserInfoHeader.swift */; };
+		BAE5E40325456A6D00E4FCFA /* SettingsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE5E40225456A6D00E4FCFA /* SettingsSection.swift */; };
 		BAE631EE2544665E005FAA21 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE631ED2544665E005FAA21 /* HomeViewController.swift */; };
 		E6CC24A82542F2BB004EF299 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CC24A72542F2BB004EF299 /* AppDelegate.swift */; };
 		E6CC24AA2542F2BB004EF299 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CC24A92542F2BB004EF299 /* SceneDelegate.swift */; };
@@ -52,6 +55,9 @@
 		BAE5E3E325453C6800E4FCFA /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		BAE5E3E825453C8500E4FCFA /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		BAE5E3ED25453C9A00E4FCFA /* BagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagViewController.swift; sourceTree = "<group>"; };
+		BAE5E3F42545618100E4FCFA /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
+		BAE5E3FC2545625900E4FCFA /* UserInfoHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoHeader.swift; sourceTree = "<group>"; };
+		BAE5E40225456A6D00E4FCFA /* SettingsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSection.swift; sourceTree = "<group>"; };
 		BAE631ED2544665E005FAA21 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		CDE1F4E9859C127CDBBB06B5 /* Pods_TreasureHunter_TreasureHunterUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TreasureHunter_TreasureHunterUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D630200ED411D2A075E7DE84 /* Pods-TreasureHunter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TreasureHunter.debug.xcconfig"; path = "Target Support Files/Pods-TreasureHunter/Pods-TreasureHunter.debug.xcconfig"; sourceTree = "<group>"; };
@@ -124,6 +130,24 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		BAE5E3F32545615700E4FCFA /* SettingsTabViews */ = {
+			isa = PBXGroup;
+			children = (
+				BAE5E40125456A5800E4FCFA /* Model */,
+				BAE5E3F42545618100E4FCFA /* SettingsCell.swift */,
+				BAE5E3FC2545625900E4FCFA /* UserInfoHeader.swift */,
+			);
+			path = SettingsTabViews;
+			sourceTree = "<group>";
+		};
+		BAE5E40125456A5800E4FCFA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BAE5E40225456A6D00E4FCFA /* SettingsSection.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		E6CC249B2542F2BB004EF299 = {
 			isa = PBXGroup;
 			children = (
@@ -149,6 +173,7 @@
 		E6CC24A62542F2BB004EF299 /* TreasureHunter */ = {
 			isa = PBXGroup;
 			children = (
+				BAE5E3F32545615700E4FCFA /* SettingsTabViews */,
 				E6CC24A72542F2BB004EF299 /* AppDelegate.swift */,
 				E6CC24A92542F2BB004EF299 /* SceneDelegate.swift */,
 				E6CC24AD2542F2BB004EF299 /* Main.storyboard */,
@@ -462,8 +487,11 @@
 				E6CC24A82542F2BB004EF299 /* AppDelegate.swift in Sources */,
 				E6CC25322543FAEB004EF299 /* LoginController.swift in Sources */,
 				E6CC24AA2542F2BB004EF299 /* SceneDelegate.swift in Sources */,
+				BAE5E3FD2545625900E4FCFA /* UserInfoHeader.swift in Sources */,
 				BAE5E3E425453C6800E4FCFA /* SettingsViewController.swift in Sources */,
 				BAE5E3E925453C8500E4FCFA /* ChatViewController.swift in Sources */,
+				BAE5E3F52545618100E4FCFA /* SettingsCell.swift in Sources */,
+				BAE5E40325456A6D00E4FCFA /* SettingsSection.swift in Sources */,
 				BAE631EE2544665E005FAA21 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
