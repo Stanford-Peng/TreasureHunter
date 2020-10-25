@@ -85,18 +85,19 @@ class SettingsViewController: UIViewController{
     //        }
     //    }
     //
-    //    func logoutTapped(){
-    //        // Perform logout related functions
-    //
-    //        //Remove Username from User Defaults
-    //        userDefaults.set("", forKey: Keys.username)
-    //        userDefaults.set("", forKey: Keys.useremail)
-    //
-    //        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    //        let loginNavController = storyboard.instantiateViewController(identifier: "LoginNavController")
-    //        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(loginNavController)
-    //    }
+        func logoutTapped(){
+            // Perform logout related functions
+    
+            //Remove Username from User Defaults
+            userDefaults.set("", forKey: Keys.username)
+            userDefaults.set("", forKey: Keys.useremail)
+    
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let loginNavController = storyboard.instantiateViewController(identifier: "LoginNavController")
+            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(loginNavController)
+        }
 }
+
 extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -140,6 +141,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         case .Profile:
             let profile = ProfileOptions(rawValue: indexPath.row)
             cell.sectionType = profile
+            
         case .Application:
             let application = ApplicationOptions(rawValue: indexPath.row)
             cell.sectionType = application
@@ -147,4 +149,18 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let section = SettingsSection(rawValue: indexPath.section) else {return}
+        
+        switch section {
+        case .Profile:
+            print(ProfileOptions(rawValue: indexPath.row)?.description)
+            if ProfileOptions(rawValue: indexPath.row)?.description == "Log Out"{
+                logoutTapped()
+            }
+            
+        case .Application:
+            print(ApplicationOptions(rawValue: indexPath.row)?.description)
+        }
+    }
 }
