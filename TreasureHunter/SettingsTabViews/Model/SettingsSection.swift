@@ -7,6 +7,11 @@
 
 import Foundation
 
+// Determines which section gets the switch
+protocol SectionType: CustomStringConvertible{
+    var containsSwitch: Bool {get}
+}
+
 //Add new Settings sections here
 enum SettingsSection: Int, CaseIterable, CustomStringConvertible {
     case Profile
@@ -20,9 +25,11 @@ enum SettingsSection: Int, CaseIterable, CustomStringConvertible {
     }
 }
 
-enum ProfileOptions: Int, CaseIterable, CustomStringConvertible{
+enum ProfileOptions: Int, CaseIterable, SectionType{
     case editProfile
     case logout
+    
+    var containsSwitch: Bool { return false}
     
     var description: String {
         switch self {
@@ -32,9 +39,17 @@ enum ProfileOptions: Int, CaseIterable, CustomStringConvertible{
     }
 }
 
-enum ApplicationOptions: Int, CaseIterable, CustomStringConvertible{
+enum ApplicationOptions: Int, CaseIterable, SectionType{
     case notifications
     case feedback
+     
+    // adds a switch to the selected cell
+    var containsSwitch: Bool {
+        switch self {
+            case .notifications: return true
+            case .feedback: return false
+        }
+    }
     
     var description: String {
         switch self {

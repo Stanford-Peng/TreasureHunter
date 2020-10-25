@@ -11,7 +11,6 @@ private let reuseIdentifier = "SettingsCell"
 
 class SettingsViewController: UIViewController{
     
-    
     @IBOutlet weak var navBar: UINavigationBar!
     @IBOutlet weak var settingsTableView: UITableView!
     var userInfoHeader: UserInfoHeader!
@@ -96,7 +95,7 @@ class SettingsViewController: UIViewController{
     //        let storyboard = UIStoryboard(name: "Main", bundle: nil)
     //        let loginNavController = storyboard.instantiateViewController(identifier: "LoginNavController")
     //        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(loginNavController)
-    //    }    
+    //    }
 }
 extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     
@@ -140,10 +139,10 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         switch section {
         case .Profile:
             let profile = ProfileOptions(rawValue: indexPath.row)
-            cell.textLabel?.text = profile?.description
+            cell.sectionType = profile
         case .Application:
             let application = ApplicationOptions(rawValue: indexPath.row)
-            cell.textLabel?.text = application?.description
+            cell.sectionType = application
         }
         return cell
     }
