@@ -30,14 +30,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UIWind
             else {
                 return
             }
-            self.window = sceneDelegate.window
-            print("\(user.profile.email ?? "No Email")")
-            //print("\(user.profile.name)")
-            let navController = window?.rootViewController as! UINavigationController
-            let loginController = navController.viewControllers.first
             
-            loginController!.performSegue(withIdentifier: "loginSegue", sender: nil)
-            //            performSegue(withIdentifier: "loginSegue", sender: nil)
+            self.window = sceneDelegate.window
+            let email = user.profile.email
+            let name = user.profile.name
+            print("\(email ?? "No Email")")
+            print("\(name ?? "No Name")")
+            
+            UserDefaults.standard.set(email, forKey: "useremail")
+            UserDefaults.standard.set(name, forKey: "username")
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let mainTabBarController = storyboard.instantiateViewController(identifier: "MainTabBarController")
+            
+            sceneDelegate.changeRootViewController(mainTabBarController)
         }
         
     }
@@ -55,6 +61,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UIWind
         
         GIDSignIn.sharedInstance()?.clientID = "1026623119501-db5uqnrsqpdae01qm2l710o9fpvvi6cf.apps.googleusercontent.com"
         GIDSignIn.sharedInstance()?.delegate = self
+        
+        
         
         return true
     }

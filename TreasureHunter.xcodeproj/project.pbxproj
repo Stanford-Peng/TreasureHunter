@@ -10,6 +10,9 @@
 		49C2D0DBD4214A66FAAE2F8F /* Pods_TreasureHunter_TreasureHunterUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDE1F4E9859C127CDBBB06B5 /* Pods_TreasureHunter_TreasureHunterUITests.framework */; };
 		A37C59EC143FC7CE66A28BD0 /* Pods_TreasureHunter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C20B8D80731958A871733C8 /* Pods_TreasureHunter.framework */; };
 		AF90694AA16AE14A747EE883 /* Pods_TreasureHunterTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE0464D516257C770E3848A2 /* Pods_TreasureHunterTests.framework */; };
+		BAE5E3E425453C6800E4FCFA /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE5E3E325453C6800E4FCFA /* SettingsViewController.swift */; };
+		BAE5E3E925453C8500E4FCFA /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE5E3E825453C8500E4FCFA /* ChatViewController.swift */; };
+		BAE5E3EE25453C9A00E4FCFA /* BagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE5E3ED25453C9A00E4FCFA /* BagViewController.swift */; };
 		BAE631EE2544665E005FAA21 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE631ED2544665E005FAA21 /* HomeViewController.swift */; };
 		E6CC24A82542F2BB004EF299 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CC24A72542F2BB004EF299 /* AppDelegate.swift */; };
 		E6CC24AA2542F2BB004EF299 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CC24A92542F2BB004EF299 /* SceneDelegate.swift */; };
@@ -46,6 +49,9 @@
 		76BD4FDB5DF560E67D4AAB95 /* Pods-TreasureHunterTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TreasureHunterTests.debug.xcconfig"; path = "Target Support Files/Pods-TreasureHunterTests/Pods-TreasureHunterTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7C20B8D80731958A871733C8 /* Pods_TreasureHunter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TreasureHunter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F41D293B17E1A90EB5C3B21 /* Pods-TreasureHunter-TreasureHunterUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TreasureHunter-TreasureHunterUITests.debug.xcconfig"; path = "Target Support Files/Pods-TreasureHunter-TreasureHunterUITests/Pods-TreasureHunter-TreasureHunterUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		BAE5E3E325453C6800E4FCFA /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		BAE5E3E825453C8500E4FCFA /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		BAE5E3ED25453C9A00E4FCFA /* BagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagViewController.swift; sourceTree = "<group>"; };
 		BAE631ED2544665E005FAA21 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		CDE1F4E9859C127CDBBB06B5 /* Pods_TreasureHunter_TreasureHunterUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TreasureHunter_TreasureHunterUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D630200ED411D2A075E7DE84 /* Pods-TreasureHunter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TreasureHunter.debug.xcconfig"; path = "Target Support Files/Pods-TreasureHunter/Pods-TreasureHunter.debug.xcconfig"; sourceTree = "<group>"; };
@@ -152,6 +158,9 @@
 				E6CC24FD2543EEF9004EF299 /* GoogleService-Info.plist */,
 				E6CC25312543FAEB004EF299 /* LoginController.swift */,
 				BAE631ED2544665E005FAA21 /* HomeViewController.swift */,
+				BAE5E3E325453C6800E4FCFA /* SettingsViewController.swift */,
+				BAE5E3E825453C8500E4FCFA /* ChatViewController.swift */,
+				BAE5E3ED25453C9A00E4FCFA /* BagViewController.swift */,
 			);
 			path = TreasureHunter;
 			sourceTree = "<group>";
@@ -449,9 +458,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BAE5E3EE25453C9A00E4FCFA /* BagViewController.swift in Sources */,
 				E6CC24A82542F2BB004EF299 /* AppDelegate.swift in Sources */,
 				E6CC25322543FAEB004EF299 /* LoginController.swift in Sources */,
 				E6CC24AA2542F2BB004EF299 /* SceneDelegate.swift in Sources */,
+				BAE5E3E425453C6800E4FCFA /* SettingsViewController.swift in Sources */,
+				BAE5E3E925453C8500E4FCFA /* ChatViewController.swift in Sources */,
 				BAE631EE2544665E005FAA21 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
