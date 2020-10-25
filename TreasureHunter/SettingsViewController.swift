@@ -63,39 +63,18 @@ class SettingsViewController: UIViewController{
      }
      */
     
-    // MARK: - Table view functions
-    
-    //    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    //        return optionsList.count
-    //    }
-    //
-    //    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    //        let cell = tableView.dequeueReusableCell(withIdentifier: "settingsCell", for: indexPath)
-    //        let option = optionsList[indexPath.row]
-    //
-    //        print(option)
-    //
-    //        cell.textLabel?.text = option;
-    //        return cell
-    //    }
-    //
-    //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    //        if (optionsList[indexPath.row] == "Log Out"){
-    //            logoutTapped()
-    //        }
-    //    }
-    //
-        func logoutTapped(){
-            // Perform logout related functions
-    
-            //Remove Username from User Defaults
-            userDefaults.set("", forKey: Keys.username)
-            userDefaults.set("", forKey: Keys.useremail)
-    
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let loginNavController = storyboard.instantiateViewController(identifier: "LoginNavController")
-            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(loginNavController)
-        }
+
+    func logoutTapped(){
+        // Perform logout related functions
+
+        //Remove Username from User Defaults
+        userDefaults.set("", forKey: Keys.username)
+        userDefaults.set("", forKey: Keys.useremail)
+
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let loginNavController = storyboard.instantiateViewController(identifier: "LoginNavController")
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(loginNavController)
+    }
 }
 
 extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
@@ -114,6 +93,9 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    //User settings
+    //reference: https://youtu.be/WqPoFzVrLj8
+    // MARK: - Table view functions
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()
         view.backgroundColor = .systemBlue
@@ -128,9 +110,11 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         return view
     }
     
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
     }
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! SettingsCell

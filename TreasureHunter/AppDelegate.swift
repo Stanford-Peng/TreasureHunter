@@ -8,44 +8,57 @@
 import UIKit
 import GoogleSignIn
 import Firebase
+import FirebaseAuth
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UIWindowSceneDelegate{
     
     var window: UIWindow?
-    
+    //var seconds = 180
     //for google sign
     //https://www.youtube.com/watch?v=20Qlho0G3YQ&t=669s
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if let error = error {
             print(error.localizedDescription)
             return
-        } else {
-            
-            // If signed in
-            // ** If first time user, create new user in firebase and set seconds = 0
-            
-            guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-                  let sceneDelegate = windowScene.delegate as? SceneDelegate
-            else {
-                return
-            }
-            
-            self.window = sceneDelegate.window
-            let email = user.profile.email
-            let name = user.profile.name
-            print("\(email ?? "No Email")")
-            print("\(name ?? "No Name")")
-            
-            UserDefaults.standard.set(email, forKey: "useremail")
-            UserDefaults.standard.set(name, forKey: "username")
-            
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let mainTabBarController = storyboard.instantiateViewController(identifier: "MainTabBarController")
-            
-            sceneDelegate.changeRootViewController(mainTabBarController)
         }
         
+        guard let authentication = user.authentication else {
+            return
+        }
+        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken, accessToken: authentication.accessToken)
+        Auth.auth().signIn(with: credential) { (authResult, error) in
+            if let _ = error {
+                //present an alert window
+                return
+            }
+            self.goToHome(user: user)
+            //sign in
+            
+            
+        }
+
+    }
+    
+    func goToHome(user: GIDGoogleUser){
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let sceneDelegate = windowScene.delegate as? SceneDelegate
+        else {
+            return
+        }
+        self.window = sceneDelegate.window
+        let email = user.profile.email
+        let name = user.profile.name
+        print("\(email ?? "No Email")")
+        print("\(name ?? "No Name")")
+        
+        UserDefaults.standard.set(email, forKey: "useremail")
+        UserDefaults.standard.set(name, forKey: "username")
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let mainTabBarController = storyboard.instantiateViewController(identifier: "MainTabBarController")
+        
+        sceneDelegate.changeRootViewController(mainTabBarController)
     }
     
     
@@ -87,6 +100,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UIWind
         //}
     }
     
+//    func displayErrorMessage(_ errorMessage: String) {
+//        let alertController = UIAlertController(title: "Error", message:errorMessage, preferredStyle: UIAlertController.Style.alert)
+//        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default, handler: nil))
+//        self.present(alertController, animated: true, completion: nil)
+//
+//    }
     
 }
 

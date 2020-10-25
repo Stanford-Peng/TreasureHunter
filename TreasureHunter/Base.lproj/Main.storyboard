@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9nc-aC-k8g">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -38,7 +38,6 @@
                     </view>
                     <navigationItem key="navigationItem" title="Log in" id="iyK-6q-h1f">
                         <barButtonItem key="backBarButtonItem" title="Log Out" id="JT0-WJ-qWq"/>
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="qef-E5-GaS"/>
                     </navigationItem>
                     <connections>
                         <outlet property="signINButton" destination="xHe-Jt-5SJ" id="gZK-e4-bFN"/>
@@ -81,6 +80,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="szW-3f-MvN">
+                                <rect key="frame" x="0.0" y="572" width="375" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="testDig:" destination="6sU-5b-pVJ" eventType="touchUpInside" id="Wqm-Mx-LhR"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="QrH-Me-RCm"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -91,6 +97,9 @@
                             <constraint firstItem="KMY-va-oft" firstAttribute="bottom" secondItem="QrH-Me-RCm" secondAttribute="bottom" id="PYW-z6-DhA"/>
                             <constraint firstItem="k3x-ee-bzg" firstAttribute="top" secondItem="QrH-Me-RCm" secondAttribute="top" constant="16" id="QsP-eg-dSq"/>
                             <constraint firstItem="KMY-va-oft" firstAttribute="top" secondItem="QrH-Me-RCm" secondAttribute="top" id="R0W-BK-kid"/>
+                            <constraint firstItem="QrH-Me-RCm" firstAttribute="trailing" secondItem="szW-3f-MvN" secondAttribute="trailing" id="Rtl-jM-5CG"/>
+                            <constraint firstItem="QrH-Me-RCm" firstAttribute="bottom" secondItem="szW-3f-MvN" secondAttribute="bottom" constant="16" id="dl6-2d-Vg6"/>
+                            <constraint firstItem="szW-3f-MvN" firstAttribute="leading" secondItem="QrH-Me-RCm" secondAttribute="leading" id="vCO-ul-T9P"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="HOME" image="homeIcon" id="bcz-4I-9IM"/>
@@ -173,7 +182,6 @@
         <!--Tab Bar Controller-->
         <scene sceneID="Ve9-vx-PSP">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Um5-I3-jhJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <tabBarController storyboardIdentifier="MainTabBarController" id="rsP-dL-XFB" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="t04-WM-N6M">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
@@ -193,6 +201,7 @@
                         <segue destination="dFb-if-bgL" kind="relationship" relationship="viewControllers" id="8H4-F9-AGG"/>
                     </connections>
                 </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Um5-I3-jhJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1870" y="138"/>
         </scene>
