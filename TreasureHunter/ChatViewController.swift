@@ -9,6 +9,7 @@ import UIKit
 import FirebaseFirestore
 class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    @IBOutlet weak var chatNavBar: UINavigationBar!
     //configure data source and table
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -38,6 +39,12 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         performSegue(withIdentifier:CHANNEL_SEGUE, sender: channel)
         
     }
+    
+    func configureUI() {
+        chatNavBar.prefersLargeTitles = true
+        chatNavBar.isTranslucent = false
+        chatNavBar.barStyle = .black
+    }
 
     let CHANNEL_CELL = "channelCell"
     var currentSender: Sender?
@@ -52,6 +59,9 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        configureUI()
+        
         let database = Firestore.firestore()
         channelsRef = database.collection("channels")
         //navigationItem.title = "Channels"

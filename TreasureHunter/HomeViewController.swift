@@ -19,14 +19,39 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     var isTimerRunning = false //This will be used to make sure only one timer is created at a time.
     var canDig: Bool?
     var timerReference = Firestore.firestore().collection("Timer")
-    let COOLDOWN = 60
+    let COOLDOWN = 10
+    var shakeCounter = 0
+
     
 //    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupLabel()
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(appMovedToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+        setUpLocationAuthorisation()
         
+        //runTimer()
+        
+        //*** Get seconds from server database and load into SceneDelegate
+    }
+    
+    func setupLabel(){
+        // beautify the label
+    }
+    
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        if motion == .motionShake{
+            print("SHAKED")
+            shakeCounter+=1
+        }
+        if (shakeCounter > 5){
+            shakeCounter = 0
+            dig()
+        }
+    }
+    
+    func setUpLocationAuthorisation(){
         locationManager.delegate = self
         let authorisationStatus = locationManager.authorizationStatus
         if authorisationStatus == .notDetermined || authorisationStatus == .denied || authorisationStatus == .restricted{
@@ -34,20 +59,13 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         }
         //define accuracy
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        //runTimer()
-        
-        //*** Get seconds from server database and load into SceneDelegate
     }
     
     override func viewWillAppear(_ animated: Bool) {
-//        print("view will appear")
-//        setUpTimer()
+        print("HOME view appeared")
+        shakeCounter = 0
     }
 
-    override func viewWillDisappear(_ animated: Bool) {
-
-    }
-    
     @objc func appMovedToForeground() {
         print("App moved to ForeGround!")
         setUpTimer()
@@ -60,7 +78,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         userTimer.getDocument { (document, error) in
             if let error = error{
                 print(error)
-                //return
+                return
             }
             if let document = document, document.exists {
 
@@ -74,13 +92,8 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
                     self.seconds = 0
                     self.canDig = true
                 }
-                
-                //self.runTimer()
-
-            }else{
-                //user logs in for the first time
+            } else{
                 self.isFirstTimeUser()
-                
             }
             self.runTimer()
         }
@@ -92,31 +105,25 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     }
 
     func runTimer() {
-
         timer = Timer.scheduledTimer(timeInterval: 1, target: self,   selector: (#selector(HomeViewController.updateTimer)), userInfo: nil, repeats: true)
-
     }
     
     //convert into shaking
     @IBAction func testDig(_ sender: Any) {
-        if canDig!{
-            dig()
-        }
-        
+        dig()
     }
     
     func dig(){
-        //runTimer()
-        //*** send time to server
-        let email=UserDefaults.standard.string(forKey: "useremail")
-        timerReference.document(email!).setData(["lastDigDatetime":Timestamp(date: Date.init())])
-        setUpTimer()
-        
+        if canDig! {
+            let email=UserDefaults.standard.string(forKey: "useremail")
+            timerReference.document(email!).setData(["lastDigDatetime":Timestamp(date: Date.init())])
+            setUpTimer()
+            canDig = false
+        }
     }
 
     @objc func updateTimer() {
 
-//        seconds = appDelegate
         if seconds! < 1 {
             timer.invalidate()
             timeUp()
@@ -148,11 +155,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         let minutes = Int(time) / 60 % 60
         let seconds = Int(time) % 60
         return String(format:"%02i:%02i:%02i", hours, minutes, seconds)
-    }
-    
-    override func didMove(toParent parent: UIViewController?) {
-        print("it works")
-        //*** Send seconds to firebase and log out user
     }
     
     /*

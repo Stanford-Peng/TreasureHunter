@@ -10,6 +10,9 @@
 		49C2D0DBD4214A66FAAE2F8F /* Pods_TreasureHunter_TreasureHunterUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDE1F4E9859C127CDBBB06B5 /* Pods_TreasureHunter_TreasureHunterUITests.framework */; };
 		A37C59EC143FC7CE66A28BD0 /* Pods_TreasureHunter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C20B8D80731958A871733C8 /* Pods_TreasureHunter.framework */; };
 		AF90694AA16AE14A747EE883 /* Pods_TreasureHunterTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE0464D516257C770E3848A2 /* Pods_TreasureHunterTests.framework */; };
+		BA5E55B825470524000E0C33 /* To_Do_List in Resources */ = {isa = PBXBuildFile; fileRef = BA5E55B725470524000E0C33 /* To_Do_List */; };
+		BA5E55C225470E3D000E0C33 /* BagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5E55C125470E3D000E0C33 /* BagCollectionViewCell.swift */; };
+		BA5E55C825470F29000E0C33 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5E55C725470F29000E0C33 /* Item.swift */; };
 		BAE5E3E425453C6800E4FCFA /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE5E3E325453C6800E4FCFA /* SettingsViewController.swift */; };
 		BAE5E3E925453C8500E4FCFA /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE5E3E825453C8500E4FCFA /* ChatViewController.swift */; };
 		BAE5E3EE25453C9A00E4FCFA /* BagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE5E3ED25453C9A00E4FCFA /* BagViewController.swift */; };
@@ -56,6 +59,9 @@
 		76BD4FDB5DF560E67D4AAB95 /* Pods-TreasureHunterTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TreasureHunterTests.debug.xcconfig"; path = "Target Support Files/Pods-TreasureHunterTests/Pods-TreasureHunterTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7C20B8D80731958A871733C8 /* Pods_TreasureHunter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TreasureHunter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F41D293B17E1A90EB5C3B21 /* Pods-TreasureHunter-TreasureHunterUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TreasureHunter-TreasureHunterUITests.debug.xcconfig"; path = "Target Support Files/Pods-TreasureHunter-TreasureHunterUITests/Pods-TreasureHunter-TreasureHunterUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		BA5E55B725470524000E0C33 /* To_Do_List */ = {isa = PBXFileReference; lastKnownFileType = text; path = To_Do_List; sourceTree = "<group>"; };
+		BA5E55C125470E3D000E0C33 /* BagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagCollectionViewCell.swift; sourceTree = "<group>"; };
+		BA5E55C725470F29000E0C33 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		BAE5E3E325453C6800E4FCFA /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		BAE5E3E825453C8500E4FCFA /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		BAE5E3ED25453C9A00E4FCFA /* BagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagViewController.swift; sourceTree = "<group>"; };
@@ -138,6 +144,22 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		BA5E55BD25470C17000E0C33 /* BagViews */ = {
+			isa = PBXGroup;
+			children = (
+				BA5E55C125470E3D000E0C33 /* BagCollectionViewCell.swift */,
+			);
+			path = BagViews;
+			sourceTree = "<group>";
+		};
+		BA5E55C625470F11000E0C33 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				BA5E55C725470F29000E0C33 /* Item.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
 		BAE5E3F32545615700E4FCFA /* SettingsTabViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -156,19 +178,20 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		E6147D472546AF2500B799F5 /* Chat */ = {
+		E6147D472546AF2500B799F5 /* ChatViews */ = {
 			isa = PBXGroup;
 			children = (
 				E6147D482546AF5800B799F5 /* Channel.swift */,
 				E6147D492546AF5800B799F5 /* ChannelMessage.swift */,
 				E6147D4A2546AF5800B799F5 /* Sender.swift */,
 			);
-			path = Chat;
+			path = ChatViews;
 			sourceTree = "<group>";
 		};
 		E6CC249B2542F2BB004EF299 = {
 			isa = PBXGroup;
 			children = (
+				BA5E55B725470524000E0C33 /* To_Do_List */,
 				E6CC24A62542F2BB004EF299 /* TreasureHunter */,
 				E6CC24BD2542F2BD004EF299 /* TreasureHunterTests */,
 				E6CC24C82542F2BD004EF299 /* TreasureHunterUITests */,
@@ -191,7 +214,9 @@
 		E6CC24A62542F2BB004EF299 /* TreasureHunter */ = {
 			isa = PBXGroup;
 			children = (
-				E6147D472546AF2500B799F5 /* Chat */,
+				BA5E55C625470F11000E0C33 /* Entities */,
+				BA5E55BD25470C17000E0C33 /* BagViews */,
+				E6147D472546AF2500B799F5 /* ChatViews */,
 				BAE5E3F32545615700E4FCFA /* SettingsTabViews */,
 				E6CC24A72542F2BB004EF299 /* AppDelegate.swift */,
 				E6CC24A92542F2BB004EF299 /* SceneDelegate.swift */,
@@ -342,6 +367,7 @@
 				E6CC24FE2543EEF9004EF299 /* GoogleService-Info.plist in Resources */,
 				E6CC24B12542F2BD004EF299 /* Assets.xcassets in Resources */,
 				E6CC24AF2542F2BB004EF299 /* Main.storyboard in Resources */,
+				BA5E55B825470524000E0C33 /* To_Do_List in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -507,11 +533,13 @@
 				BAE5E3EE25453C9A00E4FCFA /* BagViewController.swift in Sources */,
 				E6147D5D2546B93D00B799F5 /* ChannelMessagesViewController.swift in Sources */,
 				E6CC24A82542F2BB004EF299 /* AppDelegate.swift in Sources */,
+				BA5E55C825470F29000E0C33 /* Item.swift in Sources */,
 				E6147D4B2546AF5800B799F5 /* Channel.swift in Sources */,
 				E6CC25322543FAEB004EF299 /* LoginController.swift in Sources */,
 				E6CC24AA2542F2BB004EF299 /* SceneDelegate.swift in Sources */,
 				E6147D4C2546AF5800B799F5 /* ChannelMessage.swift in Sources */,
 				BAE5E3FD2545625900E4FCFA /* UserInfoHeader.swift in Sources */,
+				BA5E55C225470E3D000E0C33 /* BagCollectionViewCell.swift in Sources */,
 				BAE5E3E425453C6800E4FCFA /* SettingsViewController.swift in Sources */,
 				BAE5E3E925453C8500E4FCFA /* ChatViewController.swift in Sources */,
 				BAE5E3F52545618100E4FCFA /* SettingsCell.swift in Sources */,
