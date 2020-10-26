@@ -17,6 +17,10 @@
 		BAE5E3FD2545625900E4FCFA /* UserInfoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE5E3FC2545625900E4FCFA /* UserInfoHeader.swift */; };
 		BAE5E40325456A6D00E4FCFA /* SettingsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE5E40225456A6D00E4FCFA /* SettingsSection.swift */; };
 		BAE631EE2544665E005FAA21 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE631ED2544665E005FAA21 /* HomeViewController.swift */; };
+		E6147D4B2546AF5800B799F5 /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6147D482546AF5800B799F5 /* Channel.swift */; };
+		E6147D4C2546AF5800B799F5 /* ChannelMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6147D492546AF5800B799F5 /* ChannelMessage.swift */; };
+		E6147D4D2546AF5800B799F5 /* Sender.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6147D4A2546AF5800B799F5 /* Sender.swift */; };
+		E6147D5D2546B93D00B799F5 /* ChannelMessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6147D5C2546B93D00B799F5 /* ChannelMessagesViewController.swift */; };
 		E6CC24A82542F2BB004EF299 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CC24A72542F2BB004EF299 /* AppDelegate.swift */; };
 		E6CC24AA2542F2BB004EF299 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CC24A92542F2BB004EF299 /* SceneDelegate.swift */; };
 		E6CC24AF2542F2BB004EF299 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6CC24AD2542F2BB004EF299 /* Main.storyboard */; };
@@ -62,6 +66,10 @@
 		CDE1F4E9859C127CDBBB06B5 /* Pods_TreasureHunter_TreasureHunterUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TreasureHunter_TreasureHunterUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D630200ED411D2A075E7DE84 /* Pods-TreasureHunter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TreasureHunter.debug.xcconfig"; path = "Target Support Files/Pods-TreasureHunter/Pods-TreasureHunter.debug.xcconfig"; sourceTree = "<group>"; };
 		DE0464D516257C770E3848A2 /* Pods_TreasureHunterTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TreasureHunterTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E6147D482546AF5800B799F5 /* Channel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
+		E6147D492546AF5800B799F5 /* ChannelMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelMessage.swift; sourceTree = "<group>"; };
+		E6147D4A2546AF5800B799F5 /* Sender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sender.swift; sourceTree = "<group>"; };
+		E6147D5C2546B93D00B799F5 /* ChannelMessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelMessagesViewController.swift; sourceTree = "<group>"; };
 		E6CC24A42542F2BB004EF299 /* TreasureHunter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TreasureHunter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6CC24A72542F2BB004EF299 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E6CC24A92542F2BB004EF299 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -148,6 +156,16 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		E6147D472546AF2500B799F5 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				E6147D482546AF5800B799F5 /* Channel.swift */,
+				E6147D492546AF5800B799F5 /* ChannelMessage.swift */,
+				E6147D4A2546AF5800B799F5 /* Sender.swift */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
 		E6CC249B2542F2BB004EF299 = {
 			isa = PBXGroup;
 			children = (
@@ -173,6 +191,7 @@
 		E6CC24A62542F2BB004EF299 /* TreasureHunter */ = {
 			isa = PBXGroup;
 			children = (
+				E6147D472546AF2500B799F5 /* Chat */,
 				BAE5E3F32545615700E4FCFA /* SettingsTabViews */,
 				E6CC24A72542F2BB004EF299 /* AppDelegate.swift */,
 				E6CC24A92542F2BB004EF299 /* SceneDelegate.swift */,
@@ -186,6 +205,7 @@
 				BAE5E3E325453C6800E4FCFA /* SettingsViewController.swift */,
 				BAE5E3E825453C8500E4FCFA /* ChatViewController.swift */,
 				BAE5E3ED25453C9A00E4FCFA /* BagViewController.swift */,
+				E6147D5C2546B93D00B799F5 /* ChannelMessagesViewController.swift */,
 			);
 			path = TreasureHunter;
 			sourceTree = "<group>";
@@ -483,10 +503,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6147D4D2546AF5800B799F5 /* Sender.swift in Sources */,
 				BAE5E3EE25453C9A00E4FCFA /* BagViewController.swift in Sources */,
+				E6147D5D2546B93D00B799F5 /* ChannelMessagesViewController.swift in Sources */,
 				E6CC24A82542F2BB004EF299 /* AppDelegate.swift in Sources */,
+				E6147D4B2546AF5800B799F5 /* Channel.swift in Sources */,
 				E6CC25322543FAEB004EF299 /* LoginController.swift in Sources */,
 				E6CC24AA2542F2BB004EF299 /* SceneDelegate.swift in Sources */,
+				E6147D4C2546AF5800B799F5 /* ChannelMessage.swift in Sources */,
 				BAE5E3FD2545625900E4FCFA /* UserInfoHeader.swift in Sources */,
 				BAE5E3E425453C6800E4FCFA /* SettingsViewController.swift in Sources */,
 				BAE5E3E925453C8500E4FCFA /* ChatViewController.swift in Sources */,

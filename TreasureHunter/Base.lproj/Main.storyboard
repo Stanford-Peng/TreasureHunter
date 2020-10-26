@@ -54,14 +54,101 @@
                     <view key="view" contentMode="scaleToFill" id="ObL-az-Ncb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zBL-NP-daB">
+                                <rect key="frame" x="0.0" y="44" width="375" height="574"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="channelCell" textLabel="el3-ru-YFK" style="IBUITableViewCellStyleDefault" id="QMu-km-Q6k">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="QMu-km-Q6k" id="3C4-q7-Zw4">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="el3-ru-YFK">
+                                                    <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M1D-4v-hr0">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <items>
+                                    <navigationItem title="Channels" id="Ib1-e5-cIE">
+                                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="WZG-RH-DZa">
+                                            <connections>
+                                                <action selector="addChannel:" destination="VJN-0w-G9t" id="lxY-k6-FDu"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="XZs-r4-hKP"/>
                         <color key="backgroundColor" red="0.49192846464797296" green="0.79302946891191706" blue="0.41745142291360432" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="zBL-NP-daB" firstAttribute="top" secondItem="M1D-4v-hr0" secondAttribute="bottom" id="8Ha-xB-37C"/>
+                            <constraint firstItem="M1D-4v-hr0" firstAttribute="leading" secondItem="XZs-r4-hKP" secondAttribute="leading" id="KnV-6S-YDy"/>
+                            <constraint firstItem="M1D-4v-hr0" firstAttribute="top" secondItem="XZs-r4-hKP" secondAttribute="top" id="NIO-Hc-tae"/>
+                            <constraint firstItem="zBL-NP-daB" firstAttribute="leading" secondItem="XZs-r4-hKP" secondAttribute="leading" id="Rba-jO-cfv"/>
+                            <constraint firstItem="XZs-r4-hKP" firstAttribute="bottom" secondItem="zBL-NP-daB" secondAttribute="bottom" id="X18-UJ-glK"/>
+                            <constraint firstItem="XZs-r4-hKP" firstAttribute="trailing" secondItem="zBL-NP-daB" secondAttribute="trailing" id="osS-sh-jJ4"/>
+                            <constraint firstItem="M1D-4v-hr0" firstAttribute="trailing" secondItem="XZs-r4-hKP" secondAttribute="trailing" id="vBI-a9-A5l"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="CHAT" image="chat" id="q0H-5f-Kvc"/>
+                    <connections>
+                        <outlet property="channelTable" destination="zBL-NP-daB" id="JBW-qJ-d8m"/>
+                        <segue destination="FaI-Pg-0SO" kind="show" identifier="goToChannel" id="qyX-9j-bfW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2NX-zh-GuV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1870" y="919"/>
+            <point key="canvasLocation" x="1869.5999999999999" y="918.89055472263874"/>
+        </scene>
+        <!--Channel Messages View Controller-->
+        <scene sceneID="50R-Gv-RX2">
+            <objects>
+                <viewController id="FaI-Pg-0SO" customClass="ChannelMessagesViewController" customModule="TreasureHunter" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="NYW-YU-gsZ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="14h-a5-UfX">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                                <items>
+                                    <navigationItem title="Title" id="yBS-dc-Pzv">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="kdc-4k-mVb">
+                                            <connections>
+                                                <action selector="onCancel:" destination="FaI-Pg-0SO" id="11J-No-L2k"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="EDB-SE-A3Y"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="14h-a5-UfX" firstAttribute="trailing" secondItem="NYW-YU-gsZ" secondAttribute="trailing" id="1Ou-Kc-Bap"/>
+                            <constraint firstItem="14h-a5-UfX" firstAttribute="leading" secondItem="NYW-YU-gsZ" secondAttribute="leading" id="t5n-Py-jS4"/>
+                            <constraint firstItem="14h-a5-UfX" firstAttribute="top" secondItem="NYW-YU-gsZ" secondAttribute="top" id="uCP-UX-hvJ"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="navBar" destination="14h-a5-UfX" id="lB7-oa-exf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="A18-Ie-WLz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1870" y="1740"/>
         </scene>
         <!--Home-->
         <scene sceneID="ued-ZB-dFZ">

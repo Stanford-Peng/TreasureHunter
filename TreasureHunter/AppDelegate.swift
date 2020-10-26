@@ -34,8 +34,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UIWind
             }
             self.goToHome(user: user)
             //sign in
-            
-            
         }
 
     }

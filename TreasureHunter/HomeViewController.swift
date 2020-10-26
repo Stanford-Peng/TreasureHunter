@@ -20,6 +20,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     var canDig: Bool?
     var timerReference = Firestore.firestore().collection("Timer")
     let COOLDOWN = 60
+    
 //    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
