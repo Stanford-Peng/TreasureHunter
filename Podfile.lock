@@ -247,6 +247,9 @@ PODS:
   - Firebase/Firestore (6.32.2):
     - Firebase/CoreOnly
     - FirebaseFirestore (~> 1.17.1)
+  - Firebase/Functions (6.32.2):
+    - Firebase/CoreOnly
+    - FirebaseFunctions (~> 2.8.0)
   - Firebase/Storage (6.32.2):
     - Firebase/CoreOnly
     - FirebaseStorage (~> 3.9.0)
@@ -290,6 +293,9 @@ PODS:
     - nanopb (~> 1.30906.0)
   - FirebaseFirestoreSwift (0.4.0):
     - FirebaseFirestore (>= 1.6.1, ~> 1.6)
+  - FirebaseFunctions (2.8.0):
+    - FirebaseCore (~> 6.10)
+    - GTMSessionFetcher/Core (~> 1.1)
   - FirebaseInstallations (1.7.0):
     - FirebaseCore (~> 6.10)
     - GoogleUtilities/Environment (~> 6.7)
@@ -416,6 +422,7 @@ DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Firestore
+  - Firebase/Functions
   - Firebase/Storage
   - FirebaseFirestoreSwift
   - FirebaseUI
@@ -436,6 +443,7 @@ SPEC REPOS:
     - FirebaseDatabase
     - FirebaseFirestore
     - FirebaseFirestoreSwift
+    - FirebaseFunctions
     - FirebaseInstallations
     - FirebaseStorage
     - FirebaseUI
@@ -468,6 +476,7 @@ SPEC CHECKSUMS:
   FirebaseDatabase: 13a865a4b85897462b930eb683bda8f52583713f
   FirebaseFirestore: f178b761bf05a890749e4d87095ac5a77f11df2f
   FirebaseFirestoreSwift: 2c46dbc1156db97dc4f6dd798d4f5b57b9c7fab6
+  FirebaseFunctions: e0694e614a5e3300120a10d925e2cd3be60a9c81
   FirebaseInstallations: 466c7b4d1f58fe16707693091da253726a731ed2
   FirebaseStorage: 15e0f15ef3c7fec3d1899d68623e47d4447066b4
   FirebaseUI: f0677a1cc235f6da602cbd5c9b5fbbd24544a6b3
@@ -486,6 +495,6 @@ SPEC CHECKSUMS:
   PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
   SDWebImage: b69257f4ab14e9b6a2ef53e910fdf914d8f757c1
 
-PODFILE CHECKSUM: 31a22532a51c658b648d15ec1aff2f8c9e1306b3
+PODFILE CHECKSUM: f87f034539b5a79018001de171d959b3beda37e3
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.9.3

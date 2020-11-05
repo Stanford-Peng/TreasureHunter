@@ -24,6 +24,9 @@
 		E6147D4C2546AF5800B799F5 /* ChannelMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6147D492546AF5800B799F5 /* ChannelMessage.swift */; };
 		E6147D4D2546AF5800B799F5 /* Sender.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6147D4A2546AF5800B799F5 /* Sender.swift */; };
 		E6147D5D2546B93D00B799F5 /* ChannelMessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6147D5C2546B93D00B799F5 /* ChannelMessagesViewController.swift */; };
+		E6C5B31D2553C9BD00F62F2E /* RBG.gpx in Resources */ = {isa = PBXBuildFile; fileRef = E6C5B31C2553C9BC00F62F2E /* RBG.gpx */; };
+		E6C5B34F255427F300F62F2E /* ItemLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C5B34E255427F300F62F2E /* ItemLocation.swift */; };
+		E6C5B3542554341300F62F2E /* alstonHome.gpx in Resources */ = {isa = PBXBuildFile; fileRef = E6C5B3532554341300F62F2E /* alstonHome.gpx */; };
 		E6CC24A82542F2BB004EF299 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CC24A72542F2BB004EF299 /* AppDelegate.swift */; };
 		E6CC24AA2542F2BB004EF299 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CC24A92542F2BB004EF299 /* SceneDelegate.swift */; };
 		E6CC24AF2542F2BB004EF299 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6CC24AD2542F2BB004EF299 /* Main.storyboard */; };
@@ -76,6 +79,9 @@
 		E6147D492546AF5800B799F5 /* ChannelMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelMessage.swift; sourceTree = "<group>"; };
 		E6147D4A2546AF5800B799F5 /* Sender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sender.swift; sourceTree = "<group>"; };
 		E6147D5C2546B93D00B799F5 /* ChannelMessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelMessagesViewController.swift; sourceTree = "<group>"; };
+		E6C5B31C2553C9BC00F62F2E /* RBG.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = RBG.gpx; sourceTree = "<group>"; };
+		E6C5B34E255427F300F62F2E /* ItemLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemLocation.swift; sourceTree = "<group>"; };
+		E6C5B3532554341300F62F2E /* alstonHome.gpx */ = {isa = PBXFileReference; lastKnownFileType = text; path = alstonHome.gpx; sourceTree = "<group>"; };
 		E6CC24A42542F2BB004EF299 /* TreasureHunter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TreasureHunter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6CC24A72542F2BB004EF299 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E6CC24A92542F2BB004EF299 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -156,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				BA5E55C725470F29000E0C33 /* Item.swift */,
+				E6C5B34E255427F300F62F2E /* ItemLocation.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -191,7 +198,9 @@
 		E6CC249B2542F2BB004EF299 = {
 			isa = PBXGroup;
 			children = (
+				E6C5B3532554341300F62F2E /* alstonHome.gpx */,
 				BA5E55B725470524000E0C33 /* To_Do_List */,
+				E6C5B31C2553C9BC00F62F2E /* RBG.gpx */,
 				E6CC24A62542F2BB004EF299 /* TreasureHunter */,
 				E6CC24BD2542F2BD004EF299 /* TreasureHunterTests */,
 				E6CC24C82542F2BD004EF299 /* TreasureHunterUITests */,
@@ -366,6 +375,8 @@
 				E6CC24B42542F2BD004EF299 /* LaunchScreen.storyboard in Resources */,
 				E6CC24FE2543EEF9004EF299 /* GoogleService-Info.plist in Resources */,
 				E6CC24B12542F2BD004EF299 /* Assets.xcassets in Resources */,
+				E6C5B3542554341300F62F2E /* alstonHome.gpx in Resources */,
+				E6C5B31D2553C9BD00F62F2E /* RBG.gpx in Resources */,
 				E6CC24AF2542F2BB004EF299 /* Main.storyboard in Resources */,
 				BA5E55B825470524000E0C33 /* To_Do_List in Resources */,
 			);
@@ -537,6 +548,7 @@
 				E6147D4B2546AF5800B799F5 /* Channel.swift in Sources */,
 				E6CC25322543FAEB004EF299 /* LoginController.swift in Sources */,
 				E6CC24AA2542F2BB004EF299 /* SceneDelegate.swift in Sources */,
+				E6C5B34F255427F300F62F2E /* ItemLocation.swift in Sources */,
 				E6147D4C2546AF5800B799F5 /* ChannelMessage.swift in Sources */,
 				BAE5E3FD2545625900E4FCFA /* UserInfoHeader.swift in Sources */,
 				BA5E55C225470E3D000E0C33 /* BagCollectionViewCell.swift in Sources */,

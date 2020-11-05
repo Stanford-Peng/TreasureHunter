@@ -12,8 +12,11 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
     @IBOutlet weak var navBar: UINavigationBar!
     @IBOutlet weak var bagCollectionView: UICollectionView!
     
+    private let itemsPerRow: CGFloat = 4
+    private let numberOfRow: CGFloat = 10
     // Reference: FIT5140 Lab 7 Material
     private let reuseIdentifier = "bagCell"
+    
     var itemList = [Item]()
 //    var managedObjectContext: NSManagedObjectContext?
     
@@ -28,11 +31,15 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
 //        self.bagCollectionView!.register(BagCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         bagCollectionView.dataSource = self
         bagCollectionView.delegate = self
-        bagCollectionView.backgroundColor = .brown
+        bagCollectionView.backgroundColor = UIColor(displayP3Red: 140/255, green: 235/255, blue: 211/255, alpha: 1.0)
+        //8CEBD3
+        //let backgroundImageView = UIImageView()
+        //backgroundImageView.image = UIImage(named:"background-login")
+        //bagCollectionView.backgroundView = backgroundImageView
 
         navBar.tintColor = .brown
         navBar.barTintColor = .brown
-//        navBar.prefersLargeTitles = true
+        navBar.prefersLargeTitles = true
 //        navBar.isTranslucent = false
 //        navBar.barStyle = .black
     }
@@ -101,11 +108,11 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! BagCollectionViewCell
-        
-        cell.configure(with: "chest")
+        cell.backgroundColor = .blue
+        cell.configure(with: "shelf")
         
         // Configure the cell
-        cell.backgroundColor = .secondarySystemFill
+        //cell.backgroundColor = .secondarySystemFill
 //        cell.imageView.image = imageList[indexPath.row]
         return cell
     }
@@ -145,8 +152,8 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
         collectionViewLayout: UICollectionViewLayout, sizeForItemAt
         indexPath: IndexPath) -> CGSize {
 
-        let itemWidth = (view.frame.width/4) - 0.000001
-        let itemHeight = (view.frame.height/10)
+        let itemWidth = (view.frame.width/itemsPerRow)
+        let itemHeight = itemWidth
         return CGSize(width: itemWidth, height: itemHeight)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

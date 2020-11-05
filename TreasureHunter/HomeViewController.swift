@@ -8,20 +8,29 @@
 import UIKit
 import MapKit
 import FirebaseFirestore
+import FirebaseFunctions
 //timer reference:
 //https://medium.com/ios-os-x-development/build-an-stopwatch-with-swift-3-0-c7040818a10f
 class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate{
     
     @IBOutlet weak var timerLabel: UILabel!
+    
+    @IBOutlet weak var mapView: MKMapView!
+    
+    lazy var functions = Functions.functions()
+    var userLocation:CLLocationCoordinate2D?
     let locationManager = CLLocationManager()
     var seconds:Int? //This variable will hold a starting value of seconds. It could be any amount above 0.
     var timer = Timer()
     var isTimerRunning = false //This will be used to make sure only one timer is created at a time.
     var canDig: Bool?
+    
     var timerReference = Firestore.firestore().collection("Timer")
+    //var itemLocationReference = Firestore.firestore().collection("ItemLocation")
+    
     let COOLDOWN = 10
     var shakeCounter = 0
-
+    let DIGRADIUS:Double = 10
     
 //    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     override func viewDidLoad() {
@@ -30,7 +39,8 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(appMovedToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
         setUpLocationAuthorisation()
-        
+        mapView.delegate = self
+        //locationManager
         //runTimer()
         
         //*** Get seconds from server database and load into SceneDelegate
@@ -38,6 +48,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     
     func setupLabel(){
         // beautify the label
+        
     }
     
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
@@ -57,13 +68,26 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         if authorisationStatus == .notDetermined || authorisationStatus == .denied || authorisationStatus == .restricted{
             locationManager.requestWhenInUseAuthorization()
         }
-        //define accuracy
+        //define accuracy to best
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
     }
     
     override func viewWillAppear(_ animated: Bool) {
         print("HOME view appeared")
+        
+        if CLLocationManager.locationServicesEnabled() {
+                    locationManager.startUpdatingLocation()
+        }
+        
+        
         shakeCounter = 0
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.stopUpdatingLocation()
+        }
+       
     }
 
     @objc func appMovedToForeground() {
@@ -115,11 +139,58 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     
     func dig(){
         if canDig! {
+            findItems()
+            
             let email=UserDefaults.standard.string(forKey: "useremail")
             timerReference.document(email!).setData(["lastDigDatetime":Timestamp(date: Date.init())])
             setUpTimer()
             canDig = false
         }
+    }
+    
+    func findItems(){
+       var callable = functions.httpsCallable("findItems").call([]) { (result, error) in
+            if let error = error as NSError? {
+                if error.domain == FunctionsErrorDomain {
+                    let code = FunctionsErrorCode(rawValue: error.code)
+                    let message = error.localizedDescription
+                    let details = error.userInfo[FunctionsErrorDetailsKey]
+                }
+                // ...
+                print(error)
+                return
+            }
+            print(result?.data)
+            do{
+                let json =  try JSONDecoder().decode([ItemLocation].self, from:result?.data as! Data)
+                print(json)
+            }catch{
+
+            }
+
+            
+            
+            
+//            if let text = (result?.data as? [String: Any])?
+
+            
+            //(result?.data as? [String: Any])?["text"] as? String {
+            //self.resultField.text = text
+        }
+        
+//        functions.httpsCallable("findItems").call(["lat": userLocation?.latitude, "long": userLocation?.longitude]) { (result, error) in
+//          if let error = error as NSError? {
+//            if error.domain == FunctionsErrorDomain {
+//              let code = FunctionsErrorCode(rawValue: error.code)
+//              let message = error.localizedDescription
+//              let details = error.userInfo[FunctionsErrorDetailsKey]
+//            }
+//            // ...
+//          }
+////            if let json =  try JSONDecoder().decode([ItemLocation].self, from:result?.data){
+////
+////            }
+//        }
     }
 
     @objc func updateTimer() {
@@ -167,4 +238,43 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
      }
      */
     
+    //MARK : Location manager delegate
+    //update to latest location and zoom to it
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.sorted(by: {$0.timestamp > $1.timestamp}).first {
+            let coordinate = location.coordinate
+            
+            userLocation = coordinate
+            //clear overlays
+            mapView.removeOverlays(mapView.overlays)
+            //add dig circle
+            mapView.addOverlay(MKCircle(center:coordinate, radius: DIGRADIUS))
+            
+            //zoom to region of near 100 meters
+            let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 100, longitudinalMeters: 100)
+            mapView.setRegion(region, animated: true)
+          }
+    }
+
+    
 }
+
+extension HomeViewController{
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if overlay is MKCircle {
+          let circleRenderer = MKCircleRenderer(overlay: overlay)
+          circleRenderer.lineWidth = 1.0
+          circleRenderer.strokeColor = .purple
+          circleRenderer.fillColor = UIColor.purple.withAlphaComponent(0.2)
+          return circleRenderer
+        }
+        return MKOverlayRenderer(overlay: overlay)
+    }
+}
+//extension MKMapView {
+//  func zoomToUserLocation() {
+//    guard let coordinate = userLocation.location?.coordinate else { return }
+//    let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
+//    setRegion(region, animated: true)
+//  }
+//}

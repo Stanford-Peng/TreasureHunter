@@ -47,6 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UIWind
         self.window = sceneDelegate.window
         let email = user.profile.email
         let name = user.profile.name
+        //let uuid = user.userID
         print("\(email ?? "No Email")")
         print("\(name ?? "No Name")")
         
