@@ -66,15 +66,31 @@ class SettingsViewController: UIViewController{
 
     func logoutTapped(){
         // Perform logout related functions
-
+        
         //Remove Username from User Defaults
         userDefaults.set("", forKey: Keys.username)
         userDefaults.set("", forKey: Keys.useremail)
-
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let loginNavController = storyboard.instantiateViewController(identifier: "LoginNavController")
         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(loginNavController)
+        
     }
+    
+    
+    @IBAction func logOut(_ sender: Any) {
+        self.dismiss(animated: true) { [self] in
+            self.userDefaults.set("", forKey: Keys.username)
+            self.userDefaults.set("", forKey: Keys.useremail)
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let loginNavController = storyboard.instantiateViewController(identifier: "LoginNavController")
+            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(loginNavController)
+        }
+        
+    }
+    
+    
 }
 
 extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
@@ -140,9 +156,28 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         case .Profile:
             print(ProfileOptions(rawValue: indexPath.row)?.description)
             if ProfileOptions(rawValue: indexPath.row)?.description == "Log Out"{
-                logoutTapped()
+                userDefaults.set("", forKey: Keys.username)
+                userDefaults.set("", forKey: Keys.useremail)
+                //userDefaults.synchronize()
+                exit(0)
+//                break
+//                self.dismiss(animated: true) {
+//                    (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.logOut()
+//               }
+//                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//                let loginNavController = storyboard.instantiateViewController(identifier: "LoginNavController")
+//                (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(loginNavController)
+//                self.present(loginNavController, animated: true){
+//                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//                    let loginNavController = storyboard.instantiateViewController(identifier: "LoginNavController")
+//                    (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(loginNavController)
+//                }
+                
+                
+                
             }
-            
+            break
+
         case .Application:
             print(ApplicationOptions(rawValue: indexPath.row)?.description)
         }

@@ -52,6 +52,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                           completion: nil)
     }
     
+    func logOut(){
+//        let userDefaults = UserDefaults.standard
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let loginNavController = storyboard.instantiateViewController(identifier: "LoginNavController")
+//        userDefaults.set("", forKey: Keys.username)
+//        userDefaults.set("", forKey: Keys.useremail)
+        guard let window = self.window else {
+            return
+        }
+        window.rootViewController = loginNavController
+        // add animations
+        UIView.transition(with: window,
+                          duration: 0.5,
+                          options: [.transitionCurlDown],
+                          animations: nil,
+                          completion: nil)
+        
+    }
+    
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.

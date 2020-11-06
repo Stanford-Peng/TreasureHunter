@@ -19,8 +19,8 @@ class ItemLocation: NSObject, Decodable {
     
     private enum CodingKeys: String, CodingKey{
         case id = "id"
-        case location = "location"
-        case name = "name"
+        case location = "data.location"
+        case name = "data.name"
     }
     
     required init(from decoder:Decoder) throws{

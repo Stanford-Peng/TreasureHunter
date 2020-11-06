@@ -301,7 +301,13 @@
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FNm-5p-miM">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                 <items>
-                                    <navigationItem title="Settings" id="DjB-TK-Wr8"/>
+                                    <navigationItem title="Settings" id="DjB-TK-Wr8">
+                                        <barButtonItem key="rightBarButtonItem" title="Log out" id="6qd-2b-KWc">
+                                            <connections>
+                                                <action selector="logOut:" destination="dFb-if-bgL" id="ZYe-H7-5eN"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
                                 </items>
                             </navigationBar>
                         </subviews>

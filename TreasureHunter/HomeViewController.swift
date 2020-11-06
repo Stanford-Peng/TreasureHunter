@@ -27,6 +27,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     
     var timerReference = Firestore.firestore().collection("Timer")
     //var itemLocationReference = Firestore.firestore().collection("ItemLocation")
+    var userItemReference = Firestore.firestore().collection("UserItems")
     
     let COOLDOWN = 10
     var shakeCounter = 0
@@ -74,7 +75,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     
     override func viewWillAppear(_ animated: Bool) {
         print("HOME view appeared")
-        
+        setUpTimer()
         if CLLocationManager.locationServicesEnabled() {
                     locationManager.startUpdatingLocation()
         }
@@ -139,8 +140,11 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     
     func dig(){
         if canDig! {
+//            let items=findItems()
+//            for item in items{
+//                showAlert(title: "Found Item: ", message: item.name!)
+//            }
             findItems()
-            
             let email=UserDefaults.standard.string(forKey: "useremail")
             timerReference.document(email!).setData(["lastDigDatetime":Timestamp(date: Date.init())])
             setUpTimer()
@@ -148,8 +152,9 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         }
     }
     
-    func findItems(){
-       var callable = functions.httpsCallable("findItems").call([]) { (result, error) in
+    func findItems() -> [Item]{
+        var items:[Item] = []
+        functions.httpsCallable("findItems").call(["long":userLocation?.longitude, "lat":userLocation?.latitude]) { (result, error) in
             if let error = error as NSError? {
                 if error.domain == FunctionsErrorDomain {
                     let code = FunctionsErrorCode(rawValue: error.code)
@@ -161,36 +166,33 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
                 return
             }
             print(result?.data)
-            do{
-                let json =  try JSONDecoder().decode([ItemLocation].self, from:result?.data as! Data)
-                print(json)
-            }catch{
-
+            
+            let diggedItems = result?.data as! NSArray
+            if(diggedItems.count == 0){
+                items=self.generateRandomItem()
+                
+            }else{
+                for item in diggedItems{
+                    let parsed = item as! NSDictionary
+                    let data = parsed["data"] as! NSDictionary
+                    items.append(Item(name: data["name"] as! String))
+                    self.showAlert(title: "Test", message: data["name"] as! String)
+                    //add to bag
+                    
+                    
+                }
+                
             }
-
             
-            
-            
-//            if let text = (result?.data as? [String: Any])?
-
-            
-            //(result?.data as? [String: Any])?["text"] as? String {
-            //self.resultField.text = text
         }
+        //wait function
+        return items
         
-//        functions.httpsCallable("findItems").call(["lat": userLocation?.latitude, "long": userLocation?.longitude]) { (result, error) in
-//          if let error = error as NSError? {
-//            if error.domain == FunctionsErrorDomain {
-//              let code = FunctionsErrorCode(rawValue: error.code)
-//              let message = error.localizedDescription
-//              let details = error.userInfo[FunctionsErrorDetailsKey]
-//            }
-//            // ...
-//          }
-////            if let json =  try JSONDecoder().decode([ItemLocation].self, from:result?.data){
-////
-////            }
-//        }
+    }
+    
+    func generateRandomItem() ->[Item]{
+        var items:[Item] = []
+        return items
     }
 
     @objc func updateTimer() {
@@ -215,11 +217,11 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
 
     }
 
-    func resetTimer(){
-        timer.invalidate()
-        seconds = 60    //Here we manually enter the restarting point for the seconds, but it would be wiser to make this a variable or constant.
-        timerLabel.text = timeString(time: TimeInterval(seconds!))
-    }
+//    func resetTimer(){
+//        timer.invalidate()
+//        seconds = 60    //Here we manually enter the restarting point for the seconds, but it would be wiser to make this a variable or constant.
+//        timerLabel.text = timeString(time: TimeInterval(seconds!))
+//    }
 
     func timeString(time:TimeInterval) -> String {
         let hours = Int(time) / 3600
@@ -278,3 +280,28 @@ extension HomeViewController{
 //    setRegion(region, animated: true)
 //  }
 //}
+
+//        functions.httpsCallable("findItems").call(["lat": userLocation?.latitude, "long": userLocation?.longitude]) { (result, error) in
+//          if let error = error as NSError? {
+//            if error.domain == FunctionsErrorDomain {
+//              let code = FunctionsErrorCode(rawValue: error.code)
+//              let message = error.localizedDescription
+//              let details = error.userInfo[FunctionsErrorDetailsKey]
+//            }
+//            // ...
+//          }
+////            if let json =  try JSONDecoder().decode([ItemLocation].self, from:result?.data){
+////
+////            }
+//        }
+extension HomeViewController{
+    // Shows alert
+        func showAlert(title: String, message: String){
+            let alert = UIAlertController(title: title, message:
+                message, preferredStyle:
+                UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style:
+                UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+}
