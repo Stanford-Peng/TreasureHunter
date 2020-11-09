@@ -76,8 +76,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         if CLLocationManager.locationServicesEnabled() {
             locationManager.startUpdatingLocation()
         }
-        
-        
         shakeCounter = 0
     }
     

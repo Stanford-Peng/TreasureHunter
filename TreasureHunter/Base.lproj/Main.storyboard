@@ -236,6 +236,16 @@
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9ny-n2-a1k" userLabel="Cell Item">
                                                     <rect key="frame" x="16" y="16" width="48" height="48"/>
                                                 </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ci6-2D-aGe" userLabel="itemCountLabel">
+                                                    <rect key="frame" x="55" y="55" width="25" height="25"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="25" id="7gD-5A-0Om"/>
+                                                        <constraint firstAttribute="height" constant="25" id="lXr-ZW-tFL"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="lxI-d4-bbe" secondAttribute="bottom" id="ENg-ar-7da"/>
@@ -244,13 +254,16 @@
                                                 <constraint firstAttribute="bottom" secondItem="9ny-n2-a1k" secondAttribute="bottom" constant="16" id="Hm1-0S-SLl"/>
                                                 <constraint firstItem="9ny-n2-a1k" firstAttribute="top" secondItem="hfb-Qy-6pI" secondAttribute="top" constant="16" id="LDi-7g-SRa"/>
                                                 <constraint firstItem="lxI-d4-bbe" firstAttribute="top" secondItem="hfb-Qy-6pI" secondAttribute="top" id="T6R-3x-SMS"/>
+                                                <constraint firstAttribute="trailing" secondItem="ci6-2D-aGe" secondAttribute="trailing" id="cRz-BG-w0d"/>
                                                 <constraint firstAttribute="trailing" secondItem="lxI-d4-bbe" secondAttribute="trailing" id="g1u-OR-e1V"/>
                                                 <constraint firstAttribute="trailing" secondItem="9ny-n2-a1k" secondAttribute="trailing" constant="16" id="lfe-D2-Z0S"/>
+                                                <constraint firstAttribute="bottom" secondItem="ci6-2D-aGe" secondAttribute="bottom" id="yf7-6b-LLw"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <connections>
                                             <outlet property="cellBackground" destination="lxI-d4-bbe" id="usw-Gq-ceM"/>
                                             <outlet property="cellItemImage" destination="9ny-n2-a1k" id="g5f-s6-aEf"/>
+                                            <outlet property="itemCountLabel" destination="ci6-2D-aGe" id="fbV-cy-N9U"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -267,25 +280,24 @@
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="scroll" translatesAutoresizingMaskIntoConstraints="NO" id="FFm-kP-fDc">
                                         <rect key="frame" x="0.0" y="0.0" width="271" height="192"/>
                                     </imageView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" bouncesZoom="NO" editable="NO" textAlignment="center" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v8i-W4-tZ3">
-                                        <rect key="frame" x="40" y="32" width="191" height="128"/>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" bouncesZoom="NO" editable="NO" text="Select an item to see its description..." textAlignment="center" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v8i-W4-tZ3">
+                                        <rect key="frame" x="40" y="40" width="191" height="120"/>
                                         <color key="backgroundColor" red="0.96434803299492389" green="0.96434803299492389" blue="0.96434803299492389" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                         <color key="textColor" systemColor="labelColor"/>
-                                        <fontDescription key="fontDescription" name="BradleyHandITCTT-Bold" family="Bradley Hand" pointSize="14"/>
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.95294117647058818" green="0.82745098039215681" blue="0.5490196078431373" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="v8i-W4-tZ3" firstAttribute="top" secondItem="1XS-Va-Kmr" secondAttribute="top" constant="32" id="4Zz-aa-aUV"/>
                                     <constraint firstAttribute="bottom" secondItem="FFm-kP-fDc" secondAttribute="bottom" id="Bfo-jd-30g"/>
-                                    <constraint firstAttribute="bottom" secondItem="v8i-W4-tZ3" secondAttribute="bottom" constant="32" id="Q1U-wG-oKI"/>
+                                    <constraint firstAttribute="bottom" secondItem="v8i-W4-tZ3" secondAttribute="bottom" constant="32" id="JZO-wa-Wnk"/>
+                                    <constraint firstAttribute="trailing" secondItem="v8i-W4-tZ3" secondAttribute="trailing" constant="144" id="Uj0-u1-TcR"/>
+                                    <constraint firstItem="v8i-W4-tZ3" firstAttribute="top" secondItem="1XS-Va-Kmr" secondAttribute="top" constant="40" id="YSx-qa-bei"/>
                                     <constraint firstItem="FFm-kP-fDc" firstAttribute="top" secondItem="1XS-Va-Kmr" secondAttribute="top" id="bWD-8o-iha"/>
-                                    <constraint firstAttribute="trailing" secondItem="v8i-W4-tZ3" secondAttribute="trailing" constant="144" id="c1a-pP-ROb"/>
-                                    <constraint firstItem="v8i-W4-tZ3" firstAttribute="leading" secondItem="1XS-Va-Kmr" secondAttribute="leading" constant="40" id="h8O-rm-nSA"/>
                                     <constraint firstAttribute="trailing" secondItem="FFm-kP-fDc" secondAttribute="trailing" constant="104" id="kKZ-Z6-Ztd"/>
                                     <constraint firstItem="FFm-kP-fDc" firstAttribute="leading" secondItem="1XS-Va-Kmr" secondAttribute="leading" id="vHP-BF-0OH"/>
+                                    <constraint firstItem="v8i-W4-tZ3" firstAttribute="leading" secondItem="1XS-Va-Kmr" secondAttribute="leading" constant="40" id="x0j-A2-y4a"/>
                                 </constraints>
                             </view>
                         </subviews>

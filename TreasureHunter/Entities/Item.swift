@@ -14,7 +14,8 @@ class Item: NSObject {
     var name: String?
     var desc: String?
     var imageIcon: UIImage?
-    var dropChance:Int?
+    var dropChance: Int?
+    var itemCount: Int?
     
     init(name: String, desc: String, imageIcon: UIImage, dropChance:Int){
         self.name = name

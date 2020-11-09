@@ -9,6 +9,7 @@ import UIKit
 
 class BagCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet weak var itemCountLabel: UILabel!
     @IBOutlet weak var cellBackground: UIImageView!
     @IBOutlet weak var cellItemImage: UIImageView!
     var item: Item?

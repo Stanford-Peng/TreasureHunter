@@ -163,6 +163,7 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
         if indexPath.row < userItemList.keys.count{
             let key = Array(userItemList.keys)[indexPath.row]
             cell.configureItem(with: itemNamed(name: key)!)
+            cell.item?.itemCount = userItemList[key]!
         }
         // Configure the cell
         //cell.backgroundColor = .secondarySystemFill
@@ -180,7 +181,8 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! BagCollectionViewCell
+        
+        let cell = collectionView.cellForItem(at: indexPath) as! BagCollectionViewCell
         descriptionTextView.text = cell.item?.desc
     }
     
