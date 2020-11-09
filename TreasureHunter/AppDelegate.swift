@@ -9,6 +9,7 @@ import UIKit
 import GoogleSignIn
 import Firebase
 import FirebaseAuth
+import FirebaseFirestore
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UIWindowSceneDelegate{
@@ -17,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UIWind
     //var seconds = 180
     //for google sign
     //https://www.youtube.com/watch?v=20Qlho0G3YQ&t=669s
+    
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if let error = error {
             print(error.localizedDescription)
@@ -53,6 +55,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UIWind
         
         UserDefaults.standard.set(email, forKey: "useremail")
         UserDefaults.standard.set(name, forKey: "username")
+        
+        let userReference = Firestore.firestore().collection("User")
+        userReference.document(email!).setData(["name":name ?? ""], merge: true)
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let mainTabBarController = storyboard.instantiateViewController(identifier: "MainTabBarController")
