@@ -26,7 +26,6 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
             sections = contacts.count
         }
         return sections!
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

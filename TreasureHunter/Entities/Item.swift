@@ -31,6 +31,8 @@ class Item: NSObject {
         self.desc = desc
         self.imageIcon = imageIcon
     }
+    override init(){
+    }
 }
 
 
