@@ -24,16 +24,16 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     var timer = Timer()
     var isTimerRunning = false //This will be used to make sure only one timer is created at a time.
     var canDig: Bool?
-    
+    var db = Firestore.firestore()
     var timerReference = Firestore.firestore().collection("Timer")
-    //var itemLocationReference = Firestore.firestore().collection("ItemLocation")
+    var itemLocationReference = Firestore.firestore().collection("ItemLocation")
     var userItemReference = Firestore.firestore().collection("UserItems")
     
     let COOLDOWN = 10
     var shakeCounter = 0
     let DIGRADIUS:Double = 10
     
-//    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    //    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLabel()
@@ -41,8 +41,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         notificationCenter.addObserver(self, selector: #selector(appMovedToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
         setUpLocationAuthorisation()
         mapView.delegate = self
-        //locationManager
-        //runTimer()
         
         //*** Get seconds from server database and load into SceneDelegate
     }
@@ -77,7 +75,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         print("HOME view appeared")
         setUpTimer()
         if CLLocationManager.locationServicesEnabled() {
-                    locationManager.startUpdatingLocation()
+            locationManager.startUpdatingLocation()
         }
         
         
@@ -88,16 +86,16 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         if CLLocationManager.locationServicesEnabled() {
             locationManager.stopUpdatingLocation()
         }
-       
+        
     }
-
+    
     @objc func appMovedToForeground() {
         print("App moved to ForeGround!")
         setUpTimer()
     }
     
     func setUpTimer(){
-        timer.invalidate()
+        //timer.invalidate()
         let email=UserDefaults.standard.string(forKey: "useremail")
         let userTimer = timerReference.document(email!)
         userTimer.getDocument { (document, error) in
@@ -106,7 +104,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
                 return
             }
             if let document = document, document.exists {
-
+                
                 let lastDigDatetime = document.get("lastDigDatetime") as! Timestamp
                 let now = Timestamp(date: Date.init())
                 let difference = now.seconds - lastDigDatetime.seconds
@@ -120,6 +118,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
             } else{
                 self.isFirstTimeUser()
             }
+            self.timer.invalidate()
             self.runTimer()
         }
     }
@@ -127,10 +126,23 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     func isFirstTimeUser(){
         self.seconds = 0
         canDig = true
+        // Initialize user bag with all items set to 0
+        let email = UserDefaults.standard.string(forKey: "useremail")
+        let userItemData = self.userItemReference.document(email!).setData([
+            "Bottle Of Water" : 0,
+            "Normal Oyster": 0,
+            "Pearl Oyster": 0,
+            "Map Piece 1": 0,
+            "Map Piece 2": 0,
+            "Map Piece 3": 0,
+            "Map Piece 4": 0,
+            "Map Piece 5": 0,
+            "Map Piece 6": 0
+        ])
     }
-
+    
     func runTimer() {
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self,   selector: (#selector(HomeViewController.updateTimer)), userInfo: nil, repeats: true)
+        self.timer = Timer.scheduledTimer(timeInterval: 1, target: self,   selector: (#selector(HomeViewController.updateTimer)), userInfo: nil, repeats: true)
     }
     
     //convert into shaking
@@ -140,10 +152,10 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     
     func dig(){
         if canDig! {
-//            let items=findItems()
-//            for item in items{
-//                showAlert(title: "Found Item: ", message: item.name!)
-//            }
+            //            let items=findItems()
+            //            for item in items{
+            //                showAlert(title: "Found Item: ", message: item.name!)
+            //            }
             findItems()
             let email=UserDefaults.standard.string(forKey: "useremail")
             timerReference.document(email!).setData(["lastDigDatetime":Timestamp(date: Date.init())])
@@ -175,30 +187,51 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
                 for item in diggedItems{
                     let parsed = item as! NSDictionary
                     let data = parsed["data"] as! NSDictionary
+                    let id = parsed["id"] as! String
                     items.append(Item(name: data["name"] as! String))
                     self.showAlert(title: "Test", message: data["name"] as! String)
-                    //add to bag
-                    
-                    
+                    //Delete Item from Database
+                    self.deleteItemFromLocation(itemName: data["name"] as! String)
+                    //Add to bag
+                    self.addToBag(itemName: data["name"] as! String, itemLocationID: id)
                 }
-                
             }
-            
         }
         //wait function
         return items
+    }
+    
+    func deleteItemFromLocation(itemName: String){
         
     }
     
+    func addToBag(itemName: String, itemLocationID: String){
+        // transaction to delete item from itemLocation and add it to userItems https://firebase.google.com/docs/firestore/manage-data/transactions
+
+        let email=UserDefaults.standard.string(forKey: "useremail")
+        let userItemDocReference = userItemReference.document(email!)
+        let itemLocationDocReference = itemLocationReference.document(itemLocationID)
+        db.runTransaction({ (transaction, errorPointer) -> Any? in
+            transaction.deleteDocument(itemLocationDocReference)
+            transaction.updateData([itemName : FieldValue.increment(Int64(1))], forDocument: userItemDocReference)
+
+            return nil
+        }) { (object, error) in
+            if let error = error {
+                print("Transaction failed: \(error)")
+            } else {
+                print("Transaction successfully committed!")
+            }
+        }
+    }
+
     func generateRandomItem() ->[Item]{
         var items:[Item] = []
         return items
     }
-
+    
     @objc func updateTimer() {
-
         if seconds! < 1 {
-            timer.invalidate()
             timeUp()
             
         } else {
@@ -207,22 +240,22 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
             timerLabel.text = timeString(time: TimeInterval(seconds!))
         }
     }
-
+    
     func timeUp(){
         timerLabel.text = "You can dig"
         canDig = true
     }
-
+    
     func useWater(){
-
+        
     }
-
-//    func resetTimer(){
-//        timer.invalidate()
-//        seconds = 60    //Here we manually enter the restarting point for the seconds, but it would be wiser to make this a variable or constant.
-//        timerLabel.text = timeString(time: TimeInterval(seconds!))
-//    }
-
+    
+    //    func resetTimer(){
+    //        timer.invalidate()
+    //        seconds = 60    //Here we manually enter the restarting point for the seconds, but it would be wiser to make this a variable or constant.
+    //        timerLabel.text = timeString(time: TimeInterval(seconds!))
+    //    }
+    
     func timeString(time:TimeInterval) -> String {
         let hours = Int(time) / 3600
         let minutes = Int(time) / 60 % 60
@@ -255,20 +288,20 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
             //zoom to region of near 100 meters
             let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 100, longitudinalMeters: 100)
             mapView.setRegion(region, animated: true)
-          }
+        }
     }
-
+    
     
 }
 
 extension HomeViewController{
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay is MKCircle {
-          let circleRenderer = MKCircleRenderer(overlay: overlay)
-          circleRenderer.lineWidth = 1.0
-          circleRenderer.strokeColor = .purple
-          circleRenderer.fillColor = UIColor.purple.withAlphaComponent(0.2)
-          return circleRenderer
+            let circleRenderer = MKCircleRenderer(overlay: overlay)
+            circleRenderer.lineWidth = 1.0
+            circleRenderer.strokeColor = .purple
+            circleRenderer.fillColor = UIColor.purple.withAlphaComponent(0.2)
+            return circleRenderer
         }
         return MKOverlayRenderer(overlay: overlay)
     }
@@ -296,12 +329,12 @@ extension HomeViewController{
 //        }
 extension HomeViewController{
     // Shows alert
-        func showAlert(title: String, message: String){
-            let alert = UIAlertController(title: title, message:
-                message, preferredStyle:
-                UIAlertController.Style.alert)
-            alert.addAction(UIAlertAction(title: "Ok", style:
-                UIAlertAction.Style.default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-        }
+    func showAlert(title: String, message: String){
+        let alert = UIAlertController(title: title, message:
+                                        message, preferredStyle:
+                                            UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style:
+                                        UIAlertAction.Style.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
 }
