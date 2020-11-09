@@ -46,8 +46,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     }
     
     func setupLabel(){
-        // beautify the label
-        
+        // F3D38C primary background color
     }
     
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {

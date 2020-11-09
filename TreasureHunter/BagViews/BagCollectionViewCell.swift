@@ -9,11 +9,13 @@ import UIKit
 
 class BagCollectionViewCell: UICollectionViewCell {
     
-    
-    
     @IBOutlet weak var cellBackground: UIImageView!
-    func configure(with imageName: String){
+    @IBOutlet weak var cellItemImage: UIImageView!
+    
+    func configureBackground(with imageName: String){
         cellBackground.image = UIImage(named: imageName)
-        
+    }
+    func configureItemImage(with imageName: String){
+        cellItemImage.image = UIImage(named: imageName)
     }
 }

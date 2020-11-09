@@ -12,6 +12,7 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
 
     @IBOutlet weak var navBar: UINavigationBar!
     @IBOutlet weak var bagCollectionView: UICollectionView!
+    @IBOutlet weak var itemDescriptionView: UIView!
     
     private let itemsPerRow: CGFloat = 4
     private let numberOfRow: CGFloat = 10
@@ -21,14 +22,37 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
     var db = Firestore.firestore()
     var itemLocationReference = Firestore.firestore().collection("ItemLocation")
     var userItemReference = Firestore.firestore().collection("UserItems")
+    var itemList = [String: Int]()
     
-    var itemList = [Item]()
 //    var managedObjectContext: NSManagedObjectContext?
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUI()
+    }
+    
+    private func fillBag(){
+        let email=UserDefaults.standard.string(forKey: "useremail")
+        let userItemDocReference = userItemReference.document(email!)
+        itemList.removeAll()
+        
+        userItemDocReference.getDocument { (document, error) in
+            if let error = error{
+                print(error)
+                return
+            }
+            if let document = document, document.exists {
+                let data = document.data()
+                for (name, count) in data! {
+                    if count as! Int > 0 {
+                        self.itemList[name] = count as! Int
+                    }
+                }
+            } else{
+                
+            }
+            self.bagCollectionView.reloadData()
+        }
     }
     
     private func setUI() {
@@ -47,10 +71,21 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
         navBar.prefersLargeTitles = true
         navBar.isTranslucent = false
         navBar.barStyle = .black
-        
-        
 //        navBar.isTranslucent = false
 //        navBar.barStyle = .black
+    }
+    
+    func getImageNameFrom(name: String) -> String{
+        var imageName: String?
+        switch name {
+        case "Bottle Of Water":
+            imageName = "waterBottle"
+        case "Normal Oyster":
+            imageName = "normalOyster"
+        default:
+            print("No image found for \(name)")
+        }
+        return imageName!
     }
         
 //        let appDelegate = UIApplication.shared.delegate as? AppDelegate
@@ -75,6 +110,7 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
     // MARK: UICollectionViewDataSource
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.fillBag()
 //        do {
 //            let imageDataList = try
 ////                managedObjectContext!.fetch(ImageMetaData.fetchRequest())
@@ -96,13 +132,13 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
 //        }
     }
     
-    func loadImageData(filename: String) -> UIImage? {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        let documentsDirectory = paths[0]
-        let imageURL = documentsDirectory.appendingPathComponent(filename)
-        let image = UIImage(contentsOfFile: imageURL.path)
-        return image
-    }
+//    func loadImageData(filename: String) -> UIImage? {
+//        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+//        let documentsDirectory = paths[0]
+//        let imageURL = documentsDirectory.appendingPathComponent(filename)
+//        let image = UIImage(contentsOfFile: imageURL.path)
+//        return image
+//    }
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
@@ -110,15 +146,22 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        
         return 40
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! BagCollectionViewCell
         cell.backgroundColor = .blue
-        cell.configure(with: "shelf")
+        cell.configureBackground(with: "shelf")
+//        cell.configureItemImage(with: "none")
+        
+        print(itemList.count)
+        print(itemList.keys.count)
+        
+        if indexPath.row < itemList.keys.count{
+            let key = Array(itemList.keys)[indexPath.row]
+            cell.configureItemImage(with: getImageNameFrom(name: key))
+        }
         
         // Configure the cell
         //cell.backgroundColor = .secondarySystemFill
@@ -176,5 +219,6 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
 extension UIColor {
     struct Custom {
         static let Cyan = UIColor(displayP3Red: 140/255, green: 235/255, blue: 211/255, alpha: 1.0)
+        static let lightBrown = UIColor(displayP3Red: 243/255, green: 211/255, blue: 140/255, alpha: 1.0)
     }
 }

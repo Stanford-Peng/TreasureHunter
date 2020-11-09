@@ -22,7 +22,7 @@ class SettingsCell: UITableViewCell {
     lazy var switchControl: UISwitch = {
         let switchControl = UISwitch()
         switchControl.isOn = true
-        switchControl.onTintColor = UIColor.Custom.Cyan
+        switchControl.onTintColor = UIColor.Custom.lightBrown
         switchControl.addTarget(self, action: #selector(handleSwitchAction), for: .valueChanged)
         return switchControl
     }()
