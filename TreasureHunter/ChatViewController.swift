@@ -145,6 +145,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     
     @IBAction func addChannel(_ sender: Any) {
+        let sender = sender as? UIBarButtonItem
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let addChanel = UIAlertAction(title: "Add a Channel", style: .default) { (_) in
             self.addChannel()
@@ -153,7 +154,16 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
             
             self.addContact()
         }
-        //actionSheet.addAction()
+        actionSheet.addAction(addChanel)
+        actionSheet.addAction(addContact)
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+//        actionSheet.popoverPresentationControlle
+        if let popover = actionSheet.popoverPresentationController{
+            actionSheet.popoverPresentationController?.barButtonItem = sender
+            //actionSheet.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.up
+        }
+        
+        self.present(actionSheet, animated: true)
         
 
     }
@@ -161,19 +171,34 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let alertController = UIAlertController(title: "Add New Friend", message: "Enter the player's ID(email) below", preferredStyle: .alert)
         alertController.addTextField()
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        let addAction = UIAlertAction(title: "Find", style: .default) { _ in
+        let addAction = UIAlertAction(title: "Add", style: .default) { _ in
             let contactEmail = alertController.textFields![0]
             var doesExist = false
             for contact in self.contacts {
                 if contact.id == contactEmail.text!.lowercased() {
-                    doesExist = true
+                    self.showAlert(title: "Waring", message: "It is in your contacts")
                 }
                 
             }
-            if !doesExist {
-                self.showAlert(title: "Waring", message: "It is in your contacts")
-//                self.channelsRef?.addDocument(data: [ "name" : channelName.text! ])
+            let userRef = Firestore.firestore().collection("User")
+            userRef.getDocuments { (querySnapshot, error) in
+                if let error = error {
+                    print(error)
+                    return
+                    
+                }
+                querySnapshot?.documents.forEach({ (queryDocumentSnapshot) in
+                    if queryDocumentSnapshot.documentID == contactEmail.text!.lowercased(){
+                        self.contactsRef?.document(queryDocumentSnapshot.documentID).setData([:])
+                        doesExist=true
+                    }
+                })
+                if !doesExist {
+                    self.showAlert(title: "Waring", message: "No Such User")
+
+                }
             }
+            
             
             
         }
