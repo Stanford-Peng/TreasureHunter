@@ -87,10 +87,7 @@ class SettingsViewController: UIViewController{
             let loginNavController = storyboard.instantiateViewController(identifier: "LoginNavController")
             (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(loginNavController)
         }
-        
     }
-    
-    
 }
 
 extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
@@ -114,7 +111,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     // MARK: - Table view functions
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()
-        view.backgroundColor = .systemBlue
+        view.backgroundColor = UIColor.Custom.Cyan
         let title = UILabel()
         title.font = UIFont.boldSystemFont(ofSize: 16)
         title.textColor = .white
@@ -172,9 +169,6 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
 //                    let loginNavController = storyboard.instantiateViewController(identifier: "LoginNavController")
 //                    (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(loginNavController)
 //                }
-                
-                
-                
             }
             break
 

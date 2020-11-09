@@ -94,7 +94,7 @@
                             </navigationBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="XZs-r4-hKP"/>
-                        <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                        <color key="backgroundColor" red="0.5490196078431373" green="0.92156862745098034" blue="0.82745098039215681" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="zBL-NP-daB" firstAttribute="top" secondItem="M1D-4v-hr0" secondAttribute="bottom" id="8Ha-xB-37C"/>
                             <constraint firstItem="M1D-4v-hr0" firstAttribute="leading" secondItem="XZs-r4-hKP" secondAttribute="leading" id="KnV-6S-YDy"/>
@@ -181,7 +181,7 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="QrH-Me-RCm"/>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.5490196078431373" green="0.92156862745098034" blue="0.82745098039215681" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="KMY-va-oft" firstAttribute="leading" secondItem="QrH-Me-RCm" secondAttribute="leading" id="C2u-Y4-vef"/>
                             <constraint firstItem="KMY-va-oft" firstAttribute="trailing" secondItem="QrH-Me-RCm" secondAttribute="trailing" id="DbT-Vg-IQ8"/>
@@ -255,7 +255,7 @@
                             </navigationBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6k3-vF-QJb"/>
-                        <color key="backgroundColor" red="0.9325008095854922" green="0.61193263713024715" blue="0.0014953518434099387" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.5490196078431373" green="0.92156862745098034" blue="0.82745098039215681" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="6k3-vF-QJb" firstAttribute="bottom" secondItem="URC-I7-6NM" secondAttribute="bottom" constant="192" id="Lfv-PL-Ira"/>
                             <constraint firstItem="URC-I7-6NM" firstAttribute="top" secondItem="Wms-pm-5UZ" secondAttribute="bottom" id="Pbc-0D-Smg"/>
@@ -301,18 +301,12 @@
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FNm-5p-miM">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                 <items>
-                                    <navigationItem title="Settings" id="DjB-TK-Wr8">
-                                        <barButtonItem key="rightBarButtonItem" title="Log out" id="6qd-2b-KWc">
-                                            <connections>
-                                                <action selector="logOut:" destination="dFb-if-bgL" id="ZYe-H7-5eN"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
+                                    <navigationItem title="Settings" id="DjB-TK-Wr8"/>
                                 </items>
                             </navigationBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="y6g-WS-N7i"/>
-                        <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                        <color key="backgroundColor" red="0.5490196078431373" green="0.92156862745098034" blue="0.82745098039215681" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="FNm-5p-miM" firstAttribute="top" secondItem="y6g-WS-N7i" secondAttribute="top" id="4Pf-sU-qJ2"/>
                             <constraint firstItem="Q9G-qa-4hN" firstAttribute="top" secondItem="FNm-5p-miM" secondAttribute="bottom" id="Bb0-YY-aAl"/>
@@ -387,9 +381,6 @@
         <image name="settingsIcon" width="42" height="42"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemOrangeColor">
-            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

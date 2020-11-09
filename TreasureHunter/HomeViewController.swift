@@ -24,8 +24,8 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     var timer = Timer()
     var isTimerRunning = false //This will be used to make sure only one timer is created at a time.
     var canDig: Bool?
-    var db = Firestore.firestore()
     var timerReference = Firestore.firestore().collection("Timer")
+    var db = Firestore.firestore()
     var itemLocationReference = Firestore.firestore().collection("ItemLocation")
     var userItemReference = Firestore.firestore().collection("UserItems")
     
@@ -181,17 +181,14 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
             
             let diggedItems = result?.data as! NSArray
             if(diggedItems.count == 0){
-                items=self.generateRandomItem()
-                
+                self.generateRandomItemToBag()
             }else{
                 for item in diggedItems{
                     let parsed = item as! NSDictionary
                     let data = parsed["data"] as! NSDictionary
                     let id = parsed["id"] as! String
                     items.append(Item(name: data["name"] as! String))
-                    self.showAlert(title: "Test", message: data["name"] as! String)
-                    //Delete Item from Database
-                    self.deleteItemFromLocation(itemName: data["name"] as! String)
+                    self.showAlert(title: "Found Item", message: data["name"] as! String)
                     //Add to bag
                     self.addToBag(itemName: data["name"] as! String, itemLocationID: id)
                 }
@@ -200,21 +197,15 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         //wait function
         return items
     }
-    
-    func deleteItemFromLocation(itemName: String){
-        
-    }
-    
+
     func addToBag(itemName: String, itemLocationID: String){
         // transaction to delete item from itemLocation and add it to userItems https://firebase.google.com/docs/firestore/manage-data/transactions
-
         let email=UserDefaults.standard.string(forKey: "useremail")
         let userItemDocReference = userItemReference.document(email!)
         let itemLocationDocReference = itemLocationReference.document(itemLocationID)
         db.runTransaction({ (transaction, errorPointer) -> Any? in
             transaction.deleteDocument(itemLocationDocReference)
             transaction.updateData([itemName : FieldValue.increment(Int64(1))], forDocument: userItemDocReference)
-
             return nil
         }) { (object, error) in
             if let error = error {
@@ -225,9 +216,23 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         }
     }
 
-    func generateRandomItem() ->[Item]{
-        var items:[Item] = []
-        return items
+    func generateRandomItemToBag(){
+        // Generate item here
+        let generatedItem = "Bottle Of Water"
+        
+        // Add generated Item to Bag
+        let email=UserDefaults.standard.string(forKey: "useremail")
+        let userItemDocReference = userItemReference.document(email!)
+        userItemDocReference.updateData([
+            generatedItem: FieldValue.increment(Int64(1))
+        ]) {err in
+            if let err = err {
+                print("Error adding generated item to bag: \(err)")
+            } else {
+                print("Added generated item to bag")
+                self.showAlert(title: "Found Item", message: generatedItem)
+            }
+        }
     }
     
     @objc func updateTimer() {

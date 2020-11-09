@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseFirestore
 
 class BagViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource{
 
@@ -16,6 +17,10 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
     private let numberOfRow: CGFloat = 10
     // Reference: FIT5140 Lab 7 Material
     private let reuseIdentifier = "bagCell"
+    
+    var db = Firestore.firestore()
+    var itemLocationReference = Firestore.firestore().collection("ItemLocation")
+    var userItemReference = Firestore.firestore().collection("UserItems")
     
     var itemList = [Item]()
 //    var managedObjectContext: NSManagedObjectContext?
@@ -31,15 +36,19 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
 //        self.bagCollectionView!.register(BagCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         bagCollectionView.dataSource = self
         bagCollectionView.delegate = self
-        bagCollectionView.backgroundColor = UIColor(displayP3Red: 140/255, green: 235/255, blue: 211/255, alpha: 1.0)
+        bagCollectionView.backgroundColor = UIColor.Custom.Cyan
         //8CEBD3
         //let backgroundImageView = UIImageView()
         //backgroundImageView.image = UIImage(named:"background-login")
         //bagCollectionView.backgroundView = backgroundImageView
 
-        navBar.tintColor = .brown
-        navBar.barTintColor = .brown
+        navBar.tintColor = UIColor.Custom.Cyan
+        navBar.barTintColor = UIColor.Custom.Cyan
         navBar.prefersLargeTitles = true
+        navBar.isTranslucent = false
+        navBar.barStyle = .black
+        
+        
 //        navBar.isTranslucent = false
 //        navBar.barStyle = .black
     }
@@ -164,4 +173,8 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
     }
     
 }
-
+extension UIColor {
+    struct Custom {
+        static let Cyan = UIColor(displayP3Red: 140/255, green: 235/255, blue: 211/255, alpha: 1.0)
+    }
+}
