@@ -51,7 +51,7 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
             } else{
                 
             }
-            self.bagCollectionView.reloadData()
+            self.bagCollectionView.reloadSections([0])
         }
     }
     

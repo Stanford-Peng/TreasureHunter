@@ -14,18 +14,32 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return 2
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return channels.count
+        var sections:Int?
+        if section == 0{
+            sections = channels.count
+        }
+        if section == 1{
+            sections = contacts.count
+        }
+        return sections!
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: CHANNEL_CELL, for: indexPath)
-        let channel = channels[indexPath.row]
-        cell.textLabel?.text = channel.name
+        if indexPath.section == 0{
+            let channel = channels[indexPath.row]
+            cell.textLabel?.text = channel.name
+        }
+        if indexPath.section == 1 {
+            let contact = contacts[indexPath.row]
+            cell.textLabel?.text = contact.name
+        }
         return cell
     }
     
@@ -49,7 +63,9 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     let CHANNEL_CELL = "channelCell"
     var currentSender: Sender?
     var channels = [Channel]()
+    var contacts = [Contact]()
     var channelsRef: CollectionReference?
+    var contactsRef: CollectionReference?
     let CHANNEL_SEGUE = "goToChannel"
     //listener coming with firebase
     var databaseListener: ListenerRegistration?
@@ -64,6 +80,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         let database = Firestore.firestore()
         channelsRef = database.collection("channels")
+        contactsRef = database.collection("contacts")
         //navigationItem.title = "Channels"
         
         let username = UserDefaults.standard.string(forKey: "username")
@@ -95,6 +112,28 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
             self.channelTable.reloadData()
             
         }
+        let email=UserDefaults.standard.string(forKey: "useremail")
+        let userContactsDoc=contactsRef?.document(email!).collection("friends")
+        
+        databaseListener = userContactsDoc?.addSnapshotListener({ (querySnapshot, error) in
+            if let error = error {
+                print(error)
+                return
+                
+            }
+            self.contacts.removeAll()
+            querySnapshot?.documents.forEach({ (queryDocumentSnapshot) in
+                let id = queryDocumentSnapshot.documentID
+                let name = queryDocumentSnapshot["name"] as! String
+                let contact = Contact(id: id, name: name)
+                self.contacts.append(contact)
+                
+                
+            })
+            
+            self.channelTable.reloadSections([1], with: .fade)
+        }
+        )
         
     }
     
@@ -106,14 +145,58 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     
     @IBAction func addChannel(_ sender: Any) {
-        let alertController = UIAlertController(title: "Add New Channel", message: "Enter channel name below", preferredStyle: .alert)
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let addChanel = UIAlertAction(title: "Add a Channel", style: .default) { (_) in
+            self.addChannel()
+        }
+        let addContact = UIAlertAction(title: "Add a Contact", style: .default){ _ in
+            
+            self.addContact()
+        }
+        //actionSheet.addAction()
         
+
+    }
+    func addContact(){
+        let alertController = UIAlertController(title: "Add New Friend", message: "Enter the player's ID(email) below", preferredStyle: .alert)
+        alertController.addTextField()
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let addAction = UIAlertAction(title: "Find", style: .default) { _ in
+            let contactEmail = alertController.textFields![0]
+            var doesExist = false
+            for contact in self.contacts {
+                if contact.id == contactEmail.text!.lowercased() {
+                    doesExist = true
+                }
+                
+            }
+            if !doesExist {
+                self.showAlert(title: "Waring", message: "It is in your contacts")
+//                self.channelsRef?.addDocument(data: [ "name" : channelName.text! ])
+            }
+            
+            
+        }
+        alertController.addAction(cancelAction)
+        alertController.addAction(addAction)
+        present(alertController, animated: true)
+    }
+    
+    func addChannel(){
+        let alertController = UIAlertController(title: "Add New Channel", message: "Enter channel name below", preferredStyle: .alert)
         //add text field
         alertController.addTextField()
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         let addAction = UIAlertAction(title: "Create", style: .default) { _ in
             let channelName = alertController.textFields![0]
+            
+            if channelName.text!.count < 3{
+                self.showAlert(title: "Warning", message: "The channel name has to be more than 3 Characters")
+                return
+            }
+            
             var doesExist = false
+            
             for channel in self.channels {
                 if channel.name.lowercased() == channelName.text!.lowercased() {
                     doesExist = true
@@ -129,7 +212,6 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         alertController.addAction(addAction)
         present(alertController, animated: true)
     }
-    
     
     /*
     // MARK: - Navigation

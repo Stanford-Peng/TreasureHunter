@@ -331,7 +331,7 @@ extension HomeViewController{
 ////
 ////            }
 //        }
-extension HomeViewController{
+extension UIViewController{
     // Shows alert
     func showAlert(title: String, message: String){
         let alert = UIAlertController(title: title, message:

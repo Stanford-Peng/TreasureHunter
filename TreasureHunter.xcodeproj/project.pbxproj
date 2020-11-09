@@ -20,6 +20,7 @@
 		BAE5E3FD2545625900E4FCFA /* UserInfoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE5E3FC2545625900E4FCFA /* UserInfoHeader.swift */; };
 		BAE5E40325456A6D00E4FCFA /* SettingsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE5E40225456A6D00E4FCFA /* SettingsSection.swift */; };
 		BAE631EE2544665E005FAA21 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE631ED2544665E005FAA21 /* HomeViewController.swift */; };
+		E60B179F25595EB100AA37F9 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60B179E25595EB100AA37F9 /* Contact.swift */; };
 		E6147D4B2546AF5800B799F5 /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6147D482546AF5800B799F5 /* Channel.swift */; };
 		E6147D4C2546AF5800B799F5 /* ChannelMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6147D492546AF5800B799F5 /* ChannelMessage.swift */; };
 		E6147D4D2546AF5800B799F5 /* Sender.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6147D4A2546AF5800B799F5 /* Sender.swift */; };
@@ -75,6 +76,7 @@
 		CDE1F4E9859C127CDBBB06B5 /* Pods_TreasureHunter_TreasureHunterUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TreasureHunter_TreasureHunterUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D630200ED411D2A075E7DE84 /* Pods-TreasureHunter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TreasureHunter.debug.xcconfig"; path = "Target Support Files/Pods-TreasureHunter/Pods-TreasureHunter.debug.xcconfig"; sourceTree = "<group>"; };
 		DE0464D516257C770E3848A2 /* Pods_TreasureHunterTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TreasureHunterTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E60B179E25595EB100AA37F9 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		E6147D482546AF5800B799F5 /* Channel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
 		E6147D492546AF5800B799F5 /* ChannelMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelMessage.swift; sourceTree = "<group>"; };
 		E6147D4A2546AF5800B799F5 /* Sender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sender.swift; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 				E6147D482546AF5800B799F5 /* Channel.swift */,
 				E6147D492546AF5800B799F5 /* ChannelMessage.swift */,
 				E6147D4A2546AF5800B799F5 /* Sender.swift */,
+				E60B179E25595EB100AA37F9 /* Contact.swift */,
 			);
 			path = ChatViews;
 			sourceTree = "<group>";
@@ -540,6 +543,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E60B179F25595EB100AA37F9 /* Contact.swift in Sources */,
 				E6147D4D2546AF5800B799F5 /* Sender.swift in Sources */,
 				BAE5E3EE25453C9A00E4FCFA /* BagViewController.swift in Sources */,
 				E6147D5D2546B93D00B799F5 /* ChannelMessagesViewController.swift in Sources */,
