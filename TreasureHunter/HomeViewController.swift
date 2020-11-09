@@ -123,10 +123,13 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     }
     
     func isFirstTimeUser(){
+        // Set up user timer
+        let email=UserDefaults.standard.string(forKey: "useremail")
+        timerReference.document(email!).setData(["lastDigDatetime":Timestamp(date: Date.init(timeIntervalSince1970: 0))])
+        
         self.seconds = 0
         canDig = true
         // Initialize user bag with all items set to 0
-        let email = UserDefaults.standard.string(forKey: "useremail")
         let userItemData = self.userItemReference.document(email!).setData([
             "Bottle Of Water" : 0,
             "Normal Oyster": 0,

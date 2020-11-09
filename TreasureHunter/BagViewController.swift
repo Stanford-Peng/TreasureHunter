@@ -13,6 +13,7 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
     @IBOutlet weak var navBar: UINavigationBar!
     @IBOutlet weak var bagCollectionView: UICollectionView!
     @IBOutlet weak var itemDescriptionView: UIView!
+    @IBOutlet weak var descriptionTextView: UITextView!
     
     private let itemsPerRow: CGFloat = 4
     private let numberOfRow: CGFloat = 10
@@ -22,7 +23,9 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
     var db = Firestore.firestore()
     var itemLocationReference = Firestore.firestore().collection("ItemLocation")
     var userItemReference = Firestore.firestore().collection("UserItems")
-    var itemList = [String: Int]()
+    var ItemReference = Firestore.firestore().collection("Item")
+    var userItemList = [String: Int]()
+    var allExistingItems = [Item]()
     
 //    var managedObjectContext: NSManagedObjectContext?
     
@@ -31,10 +34,47 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
         self.setUI()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        userItemList.removeAll()
+        self.getAllExistingItems()
+    }
+//
+//    func getImageNameFrom(name: String) -> String{
+//        // IMPORTANT Function to match item name with asset images
+//        var imageName: String?
+//        switch name {
+//        case "Bottle Of Water":
+//            imageName = "waterBottle"
+//        case "Normal Oyster":
+//            imageName = "normalOyster"
+//        default:
+//            print("No image found for \(name)")
+//        }
+//        return imageName!
+//    }
+//
+    private func getAllExistingItems(){
+        ItemReference.getDocuments() {(querySnapshot, err) in
+            if let err = err {
+                print("error getting all existing items: \(err)")
+            } else {
+                for document in querySnapshot!.documents{
+                    print("\(document.documentID) => \(document.data())")
+                    print("\(document.documentID) => \(document.data()["itemImage"] as! String)")
+                    self.allExistingItems.append(Item(name: document.documentID,
+                                                      desc: document.data()["description"] as! String,
+                                                      imageIcon: UIImage(named: document.data()["itemImage"] as! String)!))
+                }
+                self.fillBag()
+            }
+        }
+    }
+    
     private func fillBag(){
         let email=UserDefaults.standard.string(forKey: "useremail")
         let userItemDocReference = userItemReference.document(email!)
-        itemList.removeAll()
+        userItemList.removeAll()
         
         userItemDocReference.getDocument { (document, error) in
             if let error = error{
@@ -45,7 +85,7 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
                 let data = document.data()
                 for (name, count) in data! {
                     if count as! Int > 0 {
-                        self.itemList[name] = count as! Int
+                        self.userItemList[name] = count as! Int
                     }
                 }
             } else{
@@ -74,19 +114,6 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
 //        navBar.isTranslucent = false
 //        navBar.barStyle = .black
     }
-    
-    func getImageNameFrom(name: String) -> String{
-        var imageName: String?
-        switch name {
-        case "Bottle Of Water":
-            imageName = "waterBottle"
-        case "Normal Oyster":
-            imageName = "normalOyster"
-        default:
-            print("No image found for \(name)")
-        }
-        return imageName!
-    }
         
 //        let appDelegate = UIApplication.shared.delegate as? AppDelegate
 //        managedObjectContext = appDelegate?.persistantContainer?.viewContext
@@ -108,29 +135,7 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
      */
     
     // MARK: UICollectionViewDataSource
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.fillBag()
-//        do {
-//            let imageDataList = try
-////                managedObjectContext!.fetch(ImageMetaData.fetchRequest())
-//                as [ImageMetaData]
-//            for data in imageDataList {
-//                let filename = data.filename!
-//                if imagePathList.contains(filename) {
-//                    print("Image already loaded skipping image")
-//                    continue
-//                }
-//                if let image = loadImageData(filename: filename) {
-//                    self.imageList.append(image)
-//                    self.imagePathList.append(filename)
-//                    self.collectionView?.reloadSections([0])
-//                }
-//            }
-//        } catch {
-//            print("Unable to fetch images")
-//        }
-    }
+
     
 //    func loadImageData(filename: String) -> UIImage? {
 //        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
@@ -153,20 +158,30 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! BagCollectionViewCell
         cell.backgroundColor = .blue
         cell.configureBackground(with: "shelf")
-//        cell.configureItemImage(with: "none")
+        cell.configureItemImage(with: "NO_IMAGE")
         
-        print(itemList.count)
-        print(itemList.keys.count)
-        
-        if indexPath.row < itemList.keys.count{
-            let key = Array(itemList.keys)[indexPath.row]
-            cell.configureItemImage(with: getImageNameFrom(name: key))
+        if indexPath.row < userItemList.keys.count{
+            let key = Array(userItemList.keys)[indexPath.row]
+            cell.configureItem(with: itemNamed(name: key)!)
         }
-        
         // Configure the cell
         //cell.backgroundColor = .secondarySystemFill
 //        cell.imageView.image = imageList[indexPath.row]
         return cell
+    }
+    
+    func itemNamed(name: String) -> Item?{
+        for i in allExistingItems{
+            if name == i.name{
+                return i
+            }
+        }
+        return nil
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! BagCollectionViewCell
+        descriptionTextView.text = cell.item?.desc
     }
     
     // MARK: UICollectionViewDelegate
