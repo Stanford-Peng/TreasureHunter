@@ -267,11 +267,23 @@
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="scroll" translatesAutoresizingMaskIntoConstraints="NO" id="FFm-kP-fDc">
                                         <rect key="frame" x="0.0" y="0.0" width="271" height="192"/>
                                     </imageView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" bouncesZoom="NO" editable="NO" textAlignment="center" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v8i-W4-tZ3">
+                                        <rect key="frame" x="40" y="32" width="191" height="128"/>
+                                        <color key="backgroundColor" red="0.96434803299492389" green="0.96434803299492389" blue="0.96434803299492389" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                        <color key="textColor" systemColor="labelColor"/>
+                                        <fontDescription key="fontDescription" name="BradleyHandITCTT-Bold" family="Bradley Hand" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.95294117647058818" green="0.82745098039215681" blue="0.5490196078431373" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstItem="v8i-W4-tZ3" firstAttribute="top" secondItem="1XS-Va-Kmr" secondAttribute="top" constant="32" id="4Zz-aa-aUV"/>
                                     <constraint firstAttribute="bottom" secondItem="FFm-kP-fDc" secondAttribute="bottom" id="Bfo-jd-30g"/>
+                                    <constraint firstAttribute="bottom" secondItem="v8i-W4-tZ3" secondAttribute="bottom" constant="32" id="Q1U-wG-oKI"/>
                                     <constraint firstItem="FFm-kP-fDc" firstAttribute="top" secondItem="1XS-Va-Kmr" secondAttribute="top" id="bWD-8o-iha"/>
+                                    <constraint firstAttribute="trailing" secondItem="v8i-W4-tZ3" secondAttribute="trailing" constant="144" id="c1a-pP-ROb"/>
+                                    <constraint firstItem="v8i-W4-tZ3" firstAttribute="leading" secondItem="1XS-Va-Kmr" secondAttribute="leading" constant="40" id="h8O-rm-nSA"/>
                                     <constraint firstAttribute="trailing" secondItem="FFm-kP-fDc" secondAttribute="trailing" constant="104" id="kKZ-Z6-Ztd"/>
                                     <constraint firstItem="FFm-kP-fDc" firstAttribute="leading" secondItem="1XS-Va-Kmr" secondAttribute="leading" id="vHP-BF-0OH"/>
                                 </constraints>
@@ -296,6 +308,7 @@
                     <tabBarItem key="tabBarItem" title="BAG" image="chest" id="tds-DK-YM7"/>
                     <connections>
                         <outlet property="bagCollectionView" destination="URC-I7-6NM" id="AXa-9g-Gbj"/>
+                        <outlet property="descriptionTextView" destination="v8i-W4-tZ3" id="wh1-79-arc"/>
                         <outlet property="itemDescriptionView" destination="1XS-Va-Kmr" id="jCr-IO-7qh"/>
                         <outlet property="navBar" destination="Wms-pm-5UZ" id="xpI-Gp-Xkg"/>
                     </connections>
@@ -408,6 +421,9 @@
         <image name="light.max" catalog="system" width="128" height="72"/>
         <image name="scroll" width="447.5" height="396"/>
         <image name="settingsIcon" width="42" height="42"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
