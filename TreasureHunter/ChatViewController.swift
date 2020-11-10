@@ -200,7 +200,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
             title.text = "Public Chat Rooms"
         }
         if section == 1{
-            title.text = "Your Private Firends"
+            title.text = "Your Private Friends"
         }
         if section == 2{
             title.text = "Your Private Groups"
@@ -377,7 +377,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
             var doesExist = false
             for contact in self.contacts {
                 if contact.id == contactEmail.text!.lowercased() {
-                    self.showAlert(title: "Waring", message: "It is in your contacts")
+                    self.showAlert(title: "Warning", message: "It is in your contact list")
                 }
                 
             }
@@ -402,10 +402,10 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 
                 
                 if !doesExist {
-                    self.showAlert(title: "Waring", message: "No Such User")
+                    self.showAlert(title: "Warning", message: "No Such User")
                     
                 }else{
-                    self.showAlert(title: "Added", message: "Add a firend")
+                    self.showAlert(title: "Added", message: "Add one firend")
                 }
             }
             

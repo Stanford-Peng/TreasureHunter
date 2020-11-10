@@ -212,12 +212,16 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
             }else{
                 for item in diggedItems{
                     let parsed = item as! NSDictionary
-                    let data = parsed["data"] as! NSDictionary
-                    let id = parsed["id"] as! String
-                    items.append(Item(name: data["name"] as! String))
-                    self.showAlert(title: "Found Item", message: data["name"] as! String)
+                    
+//                    let data = parsed["data"] as! NSDictionary
+//                    let id = parsed["id"] as! String
+                    print(parsed)
+                    items.append(Item(name: parsed["itemID"] as! String))
+                    self.showAlert(title: "Found Item", message: "\(parsed["itemID"] as! String) is found with amount: \(parsed["itemCount"] as! Int)" )
+                    //MARK: only alert once
+                    
                     //Add to bag
-                    self.addToBag(itemName: data["name"] as! String, itemLocationID: id)
+                    //self.addToBag(itemName: parsed["itemID"] as! String, itemLocationID: id)
                 }
             }
         }

@@ -219,7 +219,7 @@ class ChannelMessagesViewController: MessagesViewController, MessagesDataSource,
                 
                 
                 if !doesExist {
-                    self.showAlert(title: "Waring", message: "No Such User")
+                    self.showAlert(title: "Warning", message: "No Such User")
 
                 }else{
                     self.showAlert(title: "Added", message: "Added a Friend to this Group")
