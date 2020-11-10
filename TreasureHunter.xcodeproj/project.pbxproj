@@ -27,6 +27,7 @@
 		E6147D4D2546AF5800B799F5 /* Sender.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6147D4A2546AF5800B799F5 /* Sender.swift */; };
 		E6147D5D2546B93D00B799F5 /* ChannelMessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6147D5C2546B93D00B799F5 /* ChannelMessagesViewController.swift */; };
 		E6A84AC6255A6098009285F7 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A84AC5255A6097009285F7 /* Group.swift */; };
+		E6A84ACB255AB2C0009285F7 /* GroupMemberController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A84ACA255AB2BF009285F7 /* GroupMemberController.swift */; };
 		E6C5B31D2553C9BD00F62F2E /* RBG.gpx in Resources */ = {isa = PBXBuildFile; fileRef = E6C5B31C2553C9BC00F62F2E /* RBG.gpx */; };
 		E6C5B34F255427F300F62F2E /* ItemLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C5B34E255427F300F62F2E /* ItemLocation.swift */; };
 		E6C5B3542554341300F62F2E /* alstonHome.gpx in Resources */ = {isa = PBXBuildFile; fileRef = E6C5B3532554341300F62F2E /* alstonHome.gpx */; };
@@ -85,6 +86,7 @@
 		E6147D4A2546AF5800B799F5 /* Sender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sender.swift; sourceTree = "<group>"; };
 		E6147D5C2546B93D00B799F5 /* ChannelMessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelMessagesViewController.swift; sourceTree = "<group>"; };
 		E6A84AC5255A6097009285F7 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
+		E6A84ACA255AB2BF009285F7 /* GroupMemberController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMemberController.swift; sourceTree = "<group>"; };
 		E6C5B31C2553C9BC00F62F2E /* RBG.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = RBG.gpx; sourceTree = "<group>"; };
 		E6C5B34E255427F300F62F2E /* ItemLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemLocation.swift; sourceTree = "<group>"; };
 		E6C5B3532554341300F62F2E /* alstonHome.gpx */ = {isa = PBXFileReference; lastKnownFileType = text; path = alstonHome.gpx; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 		E6147D472546AF2500B799F5 /* ChatViews */ = {
 			isa = PBXGroup;
 			children = (
+				E6A84ACA255AB2BF009285F7 /* GroupMemberController.swift */,
 				E6147D482546AF5800B799F5 /* Channel.swift */,
 				E6147D492546AF5800B799F5 /* ChannelMessage.swift */,
 				E6147D4A2546AF5800B799F5 /* Sender.swift */,
@@ -557,6 +560,7 @@
 				BA6F99C4255A8E36000BC7ED /* ItemFunctionsController.swift in Sources */,
 				BA5E55C825470F29000E0C33 /* Item.swift in Sources */,
 				E6A84AC6255A6098009285F7 /* Group.swift in Sources */,
+				E6A84ACB255AB2C0009285F7 /* GroupMemberController.swift in Sources */,
 				E6147D4B2546AF5800B799F5 /* Channel.swift in Sources */,
 				E6CC25322543FAEB004EF299 /* LoginController.swift in Sources */,
 				E6CC24AA2542F2BB004EF299 /* SceneDelegate.swift in Sources */,

@@ -10,7 +10,7 @@ import MessageKit
 import InputBarAccessoryView
 import FirebaseFirestore
 
-class ChannelMessagesViewController: MessagesViewController, MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDelegate, InputBarAccessoryViewDelegate {
+class ChannelMessagesViewController: MessagesViewController, MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDelegate, InputBarAccessoryViewDelegate, UIPopoverPresentationControllerDelegate {
     
     var sender: Sender?
     var currentChannel: Channel?
@@ -23,7 +23,7 @@ class ChannelMessagesViewController: MessagesViewController, MessagesDataSource,
     var privateChannelRef: CollectionReference?
     var groupMembers:[Contact] = [Contact]()
     var databaseListener: ListenerRegistration?
-    
+    var viewItem:UIBarButtonItem?
     let database = Firestore.firestore()
     @IBOutlet weak var navBar: UINavigationBar!
     
@@ -137,8 +137,8 @@ class ChannelMessagesViewController: MessagesViewController, MessagesDataSource,
             let messageRef = privateChannelRef?.document(currentGroup!.id).collection("messages")
             navBar.topItem?.title = "\(currentGroup!.name)"
             let addItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addFriend))
-            let viewItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(viewMembers))
-            navBar.topItem?.rightBarButtonItems = [viewItem, addItem]
+            viewItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(viewMembers))
+            navBar.topItem?.rightBarButtonItems = [viewItem!, addItem]
             //navBar
 //            let navItem = UINavigationItem()
 //            navItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addFriend))
@@ -247,8 +247,17 @@ class ChannelMessagesViewController: MessagesViewController, MessagesDataSource,
                 let name = document.get("name")
                 let contact = Contact(id: id, name: name as! String)
                 self.groupMembers.append(contact)
+
                 
             })
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let popVC = storyboard.instantiateViewController(identifier: "PopVC") as! GroupMemberController
+            popVC.modalPresentationStyle = .popover
+            popVC.groupMembers = self.groupMembers
+            let popover = popVC.popoverPresentationController
+            popover?.delegate = self
+            popover?.barButtonItem = self.viewItem
+            self.present(popVC, animated: true, completion: nil)
             
             
         })
@@ -311,6 +320,12 @@ class ChannelMessagesViewController: MessagesViewController, MessagesDataSource,
             contactRef?.addDocument(data: [ "senderId" : sender!.senderId, "senderName" : sender!.displayName, "text" : text, "time" : Timestamp(date: Date.init()) ])
             receiverRef.addDocument(data: [ "senderId" : sender!.senderId, "senderName" : sender!.displayName, "text" : text, "time" : Timestamp(date: Date.init()) ])
         }
+        
+        if currentGroup != nil{
+            let messageRef = privateChannelRef?.document(currentGroup!.id).collection("messages")
+            messageRef?.addDocument(data: [ "senderId" : sender!.senderId, "senderName" : sender!.displayName, "text" : text, "time" : Timestamp(date: Date.init()) ])
+        }
+        
         
         inputBar.inputTextView.text = ""
     }
