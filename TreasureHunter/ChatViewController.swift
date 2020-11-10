@@ -48,9 +48,55 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let channel = channels[indexPath.row]
-        performSegue(withIdentifier:CHANNEL_SEGUE, sender: channel)
+        if indexPath.section == 0 {
+            let channel = channels[indexPath.row]
+            performSegue(withIdentifier:CHANNEL_SEGUE, sender: channel)
+        }
         
+        if indexPath.section == 1{
+            let contact = contacts[indexPath.row]
+            performSegue(withIdentifier:CHANNEL_SEGUE, sender: contact)
+        }
+        
+    }
+    
+    // Create a standard header that includes the returned text.
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection
+//                                section: Int) -> String? {
+//        if section == 0
+//        {
+//            return "Groups: "
+//        }
+//
+//       return "Friends: "
+//    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView()
+        view.backgroundColor = UIColor.Custom.lightBrown
+        let title = UILabel()
+        title.font = UIFont.boldSystemFont(ofSize: 16)
+        title.textColor = .white
+        view.addSubview(title)
+        title.translatesAutoresizingMaskIntoConstraints = false
+        title.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        title.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16).isActive = true
+        if section == 0{
+            title.text = "Public Chat Rooms"
+        }
+        if section == 1{
+            title.text = "Your Private Firends"
+        }
+        return view
+    }
+
+    // Create a standard footer that includes the returned text.
+    func tableView(_ tableView: UITableView, titleForFooterInSection
+                                section: Int) -> String? {
+        if section == 0{
+            return "\(channels.count) groups"
+        }
+        return "\(contacts.count) friends"
     }
     
     func configureUI() {
@@ -68,7 +114,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     let CHANNEL_SEGUE = "goToChannel"
     //listener coming with firebase
     var databaseListener: ListenerRegistration?
-    
+    let database = Firestore.firestore()
     @IBOutlet weak var channelTable: UITableView!
     
     
@@ -77,7 +123,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         configureUI()
         
-        let database = Firestore.firestore()
+        
         channelsRef = database.collection("channels")
         contactsRef = database.collection("contacts")
         //navigationItem.title = "Channels"
@@ -143,7 +189,8 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     
     
-    @IBAction func addChannel(_ sender: Any) {
+    @IBAction func addAction(_ sender: Any) {
+        
         let sender = sender as? UIBarButtonItem
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let addChanel = UIAlertAction(title: "Add a Channel", style: .default) { (_) in
@@ -158,7 +205,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
 //        actionSheet.popoverPresentationControlle
         if let popover = actionSheet.popoverPresentationController{
-            actionSheet.popoverPresentationController?.barButtonItem = sender
+            popover.barButtonItem = sender
             //actionSheet.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.up
         }
         
@@ -170,6 +217,8 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let alertController = UIAlertController(title: "Add New Friend", message: "Enter the player's ID(email) below", preferredStyle: .alert)
         alertController.addTextField()
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let email=UserDefaults.standard.string(forKey: "useremail")
+        let username = UserDefaults.standard.string(forKey: "username")
         let addAction = UIAlertAction(title: "Add", style: .default) { _ in
             let contactEmail = alertController.textFields![0]
             var doesExist = false
@@ -187,14 +236,23 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     
                 }
                 querySnapshot?.documents.forEach({ (queryDocumentSnapshot) in
+                    
                     if queryDocumentSnapshot.documentID == contactEmail.text!.lowercased(){
-                        self.contactsRef?.document(queryDocumentSnapshot.documentID).setData([:])
+                        
+                        //add from request side
+                        self.contactsRef?.document(email!).collection("friends").document(queryDocumentSnapshot.documentID).setData(["name":queryDocumentSnapshot["name"]!])
+                        //add from the receiving side
+                        self.contactsRef?.document(queryDocumentSnapshot.documentID).collection("friends").document(email!).setData(["name":username!])
                         doesExist=true
                     }
                 })
+                
+                
                 if !doesExist {
                     self.showAlert(title: "Waring", message: "No Such User")
 
+                }else{
+                    self.showAlert(title: "Added", message: "Add a firend")
                 }
             }
             
@@ -251,10 +309,18 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
         if segue.identifier == CHANNEL_SEGUE {
-            let channel = sender as! Channel
-            let destinationVC = segue.destination as! ChannelMessagesViewController
-            destinationVC.sender = currentSender
-            destinationVC.currentChannel = channel
+            
+            if let channel = sender as? Channel{
+                let destinationVC = segue.destination as! ChannelMessagesViewController
+                destinationVC.sender = currentSender
+                destinationVC.currentChannel = channel
+                destinationVC.currentContact = Optional.none
+            }else if let contact = sender as? Contact{
+                let destinationVC = segue.destination as! ChannelMessagesViewController
+                destinationVC.sender = currentSender
+                destinationVC.currentContact = contact
+                destinationVC.currentChannel = Optional.none
+            }
             
         }
     }

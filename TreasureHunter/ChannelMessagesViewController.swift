@@ -14,11 +14,14 @@ class ChannelMessagesViewController: MessagesViewController, MessagesDataSource,
     
     var sender: Sender?
     var currentChannel: Channel?
+    var currentContact: Contact?
     var messagesList = [ChannelMessage]()
     
     var channelRef: CollectionReference?
+    var contactRef: CollectionReference?
+
     var databaseListener: ListenerRegistration?
-    
+    let database = Firestore.firestore()
     @IBOutlet weak var navBar: UINavigationBar!
     
     let formatter: DateFormatter = {
@@ -43,50 +46,88 @@ class ChannelMessagesViewController: MessagesViewController, MessagesDataSource,
         
         messageInputBar.delegate = self
         
-        if currentChannel != nil {
-            let database = Firestore.firestore()
-            channelRef = database.collection("channels").document(currentChannel!.id).collection("messages")
-            navBar.topItem?.title = "\(currentChannel!.name)"
-            //navigationItem.title = "\(currentChannel!.name)"
-            
-        }
+
+        
         //view.addSubview(navBar)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        databaseListener = channelRef?.order(by: "time").addSnapshotListener { (querySnapshot, error) in
-            if error != nil {
-                print(error!)
-                return
-                
-            }
-            querySnapshot?.documentChanges.forEach({change in
-                if change.type == .added{
-                    let snapshot = change.document
-                    let id = snapshot.documentID
-                    let senderId = snapshot["senderId"] as! String
-                    let senderName = snapshot["senderName"] as! String
-                    let messageText = snapshot["text"] as! String
-                    let sentTimestamp = snapshot["time"] as! Timestamp
-                    let sentDate = sentTimestamp.dateValue()
-                    let sender = Sender(id: senderId, name: senderName)
-                    let message = ChannelMessage(sender: sender, messageId: id, sentDate: sentDate, message: messageText)
-                    
-                    if !self.messagesList.contains(where: { (m) -> Bool in
-                        return message == m
-                    })
-                    {
-                    self.messagesList.append(message)
-                    self.messagesCollectionView.insertSections([self.messagesList.count-1])
-                    }
+
+        if currentChannel != nil {
+            channelRef = database.collection("channels").document(currentChannel!.id).collection("messages")
+            navBar.topItem?.title = "\(currentChannel!.name)"
+            //navigationItem.title = "\(currentChannel!.name)"
+            databaseListener = channelRef?.order(by: "time").addSnapshotListener { (querySnapshot, error) in
+                if error != nil {
+                    print(error!)
+                    return
                     
                 }
+                querySnapshot?.documentChanges.forEach({change in
+                    if change.type == .added{
+                        let snapshot = change.document
+                        let id = snapshot.documentID
+                        let senderId = snapshot["senderId"] as! String
+                        let senderName = snapshot["senderName"] as! String
+                        let messageText = snapshot["text"] as! String
+                        let sentTimestamp = snapshot["time"] as! Timestamp
+                        let sentDate = sentTimestamp.dateValue()
+                        let sender = Sender(id: senderId, name: senderName)
+                        let message = ChannelMessage(sender: sender, messageId: id, sentDate: sentDate, message: messageText)
+                        
+                        if !self.messagesList.contains(where: { (m) -> Bool in
+                            return message == m
+                        })
+                        {
+                            self.messagesList.append(message)
+                            self.messagesCollectionView.insertSections([self.messagesList.count-1])
+                        }
+                        
+                    }
+                    
+                })
+                self.messagesCollectionView.scrollToBottom()
                 
+            }
+        }
+        
+        if currentContact != nil {
+            contactRef = database.collection("contacts").document(sender!.senderId).collection("firends").document(currentContact!.id).collection("messages")
+            navBar.topItem?.title = "\(currentContact!.name)"
+            databaseListener = contactRef?.order(by:"time").addSnapshotListener({ (querySnapshot, error) in
+                if error != nil {
+                    print(error!)
+                    return
+                    
+                }
+                querySnapshot?.documentChanges.forEach({change in
+                    if change.type == .added{
+                        let snapshot = change.document
+                        let id = snapshot.documentID
+                        let senderId = snapshot["senderId"] as! String
+                        let senderName = snapshot["senderName"] as! String
+                        let messageText = snapshot["text"] as! String
+                        let sentTimestamp = snapshot["time"] as! Timestamp
+                        let sentDate = sentTimestamp.dateValue()
+                        let sender = Sender(id: senderId, name: senderName)
+                        let message = ChannelMessage(sender: sender, messageId: id, sentDate: sentDate, message: messageText)
+                        
+                        if !self.messagesList.contains(where: { (m) -> Bool in
+                            return message == m
+                        })
+                        {
+                            self.messagesList.append(message)
+                            self.messagesCollectionView.insertSections([self.messagesList.count-1])
+                        }
+                        
+                    }
+                    
+                })
+                self.messagesCollectionView.scrollToBottom()
             })
-            self.messagesCollectionView.scrollToBottom()
-            
-    }
+        }
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -113,8 +154,15 @@ class ChannelMessagesViewController: MessagesViewController, MessagesDataSource,
     
     
     func messageTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
-        let name = message.sender.displayName
-        return NSAttributedString(string: name, attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption1)])
+        var name : String?
+//        if currentChannel != nil{
+//            name = message.sender.senderId
+//        }
+//        if currentContact != nil {
+//            name = message.sender.displayName
+//        }
+        name = message.sender.displayName
+        return NSAttributedString(string: name!, attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption1)])
         
     }
     
@@ -129,9 +177,17 @@ class ChannelMessagesViewController: MessagesViewController, MessagesDataSource,
         if text.isEmpty {
             return
         }
-        channelRef?.addDocument(data: [ "senderId" : sender!.senderId, "senderName" : sender!.displayName, "text" : text, "time" : Timestamp(date: Date.init()) ])
-        inputBar.inputTextView.text = ""
+        if currentChannel != nil{
+            channelRef?.addDocument(data: [ "senderId" : sender!.senderId, "senderName" : sender!.displayName, "text" : text, "time" : Timestamp(date: Date.init()) ])
+            
+        }
+        if currentContact != nil {
+            let receiverRef = database.collection("contacts").document(currentContact!.id).collection("firends").document(sender!.senderId).collection("messages")
+            contactRef?.addDocument(data: [ "senderId" : sender!.senderId, "senderName" : sender!.displayName, "text" : text, "time" : Timestamp(date: Date.init()) ])
+            receiverRef.addDocument(data: [ "senderId" : sender!.senderId, "senderName" : sender!.displayName, "text" : text, "time" : Timestamp(date: Date.init()) ])
+        }
         
+        inputBar.inputTextView.text = ""
     }
     
     // MARK: - MessagesLayoutDelegate
