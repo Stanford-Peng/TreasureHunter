@@ -15,6 +15,7 @@ import FirebaseFirestore
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UIWindowSceneDelegate{
     
     var window: UIWindow?
+    var itemFunctionsController = ItemFunctionsController()
     //var seconds = 180
     //for google sign
     //https://www.youtube.com/watch?v=20Qlho0G3YQ&t=669s
@@ -108,6 +109,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UIWind
 //        self.present(alertController, animated: true, completion: nil)
 //
 //    }
-    
 }
 

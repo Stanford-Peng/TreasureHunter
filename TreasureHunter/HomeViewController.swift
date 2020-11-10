@@ -9,9 +9,19 @@ import UIKit
 import MapKit
 import FirebaseFirestore
 import FirebaseFunctions
+
+protocol HomeViewDelegate{
+    func resetDigTimer()
+    func showAlert(title: String, message: String)
+    func getTimer() -> Int
+}
+
 //timer reference:
 //https://medium.com/ios-os-x-development/build-an-stopwatch-with-swift-3-0-c7040818a10f
-class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate{
+class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, HomeViewDelegate{
+    func getTimer() -> Int{
+        return seconds!
+    }
     
     @IBOutlet weak var timerLabel: UILabel!
     
@@ -29,7 +39,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     var itemLocationReference = Firestore.firestore().collection("ItemLocation")
     var userItemReference = Firestore.firestore().collection("UserItems")
     
-    let COOLDOWN = 10
+    let COOLDOWN = 50
     var shakeCounter = 0
     let DIGRADIUS:Double = 10
     
@@ -41,12 +51,26 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         notificationCenter.addObserver(self, selector: #selector(appMovedToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
         setUpLocationAuthorisation()
         mapView.delegate = self
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let vc = appDelegate.itemFunctionsController
+        vc.homeViewDelegate = self
         
         //*** Get seconds from server database and load into SceneDelegate
     }
     
     func setupLabel(){
         // F3D38C primary background color
+    }
+    
+    func resetDigTimer() {
+        // Function called by bottle of water
+        print("reset timer function called")
+        let email=UserDefaults.standard.string(forKey: "useremail")
+        timerReference.document(email!).setData(["lastDigDatetime":Timestamp(date: Date.init(timeIntervalSince1970: 0))])
+        self.seconds = 0
+        canDig = true
+        self.timer.invalidate()
+        setUpTimer()
     }
     
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
@@ -124,12 +148,11 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         // Set up user timer
         let email=UserDefaults.standard.string(forKey: "useremail")
         timerReference.document(email!).setData(["lastDigDatetime":Timestamp(date: Date.init(timeIntervalSince1970: 0))])
-        
         self.seconds = 0
         canDig = true
         // Initialize user bag with all items set to 0
         let userItemData = self.userItemReference.document(email!).setData([
-            "Bottle Of Water" : 0,
+            "Bottle Of Water" : 3,
             "Normal Oyster": 0,
             "Pearl Oyster": 0,
             "Map Piece 1": 0,
