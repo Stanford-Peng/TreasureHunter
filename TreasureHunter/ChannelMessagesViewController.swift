@@ -242,6 +242,7 @@ class ChannelMessagesViewController: MessagesViewController, MessagesDataSource,
                 print(error)
                 return
             }
+            self.groupMembers.removeAll()
             querySnapshot?.documents.forEach({ (document) in
                 let id = document.documentID
                 let name = document.get("name")
