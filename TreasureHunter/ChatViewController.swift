@@ -59,6 +59,9 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         
     }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 40
+    }
     
     // Create a standard header that includes the returned text.
 //    func tableView(_ tableView: UITableView, titleForHeaderInSection
