@@ -93,7 +93,7 @@ class ChannelMessagesViewController: MessagesViewController, MessagesDataSource,
         }
         
         if currentContact != nil {
-            contactRef = database.collection("contacts").document(sender!.senderId).collection("firends").document(currentContact!.id).collection("messages")
+            contactRef = database.collection("contacts").document(sender!.senderId).collection("friends").document(currentContact!.id).collection("messages")
             navBar.topItem?.title = "\(currentContact!.name)"
             databaseListener = contactRef?.order(by:"time").addSnapshotListener({ (querySnapshot, error) in
                 if error != nil {
@@ -182,7 +182,7 @@ class ChannelMessagesViewController: MessagesViewController, MessagesDataSource,
             
         }
         if currentContact != nil {
-            let receiverRef = database.collection("contacts").document(currentContact!.id).collection("firends").document(sender!.senderId).collection("messages")
+            let receiverRef = database.collection("contacts").document(currentContact!.id).collection("friends").document(sender!.senderId).collection("messages")
             contactRef?.addDocument(data: [ "senderId" : sender!.senderId, "senderName" : sender!.displayName, "text" : text, "time" : Timestamp(date: Date.init()) ])
             receiverRef.addDocument(data: [ "senderId" : sender!.senderId, "senderName" : sender!.displayName, "text" : text, "time" : Timestamp(date: Date.init()) ])
         }
