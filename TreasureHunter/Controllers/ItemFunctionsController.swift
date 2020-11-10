@@ -20,15 +20,40 @@ class ItemFunctionsController{
         switch item.name {
         case "Bottle Of Water":
             print("Using bottle of water")
-            bagViewDelegate!.showUseConfirmation()
+            
             if homeViewDelegate!.getTimer() < 1 {
                 homeViewDelegate?.showAlert(title: "Drank Water", message: "You could dig already, but you drank the bottle of water anyway")
             } else {
                 homeViewDelegate?.showAlert(title: "Drank Water", message: "You feel refreshed and ready to dig again")
             }
             homeViewDelegate?.resetDigTimer()
+            bagViewDelegate?.confirmItemUsed()
+            
         case "Normal Oyster":
+            homeViewDelegate?.showAlert(title: "Cannot Use This Item", message: "Normal Oyster can only be sold at the shop")
             print("Using normal Oyster")
+            
+        case "Pearl Oyster":
+            break
+            
+        case "Map Piece 1":
+            break
+            
+        case "Map Piece 2":
+            break
+            
+        case "Map Piece 3":
+            break
+            
+        case "Map Piece 4":
+            break
+            
+        case "Map Piece 5":
+            break
+            
+        case "Map Piece 6":
+            break
+            
         default:
             print("Invalid Item")
         }

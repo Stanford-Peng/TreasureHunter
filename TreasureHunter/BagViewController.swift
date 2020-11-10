@@ -10,7 +10,7 @@ import FirebaseFirestore
 import MapKit
 
 protocol BagViewDelegate{
-    func showUseConfirmation()
+    func confirmItemUsed()
 }
 
 class BagViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, CLLocationManagerDelegate, UIPickerViewDataSource, UIPickerViewDelegate, BagViewDelegate{
@@ -166,7 +166,7 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
     func showUseConfirmation(){
         let alert = UIAlertController(title: "Use \(selectedItem!.name!)?", message: selectedItem?.desc, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertAction.Style.default, handler: { action in
-            self.useSelectedItem()
+            self.itemFunctionsController!.use(item: self.selectedItem!)
         }))
         alert.addAction(UIAlertAction(title: "No", style: UIAlertAction.Style.cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
@@ -176,10 +176,10 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
         if selectedItem == nil {
             return
         }
-        itemFunctionsController!.use(item: selectedItem!)
+        showUseConfirmation()
     }
     
-    func useSelectedItem(){
+    func confirmItemUsed(){
         let email=UserDefaults.standard.string(forKey: "useremail")
         let userItemDocReference = userItemReference.document(email!)
         userItemDocReference.updateData([selectedItem!.name : FieldValue.increment(Int64(-1))])
@@ -199,7 +199,8 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
                     print("\(document.documentID) => \(document.data()["itemImage"] as! String)")
                     self.allExistingItems.append(Item(name: document.documentID,
                                                       desc: document.data()["description"] as! String,
-                                                      imageIcon: UIImage(named: document.data()["itemImage"] as! String)!))
+                                                      imageIcon: UIImage(named: document.data()["itemImage"] as! String) ?? UIImage(named: "none")!))
+                    
                 }
                 self.userItemListener()
             }

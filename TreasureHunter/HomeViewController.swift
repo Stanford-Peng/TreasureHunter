@@ -38,6 +38,8 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     var db = Firestore.firestore()
     var itemLocationReference = Firestore.firestore().collection("ItemLocation")
     var userItemReference = Firestore.firestore().collection("UserItems")
+    var ItemReference = Firestore.firestore().collection("Item")
+    var allExistingItems: [Item] = []
     
     let COOLDOWN = 50
     var shakeCounter = 0
@@ -46,6 +48,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     //    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
+        createSpinnerView()
         setupLabel()
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(appMovedToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
@@ -54,6 +57,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let vc = appDelegate.itemFunctionsController
         vc.homeViewDelegate = self
+        getAllExistingItems()
         
         //*** Get seconds from server database and load into SceneDelegate
     }
@@ -238,10 +242,45 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
             }
         }
     }
+    private func getAllExistingItems(){
+        ItemReference.getDocuments() {(querySnapshot, err) in
+            if let err = err {
+                print("error getting all existing items: \(err)")
+            } else {
+                for document in querySnapshot!.documents{
+                    print("\(document.documentID) => \(document.data())")
+                    print("\(document.documentID) => \(document.data()["itemImage"] as! String)")
+                    self.allExistingItems.append(Item(name: document.documentID,
+                                                      desc: document.data()["description"] as! String,
+                                                      imageIcon: UIImage(named: document.data()["itemImage"] as! String) ?? UIImage(named: "none")!,
+                                                      dropChance: (document.data()["dropChance"] as! Int)))
+                }
+            }
+        }
+    }
 
     func generateRandomItemToBag(){
         // Generate item here
-        let generatedItem = "Bottle Of Water"
+        allExistingItems.shuffle()
+        var totalDropChance = 0
+        for item in allExistingItems{
+            totalDropChance += item.dropChance!
+        }
+        var generatedItem = ""
+        var randomInt = Int.random(in: 0..<totalDropChance)
+        
+        for item in allExistingItems{
+            randomInt -= item.dropChance!
+            if randomInt <= 0 {
+                generatedItem = item.name!
+                print("Generated item: \(item.name!)")
+                break
+            }
+        }
+        if generatedItem == "Nothing"{
+            showAlert(title: "Found nothing", message: "Bad luck :( You found nothing at this location")
+            return
+        }
         
         // Add generated Item to Bag
         let email=UserDefaults.standard.string(forKey: "useremail")
@@ -253,7 +292,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
                 print("Error adding generated item to bag: \(err)")
             } else {
                 print("Added generated item to bag")
-                self.showAlert(title: "Found Item", message: generatedItem)
+                self.showAlert(title: "Found Item!!", message: generatedItem)
             }
         }
     }
@@ -318,7 +357,23 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
             mapView.setRegion(region, animated: true)
         }
     }
-    
+    func createSpinnerView() {
+        let child = SpinnerViewController()
+
+        // add the spinner view controller
+        addChild(child)
+        child.view.frame = view.frame
+        view.addSubview(child.view)
+        child.didMove(toParent: self)
+
+        // wait two seconds to simulate some work happening
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            // then remove the spinner view controller
+            child.willMove(toParent: nil)
+            child.view.removeFromSuperview()
+            child.removeFromParent()
+        }
+    }
     
 }
 
@@ -334,27 +389,7 @@ extension HomeViewController{
         return MKOverlayRenderer(overlay: overlay)
     }
 }
-//extension MKMapView {
-//  func zoomToUserLocation() {
-//    guard let coordinate = userLocation.location?.coordinate else { return }
-//    let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 10000, longitudinalMeters: 10000)
-//    setRegion(region, animated: true)
-//  }
-//}
 
-//        functions.httpsCallable("findItems").call(["lat": userLocation?.latitude, "long": userLocation?.longitude]) { (result, error) in
-//          if let error = error as NSError? {
-//            if error.domain == FunctionsErrorDomain {
-//              let code = FunctionsErrorCode(rawValue: error.code)
-//              let message = error.localizedDescription
-//              let details = error.userInfo[FunctionsErrorDetailsKey]
-//            }
-//            // ...
-//          }
-////            if let json =  try JSONDecoder().decode([ItemLocation].self, from:result?.data){
-////
-////            }
-//        }
 extension UIViewController{
     // Shows alert
     func showAlert(title: String, message: String){
