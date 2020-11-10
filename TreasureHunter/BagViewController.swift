@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseFirestore
+import MapKit
 
 class BagViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource{
     
@@ -30,6 +31,8 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
     var userItemList = [String: Int]()
     var allExistingItems = [Item]()
     var databaseListener: ListenerRegistration?
+    var userLocation: CLLocationCoordinate2D?
+    let locationManager =  CLLocationManager()
     
     //    var managedObjectContext: NSManagedObjectContext?
     
@@ -44,6 +47,21 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
         super.viewWillAppear(animated)
         userItemList.removeAll()
         print("view will appear")
+        
+        // Start to update user location in real time
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        print(userLocation?.latitude, userLocation?.longitude)
+        
+        //Stop updating user location in real time
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.stopUpdatingLocation()
+        }
     }
     
     @IBAction func dropButton(_ sender: Any) {
@@ -267,6 +285,14 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0.0
+    }
+    
+    //MARK: - Location
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.sorted(by: {$0.timestamp > $1.timestamp}).first {
+            let coordinate = location.coordinate
+            userLocation = coordinate
+        }
     }
 }
 extension UIColor {
