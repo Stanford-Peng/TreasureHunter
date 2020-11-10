@@ -9,7 +9,11 @@ import UIKit
 import FirebaseFirestore
 import MapKit
 
-class BagViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, CLLocationManagerDelegate, UIPickerViewDataSource, UIPickerViewDelegate{
+protocol BagViewDelegate{
+    func showUseConfirmation()
+}
+
+class BagViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, CLLocationManagerDelegate, UIPickerViewDataSource, UIPickerViewDelegate, BagViewDelegate{
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -22,7 +26,6 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return "\(pickerData[row])"
     }
-    
     
     @IBOutlet weak var itemTitleLabel: UILabel!
     @IBOutlet weak var navBar: UINavigationBar!
@@ -41,7 +44,6 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
     var itemLocationReference = Firestore.firestore().collection("ItemLocation")
     var userItemReference = Firestore.firestore().collection("UserItems")
     var ItemReference = Firestore.firestore().collection("Item")
-    var userItemList = [String: Int]()
     var userItemArray = [Item]()
     var allExistingItems = [Item]()
     var databaseListener: ListenerRegistration?
@@ -50,7 +52,7 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
     var selectedItem: Item?
     var pickerView: UIPickerView!
     var pickerData: [Int]!
-    var pickerValue = 0
+    var itemFunctionsController: ItemFunctionsController?
     
     //    var managedObjectContext: NSManagedObjectContext?
     
@@ -62,11 +64,14 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
         pickerView.dataSource = self
         self.setUI()
         self.getAllExistingItems()
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        itemFunctionsController = appDelegate.itemFunctionsController
+        itemFunctionsController!.bagViewDelegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        userItemList.removeAll()
+        userItemArray.removeAll()
         
         // Start to update user location in real time
         if CLLocationManager.locationServicesEnabled() {
@@ -93,9 +98,8 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
         let ac = UIAlertController(title: "Drop Amount", message: "\n\n\n\n\n\n\n\n\n\n", preferredStyle: .alert)
         ac.view.addSubview(self.pickerView)
         ac.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
-            self.pickerValue = self.pickerData[self.pickerView.selectedRow(inComponent: 0)]
-            print("Picker value: \(self.pickerValue) was selected")
-            self.dropTransaction()
+            let pickerValue = self.pickerData[self.pickerView.selectedRow(inComponent: 0)]
+            self.dropTransaction(dropAmount: pickerValue)
         }))
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(ac, animated: true)
@@ -110,14 +114,12 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
             showNumberPicker()
         } else {
             // If item count is 1, show confirmation to drop
-            if !showDropConfirmation(){
-                return
-            }
+            showDropConfirmation()
         }
     }
     
-    func dropTransaction(){
-        let amount = pickerValue
+    func dropTransaction(dropAmount: Int){
+        let amount = dropAmount
         if amount < 1 {
             return
         }
@@ -144,44 +146,49 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
                 print("Transaction failed: \(error)")
             } else {
                 print("Transaction successfully committed!")
-                self.selectedItem!.itemCount = self.selectedItem!.itemCount! - amount
+                self.selectedItem = nil
+                self.descriptionTextView.text = nil
+                self.itemTitleLabel.text = nil
             }
         }
     }
     
     //Reference https://stackoverflow.com/questions/24022479/how-would-i-create-a-uialertview-in-swift
-    func showDropConfirmation() -> Bool{
-        var shouldDrop = false
-        // create the alert
+    func showDropConfirmation(){
         let alert = UIAlertController(title: "Drop Confirm", message: "Would you like to drop item at current location?", preferredStyle: UIAlertController.Style.alert)
-        // add the actions (buttons)
-        alert.addAction(UIAlertAction(title: "Continue", style: UIAlertAction.Style.default, handler: { action in
-            shouldDrop = true
+        alert.addAction(UIAlertAction(title: "Drop", style: UIAlertAction.Style.default, handler: { action in
+            self.dropTransaction(dropAmount: 1)
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
-        // show the alert
         self.present(alert, animated: true, completion: nil)
-        return shouldDrop
+    }
+    
+    func showUseConfirmation(){
+        let alert = UIAlertController(title: "Use \(selectedItem!.name!)?", message: selectedItem?.desc, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertAction.Style.default, handler: { action in
+            self.useSelectedItem()
+        }))
+        alert.addAction(UIAlertAction(title: "No", style: UIAlertAction.Style.cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
     @IBAction func useButton(_ sender: Any) {
-        
+        if selectedItem == nil {
+            return
+        }
+        itemFunctionsController!.use(item: selectedItem!)
     }
-    //
-    //    func getImageNameFrom(name: String) -> String{
-    //        // IMPORTANT Function to match item name with asset images
-    //        var imageName: String?
-    //        switch name {
-    //        case "Bottle Of Water":
-    //            imageName = "waterBottle"
-    //        case "Normal Oyster":
-    //            imageName = "normalOyster"
-    //        default:
-    //            print("No image found for \(name)")
-    //        }
-    //        return imageName!
-    //    }
-    //
+    
+    func useSelectedItem(){
+        let email=UserDefaults.standard.string(forKey: "useremail")
+        let userItemDocReference = userItemReference.document(email!)
+        userItemDocReference.updateData([selectedItem!.name : FieldValue.increment(Int64(-1))])
+        
+        self.selectedItem = nil
+        self.descriptionTextView.text = nil
+        self.itemTitleLabel.text = nil
+    }
+
     private func getAllExistingItems(){
         ItemReference.getDocuments() {(querySnapshot, err) in
             if let err = err {
@@ -220,30 +227,6 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
             self.bagCollectionView.reloadSections([0])
         }
     }
-    
-//    private func userItemListener(){
-//        let email=UserDefaults.standard.string(forKey: "useremail")
-//        let userItemDocReference = userItemReference.document(email!)
-//        userItemList.removeAll()
-//
-//        userItemDocReference.getDocument { (document, error) in
-//            if let error = error{
-//                print(error)
-//                return
-//            }
-//            if let document = document, document.exists {
-//                let data = document.data()
-//                for (name, count) in data! {
-//                    if count as! Int > 0 {
-//                        self.userItemList[name] = count as! Int
-//                    }
-//                }
-//            } else{
-//
-//            }
-//            self.bagCollectionView.reloadSections([0])
-//        }
-//    }
     
     private func setUI() {
         // Register cell classes
