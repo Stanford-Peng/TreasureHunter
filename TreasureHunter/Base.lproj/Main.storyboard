@@ -274,10 +274,10 @@
                                                     <rect key="frame" x="16" y="16" width="48" height="48"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ci6-2D-aGe" userLabel="itemCountLabel">
-                                                    <rect key="frame" x="45" y="0.0" width="35" height="35"/>
+                                                    <rect key="frame" x="35" y="0.0" width="45" height="35"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="35" id="iCL-9Q-E6b"/>
-                                                        <constraint firstAttribute="height" constant="35" id="uyh-H8-N1X"/>
+                                                        <constraint firstAttribute="height" constant="35" id="45R-ft-kss"/>
+                                                        <constraint firstAttribute="width" constant="45" id="Wig-9Y-G8o"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
                                                     <nil key="textColor"/>
@@ -293,19 +293,19 @@
                                                 </imageView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="ci6-2D-aGe" secondAttribute="trailing" id="0kI-og-zgY"/>
                                                 <constraint firstAttribute="bottom" secondItem="lxI-d4-bbe" secondAttribute="bottom" id="ENg-ar-7da"/>
                                                 <constraint firstItem="lxI-d4-bbe" firstAttribute="leading" secondItem="hfb-Qy-6pI" secondAttribute="leading" id="GrT-R3-uvr"/>
                                                 <constraint firstItem="9ny-n2-a1k" firstAttribute="leading" secondItem="hfb-Qy-6pI" secondAttribute="leading" constant="16" id="HBA-Pi-viv"/>
                                                 <constraint firstAttribute="bottom" secondItem="9ny-n2-a1k" secondAttribute="bottom" constant="16" id="Hm1-0S-SLl"/>
-                                                <constraint firstAttribute="trailing" secondItem="ci6-2D-aGe" secondAttribute="trailing" id="J0Y-Eo-5zQ"/>
                                                 <constraint firstItem="9ny-n2-a1k" firstAttribute="top" secondItem="hfb-Qy-6pI" secondAttribute="top" constant="16" id="LDi-7g-SRa"/>
                                                 <constraint firstItem="dhA-a2-xsb" firstAttribute="leading" secondItem="hfb-Qy-6pI" secondAttribute="leading" constant="32" id="R9c-N7-cK3"/>
                                                 <constraint firstItem="lxI-d4-bbe" firstAttribute="top" secondItem="hfb-Qy-6pI" secondAttribute="top" id="T6R-3x-SMS"/>
                                                 <constraint firstAttribute="trailing" secondItem="dhA-a2-xsb" secondAttribute="trailing" constant="32" id="ZiP-Ao-LjV"/>
+                                                <constraint firstItem="ci6-2D-aGe" firstAttribute="top" secondItem="hfb-Qy-6pI" secondAttribute="top" id="eI2-jT-Bz3"/>
                                                 <constraint firstAttribute="trailing" secondItem="lxI-d4-bbe" secondAttribute="trailing" id="g1u-OR-e1V"/>
                                                 <constraint firstAttribute="trailing" secondItem="9ny-n2-a1k" secondAttribute="trailing" constant="16" id="lfe-D2-Z0S"/>
                                                 <constraint firstAttribute="bottom" secondItem="dhA-a2-xsb" secondAttribute="bottom" id="udN-kb-4Kr"/>
-                                                <constraint firstItem="ci6-2D-aGe" firstAttribute="top" secondItem="hfb-Qy-6pI" secondAttribute="top" id="v2p-in-dSM"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <connections>
