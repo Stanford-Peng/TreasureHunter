@@ -14,7 +14,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 2
+        return 3
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
@@ -24,6 +24,10 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         if section == 1{
             sections = contacts.count
+        }
+        
+        if section == 2{
+            sections = groups.count
         }
         return sections!
     }
@@ -38,6 +42,10 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if indexPath.section == 1 {
             let contact = contacts[indexPath.row]
             cell.textLabel?.text = contact.name
+        }
+        if indexPath.section == 2{
+            let group = groups[indexPath.row]
+            cell.textLabel?.text = group.name
         }
         return cell
     }
@@ -56,6 +64,11 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if indexPath.section == 1{
             let contact = contacts[indexPath.row]
             performSegue(withIdentifier:CHANNEL_SEGUE, sender: contact)
+        }
+        
+        if indexPath.section == 2 {
+            let group = groups[indexPath.row]
+            performSegue(withIdentifier:CHANNEL_SEGUE, sender: group)
         }
         
     }
@@ -90,16 +103,26 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if section == 1{
             title.text = "Your Private Firends"
         }
+        if section == 2{
+            title.text = "Your Private Groups"
+        }
         return view
     }
 
     // Create a standard footer that includes the returned text.
     func tableView(_ tableView: UITableView, titleForFooterInSection
                                 section: Int) -> String? {
+        var footer:String?
         if section == 0{
-            return "\(channels.count) groups"
+            footer = "\(channels.count) groups"
         }
-        return "\(contacts.count) friends"
+        if section == 1{
+            footer = "\(contacts.count) friends"
+        }
+        if section == 2{
+            footer = "\(groups.count) private groups"
+        }
+        return footer!
     }
     
     func configureUI() {
@@ -112,8 +135,11 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var currentSender: Sender?
     var channels = [Channel]()
     var contacts = [Contact]()
+    var groups = [Group]()
     var channelsRef: CollectionReference?
     var contactsRef: CollectionReference?
+    var groupsRef: CollectionReference?
+    var privateChannelRef: CollectionReference?
     let CHANNEL_SEGUE = "goToChannel"
     //listener coming with firebase
     var databaseListener: ListenerRegistration?
@@ -126,13 +152,15 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         configureUI()
         
-        
-        channelsRef = database.collection("channels")
-        contactsRef = database.collection("contacts")
-        //navigationItem.title = "Channels"
-        
         let username = UserDefaults.standard.string(forKey: "username")
         let email=UserDefaults.standard.string(forKey: "useremail")
+        channelsRef = database.collection("channels")
+        contactsRef = database.collection("contacts")
+        groupsRef = database.collection("User").document(email!).collection("groups")
+        privateChannelRef = database.collection("PrivateChannel")
+        //navigationItem.title = "Channels"
+        
+
         currentSender = Sender(id:email!,name:username!)
         
         // Do any additional setup after loading the view.
@@ -157,7 +185,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 self.channels.append(channel)
                 
             })
-            self.channelTable.reloadData()
+            self.channelTable.reloadSections([0], with: .fade)
             
         }
         let email=UserDefaults.standard.string(forKey: "useremail")
@@ -174,6 +202,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 let id = queryDocumentSnapshot.documentID
                 let name = queryDocumentSnapshot["name"] as! String
                 let contact = Contact(id: id, name: name)
+                
                 self.contacts.append(contact)
                 
                 
@@ -182,6 +211,25 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
             self.channelTable.reloadSections([1], with: .fade)
         }
         )
+        
+        databaseListener = groupsRef?.addSnapshotListener({ (querySnapshot, error) in
+            if let error = error {
+                print(error)
+                return
+                
+            }
+            self.groups.removeAll()
+            querySnapshot?.documents.forEach({ (snapshot) in
+                let id = snapshot.documentID
+                let name = snapshot["name"] as! String
+                let group = Group(id: id, name: name)
+                
+                self.groups.append(group)
+            })
+            self.channelTable.reloadSections([2], with: .fade)
+            
+            
+        })
         
     }
     
@@ -268,6 +316,8 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func addChannel(){
+        let email=UserDefaults.standard.string(forKey: "useremail")
+        let username = UserDefaults.standard.string(forKey: "username")
         let alertController = UIAlertController(title: "Add New Channel", message: "Enter channel name below", preferredStyle: .alert)
         //add text field
         alertController.addTextField()
@@ -282,14 +332,17 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
             
             var doesExist = false
             
-            for channel in self.channels {
+            for channel in self.groups {
                 if channel.name.lowercased() == channelName.text!.lowercased() {
                     doesExist = true
                 }
                 
             }
             if !doesExist {
-                self.channelsRef?.addDocument(data: [ "name" : channelName.text! ])
+                let doc = self.groupsRef?.addDocument(data: [ "name" : channelName.text! ])
+                self.privateChannelRef?.document(doc!.documentID).setData(["name":channelName.text!])
+                self.privateChannelRef?.document(doc!.documentID).collection("members").document(email!).setData(["name":username!])
+                //self.channelsRef?.addDocument(data: ["name" : channelName.text!])
             }
             
         }
@@ -318,11 +371,19 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 destinationVC.sender = currentSender
                 destinationVC.currentChannel = channel
                 destinationVC.currentContact = Optional.none
+                destinationVC.currentGroup = Optional.none
             }else if let contact = sender as? Contact{
                 let destinationVC = segue.destination as! ChannelMessagesViewController
                 destinationVC.sender = currentSender
                 destinationVC.currentContact = contact
                 destinationVC.currentChannel = Optional.none
+                destinationVC.currentGroup = Optional.none
+            } else if let group = sender as? Group{
+                let destinationVC = segue.destination as! ChannelMessagesViewController
+                destinationVC.sender = currentSender
+                destinationVC.currentGroup = group
+                destinationVC.currentChannel = Optional.none
+                destinationVC.currentContact = Optional.none
             }
             
         }

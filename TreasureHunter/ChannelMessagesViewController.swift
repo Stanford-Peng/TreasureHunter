@@ -15,12 +15,15 @@ class ChannelMessagesViewController: MessagesViewController, MessagesDataSource,
     var sender: Sender?
     var currentChannel: Channel?
     var currentContact: Contact?
+    var currentGroup:Group?
     var messagesList = [ChannelMessage]()
     
     var channelRef: CollectionReference?
     var contactRef: CollectionReference?
-
+    var privateChannelRef: CollectionReference?
+    var groupMembers:[Contact] = [Contact]()
     var databaseListener: ListenerRegistration?
+    
     let database = Firestore.firestore()
     @IBOutlet weak var navBar: UINavigationBar!
     
@@ -95,6 +98,7 @@ class ChannelMessagesViewController: MessagesViewController, MessagesDataSource,
         if currentContact != nil {
             contactRef = database.collection("contacts").document(sender!.senderId).collection("friends").document(currentContact!.id).collection("messages")
             navBar.topItem?.title = "\(currentContact!.name)"
+            
             databaseListener = contactRef?.order(by:"time").addSnapshotListener({ (querySnapshot, error) in
                 if error != nil {
                     print(error!)
@@ -127,7 +131,128 @@ class ChannelMessagesViewController: MessagesViewController, MessagesDataSource,
                 self.messagesCollectionView.scrollToBottom()
             })
         }
+        
+        if currentGroup != nil{
+            privateChannelRef = database.collection("PrivateChannel")
+            let messageRef = privateChannelRef?.document(currentGroup!.id).collection("messages")
+            navBar.topItem?.title = "\(currentGroup!.name)"
+            let addItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addFriend))
+            let viewItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(viewMembers))
+            navBar.topItem?.rightBarButtonItems = [viewItem, addItem]
+            //navBar
+//            let navItem = UINavigationItem()
+//            navItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addFriend))
+//            navBar.items?.append(navItem)
+            databaseListener = messageRef?.order(by: "time").addSnapshotListener { (querySnapshot, error) in
+                if error != nil {
+                    print(error!)
+                    return
+                    
+                }
+                querySnapshot?.documentChanges.forEach({change in
+                    if change.type == .added{
+                        let snapshot = change.document
+                        let id = snapshot.documentID
+                        let senderId = snapshot["senderId"] as! String
+                        let senderName = snapshot["senderName"] as! String
+                        let messageText = snapshot["text"] as! String
+                        let sentTimestamp = snapshot["time"] as! Timestamp
+                        let sentDate = sentTimestamp.dateValue()
+                        let sender = Sender(id: senderId, name: senderName)
+                        let message = ChannelMessage(sender: sender, messageId: id, sentDate: sentDate, message: messageText)
+                        
+                        if !self.messagesList.contains(where: { (m) -> Bool in
+                            return message == m
+                        })
+                        {
+                            self.messagesList.append(message)
+                            self.messagesCollectionView.insertSections([self.messagesList.count-1])
+                        }
+                        
+                    }
+                    
+                })
+                self.messagesCollectionView.scrollToBottom()
+                
+            }
+        }
 
+    }
+    
+    @objc func addFriend(){
+        
+        let alertController = UIAlertController(title: "Add New Friend to Group", message: "Enter the player's ID(email) below", preferredStyle: .alert)
+        alertController.addTextField()
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+//        let email=UserDefaults.standard.string(forKey: "useremail")
+//        let username = UserDefaults.standard.string(forKey: "username")
+        let addAction = UIAlertAction(title: "Add", style: .default) { _ in
+            let contactEmail = alertController.textFields![0]
+            var doesExist = false
+            
+            
+//            for contact in self.contacts {
+//                if contact.id == contactEmail.text!.lowercased() {
+//                    self.showAlert(title: "Waring", message: "It is in your contacts")
+//                }
+//
+//            }
+            let userRef = Firestore.firestore().collection("User")
+            
+            userRef.getDocuments { (querySnapshot, error) in
+                if let error = error {
+                    print(error)
+                    return
+                    
+                }
+                querySnapshot?.documents.forEach({ (queryDocumentSnapshot) in
+                    
+                    if queryDocumentSnapshot.documentID == contactEmail.text!.lowercased(){
+                        //add to user group
+                        userRef.document(queryDocumentSnapshot.documentID).collection("groups").document(self.currentGroup!.id).setData(["name":self.currentGroup!.name])
+                        //add to group memebr
+                        self.privateChannelRef?.document(self.currentGroup!.id).collection("members").document(queryDocumentSnapshot.documentID).setData(["name":queryDocumentSnapshot.get("name") as! String])
+                        
+                        doesExist=true
+                    }
+                })
+                
+                
+                if !doesExist {
+                    self.showAlert(title: "Waring", message: "No Such User")
+
+                }else{
+                    self.showAlert(title: "Added", message: "Added a Friend to this Group")
+                }
+            }
+            
+            
+            
+        }
+        alertController.addAction(cancelAction)
+        alertController.addAction(addAction)
+        present(alertController, animated: true)
+        
+    }
+    
+    @objc func viewMembers(){
+        let membersRef = privateChannelRef?.document(currentGroup!.id).collection("members")
+        membersRef?.getDocuments(completion: { (querySnapshot, error) in
+            if let error = error{
+                print(error)
+                return
+            }
+            querySnapshot?.documents.forEach({ (document) in
+                let id = document.documentID
+                let name = document.get("name")
+                let contact = Contact(id: id, name: name as! String)
+                self.groupMembers.append(contact)
+                
+            })
+            
+            
+        })
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {

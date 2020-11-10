@@ -86,7 +86,7 @@
                                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="WZG-RH-DZa">
                                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <connections>
-                                                <action selector="addAction:" destination="VJN-0w-G9t" id="1Om-05-OW6"/>
+                                                <action selector="addAction:" destination="VJN-0w-G9t" id="ZEX-cL-7NX"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
