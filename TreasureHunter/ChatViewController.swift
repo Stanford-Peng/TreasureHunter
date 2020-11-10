@@ -52,8 +52,107 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
-        return false
+        if indexPath.section == 0
+        {
+            return false
+        }
+        
+        return true
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        // for delete contact
+        if indexPath.section == 1{
+            if editingStyle == .delete {
+                // Delete the row from the data source
+                let alert = UIAlertController(title: "Alert", message: "Do you want to delete", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Confirm", style: .destructive, handler: { (action) in
+                    //self.databaseController?.deleteExhibition(exhibition: self.allExhibitions[indexPath.row])
+                    //delete from the other side
+                    self.contactsRef?.document(self.contacts[indexPath.row].id).collection("friends").document(self.currentSender!.senderId).delete(completion: { (error) in
+                        if let error = error {
+                            print(error)
+                            self.showAlert(title: "Database Error", message: "Failed")
+                            return
+                        }
+                        //delete from own list
+                        self.userContactsDoc?.document(self.contacts[indexPath.row].id).delete(completion: { (error) in
+                            if let error = error {
+                                print(error)
+                                self.showAlert(title: "Database Error", message: "Failed")
+                                return
+                            }
+                            
+                            self.showAlert(title: "Successful", message: "This friend is removed from your list")
+                        })
+                    })
+                }))
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                //            var _:(ACTION) -> Void =  { (action) -> Void in
+                //                    self.databaseController?.deleteExhibition(exhibition: self.allExhibitions[indexPath.row])
+                //            }
+                //tableView.deleteRows(at: [indexPath], with: .fade)
+            } else if editingStyle == .insert {
+                // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+            }
+        }
+        
+        //for delete group
+        if indexPath.section == 2{
+            if editingStyle == .delete {
+                let alert = UIAlertController(title: "Alert", message: "Do you want to leave the group", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Confirm", style: .destructive, handler: { (action) in
+                    self.privateChannelRef?.document(self.groups[indexPath.row].id).collection("members").getDocuments(completion: { (querySnapshot, error) in
+                        if let error = error{
+                            print(error)
+                            return
+                        }
+                        //delete the whole group as well as from user group list
+                        if querySnapshot?.count == 1 {
+                            
+                            self.privateChannelRef?.document(self.groups[indexPath.row].id).delete(completion: { (error) in
+                                //embedded collection not deleted
+                                if let error = error{
+                                    print(error)
+                                    return
+                                    
+                                }
+                                self.groupsRef?.document(self.groups[indexPath.row].id).delete(completion: { (error) in
+                                    if let error = error{
+                                        print(error)
+                                        return
+                                    }
+                                    
+                                    self.showAlert(title: "Successful", message: "You are the last member so that the group is destroyed")
+                                    
+                                })
+                                
+                            })
+                        }
+                        //only delete from group members and user's group list
+                        else if querySnapshot!.count > 1{
+                            self.privateChannelRef?.document(self.groups[indexPath.row].id).collection("members").document(self.currentSender!.senderId).delete(completion: { (error) in
+                                if let error = error{
+                                    print(error)
+                                    return
+                                    
+                                }
+                                self.groupsRef?.document(self.groups[indexPath.row].id).delete(completion: { (error) in
+                                    self.showAlert(title: "Successful", message: "You have left the group!")
+                                })
+                            })
+                        }
+                    })
+                }))
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
+            
+         
+
+}
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
@@ -77,15 +176,15 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     // Create a standard header that includes the returned text.
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection
-//                                section: Int) -> String? {
-//        if section == 0
-//        {
-//            return "Groups: "
-//        }
-//
-//       return "Friends: "
-//    }
+    //    func tableView(_ tableView: UITableView, titleForHeaderInSection
+    //                                section: Int) -> String? {
+    //        if section == 0
+    //        {
+    //            return "Groups: "
+    //        }
+    //
+    //       return "Friends: "
+    //    }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()
@@ -108,10 +207,10 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         return view
     }
-
+    
     // Create a standard footer that includes the returned text.
     func tableView(_ tableView: UITableView, titleForFooterInSection
-                                section: Int) -> String? {
+                    section: Int) -> String? {
         var footer:String?
         if section == 0{
             footer = "\(channels.count) groups"
@@ -125,12 +224,13 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return footer!
     }
     
+    
     func configureUI() {
         chatNavBar.prefersLargeTitles = true
         chatNavBar.isTranslucent = false
         chatNavBar.barStyle = .black
     }
-
+    
     let CHANNEL_CELL = "channelCell"
     var currentSender: Sender?
     var channels = [Channel]()
@@ -140,6 +240,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var contactsRef: CollectionReference?
     var groupsRef: CollectionReference?
     var privateChannelRef: CollectionReference?
+    var userContactsDoc:CollectionReference?
     let CHANNEL_SEGUE = "goToChannel"
     //listener coming with firebase
     var databaseListener: ListenerRegistration?
@@ -160,7 +261,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         privateChannelRef = database.collection("PrivateChannel")
         //navigationItem.title = "Channels"
         
-
+        
         currentSender = Sender(id:email!,name:username!)
         
         // Do any additional setup after loading the view.
@@ -188,8 +289,10 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
             self.channelTable.reloadSections([0], with: .fade)
             
         }
+        
+        //get user contacts
         let email=UserDefaults.standard.string(forKey: "useremail")
-        let userContactsDoc=contactsRef?.document(email!).collection("friends")
+        userContactsDoc=contactsRef?.document(email!).collection("friends")
         
         databaseListener = userContactsDoc?.addSnapshotListener({ (querySnapshot, error) in
             if let error = error {
@@ -202,7 +305,6 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 let id = queryDocumentSnapshot.documentID
                 let name = queryDocumentSnapshot["name"] as! String
                 let contact = Contact(id: id, name: name)
-                
                 self.contacts.append(contact)
                 
                 
@@ -254,7 +356,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         actionSheet.addAction(addChanel)
         actionSheet.addAction(addContact)
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-//        actionSheet.popoverPresentationControlle
+        //        actionSheet.popoverPresentationControlle
         if let popover = actionSheet.popoverPresentationController{
             popover.barButtonItem = sender
             //actionSheet.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.up
@@ -262,7 +364,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         self.present(actionSheet, animated: true)
         
-
+        
     }
     func addContact(){
         let alertController = UIAlertController(title: "Add New Friend", message: "Enter the player's ID(email) below", preferredStyle: .alert)
@@ -301,7 +403,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 
                 if !doesExist {
                     self.showAlert(title: "Waring", message: "No Such User")
-
+                    
                 }else{
                     self.showAlert(title: "Added", message: "Add a firend")
                 }
@@ -352,14 +454,14 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
@@ -388,5 +490,5 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
             
         }
     }
-
+    
 }
