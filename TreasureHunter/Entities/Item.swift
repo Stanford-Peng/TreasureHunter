@@ -26,6 +26,10 @@ class Item: NSObject {
     init(name: String){
         self.name = name
     }
+    init(name: String, itemCount: Int){
+        self.name = name
+        self.itemCount = itemCount
+    }
     init(name: String, desc: String, imageIcon: UIImage){
         self.name = name
         self.desc = desc

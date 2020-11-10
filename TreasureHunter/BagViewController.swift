@@ -7,8 +7,22 @@
 
 import UIKit
 import FirebaseFirestore
+import MapKit
 
-class BagViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource{
+class BagViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, CLLocationManagerDelegate, UIPickerViewDataSource, UIPickerViewDelegate{
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return pickerData.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return "\(pickerData[row])"
+    }
+    
     
     @IBOutlet weak var itemTitleLabel: UILabel!
     @IBOutlet weak var navBar: UINavigationBar!
@@ -28,26 +42,126 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
     var userItemReference = Firestore.firestore().collection("UserItems")
     var ItemReference = Firestore.firestore().collection("Item")
     var userItemList = [String: Int]()
+    var userItemArray = [Item]()
     var allExistingItems = [Item]()
     var databaseListener: ListenerRegistration?
+    var userLocation: CLLocationCoordinate2D?
+    let locationManager =  CLLocationManager()
+    var selectedItem: Item?
+    var pickerView: UIPickerView!
+    var pickerData: [Int]!
+    var pickerValue = 0
     
     //    var managedObjectContext: NSManagedObjectContext?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        locationManager.delegate = self
+        pickerView = UIPickerView(frame: CGRect(x: 10, y: 50, width: 250, height: 150))
+        pickerView.delegate = self
+        pickerView.dataSource = self
         self.setUI()
         self.getAllExistingItems()
-        print("View did load")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         userItemList.removeAll()
-        print("view will appear")
+        
+        // Start to update user location in real time
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        //Stop updating user location in real time
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.stopUpdatingLocation()
+        }
+    }
+    
+    func showNumberPicker(){
+        // set picker values
+        let min = 1
+        let max = selectedItem!.itemCount!
+        pickerData = Array(stride(from: min, to: max + 1, by: 1))
+        pickerView.reloadAllComponents()
+
+        // show number picker
+        let ac = UIAlertController(title: "Drop Amount", message: "\n\n\n\n\n\n\n\n\n\n", preferredStyle: .alert)
+        ac.view.addSubview(self.pickerView)
+        ac.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+            self.pickerValue = self.pickerData[self.pickerView.selectedRow(inComponent: 0)]
+            print("Picker value: \(self.pickerValue) was selected")
+            self.dropTransaction()
+        }))
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(ac, animated: true)
     }
     
     @IBAction func dropButton(_ sender: Any) {
+        if selectedItem == nil {
+            return
+        }
+        // Let user choose amount to drop
+        if selectedItem!.itemCount! > 1 {
+            showNumberPicker()
+        } else {
+            // If item count is 1, show confirmation to drop
+            if !showDropConfirmation(){
+                return
+            }
+        }
+    }
+    
+    func dropTransaction(){
+        let amount = pickerValue
+        if amount < 1 {
+            return
+        }
+        // transaction to delete item from UserItems and Add to ItemLocation https://firebase.google.com/docs/firestore/manage-data/transactions
+        let email=UserDefaults.standard.string(forKey: "useremail")
+        let userItemDocReference = userItemReference.document(email!)
+        //itemLocationReference
+        let itemLocationDoc = self.itemLocationReference.document()
         
+        db.runTransaction({ (transaction, errorPointer) -> Any? in
+            let dropLocation = GeoPoint(latitude: self.userLocation!.latitude, longitude: self.userLocation!.longitude)
+            let dropData = [
+                "itemID" : self.selectedItem!.name!,
+                "itemCount" : amount,
+                "location" : dropLocation
+            ] as [String : Any]
+            print(dropData)
+            
+            transaction.setData(dropData, forDocument: itemLocationDoc, merge: true)
+            transaction.updateData([self.selectedItem!.name! : self.selectedItem!.itemCount! - amount], forDocument: userItemDocReference)
+            return nil
+        }) { (object, error) in
+            if let error = error {
+                print("Transaction failed: \(error)")
+            } else {
+                print("Transaction successfully committed!")
+                self.selectedItem!.itemCount = self.selectedItem!.itemCount! - amount
+            }
+        }
+    }
+    
+    //Reference https://stackoverflow.com/questions/24022479/how-would-i-create-a-uialertview-in-swift
+    func showDropConfirmation() -> Bool{
+        var shouldDrop = false
+        // create the alert
+        let alert = UIAlertController(title: "Drop Confirm", message: "Would you like to drop item at current location?", preferredStyle: UIAlertController.Style.alert)
+        // add the actions (buttons)
+        alert.addAction(UIAlertAction(title: "Continue", style: UIAlertAction.Style.default, handler: { action in
+            shouldDrop = true
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+        // show the alert
+        self.present(alert, animated: true, completion: nil)
+        return shouldDrop
     }
     
     @IBAction func useButton(_ sender: Any) {
@@ -92,15 +206,17 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
                 print(error)
                 return
             }
-            self.userItemList.removeAll()
+            self.userItemArray.removeAll()
             let data = querySnapshot?.data()!
             print(data!)
             for (name, count) in data! {
                 print(name, count)
                 if count as! Int > 0 {
-                    self.userItemList[name] = count as! Int
+//                    self.userItemList[name] = count as! Int
+                    self.userItemArray.append(Item(name: name, itemCount: count as! Int))
                 }
             }
+            self.userItemArray.sort{$0.name! < $1.name!}
             self.bagCollectionView.reloadSections([0])
         }
     }
@@ -216,10 +332,10 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
         cell.item = Item()
         cell.deselectCell()
         
-        if indexPath.row < userItemList.keys.count{
-            let key = Array(userItemList.keys)[indexPath.row]
-            cell.configureItem(with: itemNamed(name: key)!)
-            cell.item?.itemCount = userItemList[key]!
+        if indexPath.row < userItemArray.count{
+            let itemAtIndex = createItem(with: userItemArray[indexPath.row])
+            cell.configureItem(with: itemAtIndex)
+            cell.item?.itemCount = itemAtIndex.itemCount!
             cell.configureItemCountLabel()
             cell.isUserInteractionEnabled = true
         } else {
@@ -228,13 +344,16 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
         return cell
     }
     
-    func itemNamed(name: String) -> Item?{
-        for i in allExistingItems{
-            if name == i.name{
-                return i
+    func createItem(with: Item) -> Item{
+        let i = with
+        for item in allExistingItems{
+            if item.name == i.name{
+                i.imageIcon = item.imageIcon
+                i.desc = item.desc
+                i.dropChance = item.dropChance
             }
         }
-        return nil
+        return i
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -242,6 +361,7 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
         
         if cell.item!.name != nil{
             cell.selectCell()
+            selectedItem = cell.item
             descriptionTextView.text = cell.item?.desc
             itemTitleLabel.text = cell.item?.name
         }
@@ -267,6 +387,14 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0.0
+    }
+    
+    //MARK: - Location
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.sorted(by: {$0.timestamp > $1.timestamp}).first {
+            let coordinate = location.coordinate
+            userLocation = coordinate
+        }
     }
 }
 extension UIColor {

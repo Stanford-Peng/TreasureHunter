@@ -128,7 +128,6 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         return 40
     }
     
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! SettingsCell
         
