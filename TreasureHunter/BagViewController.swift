@@ -11,6 +11,7 @@ import MapKit
 
 protocol BagViewDelegate{
     func confirmItemUsed()
+    func sellItem(forPrice: Int)
 }
 
 class BagViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, CLLocationManagerDelegate, UIPickerViewDataSource, UIPickerViewDelegate, BagViewDelegate{
@@ -27,6 +28,7 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
         return "\(pickerData[row])"
     }
     
+    @IBOutlet weak var descriptionView: UIView!
     @IBOutlet weak var itemTitleLabel: UILabel!
     //@IBOutlet weak var navBar: UINavigationBar!
     @IBOutlet weak var bagCollectionView: UICollectionView!
@@ -35,12 +37,14 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
     @IBOutlet weak var useButton: UIButton!
     @IBOutlet weak var dropButton: UIButton!
     @IBOutlet weak var shopButton: UIBarButtonItem!
+    @IBOutlet weak var userGoldLabel: UILabel!
     
     private let itemsPerRow: CGFloat = 4
     private let numberOfRow: CGFloat = 10
     // Reference: FIT5140 Lab 7 Material
     private let reuseIdentifier = "bagCell"
     
+    var shopViewDelegate: ShopViewDelegate?
     var db = Firestore.firestore()
     var itemLocationReference = Firestore.firestore().collection("ItemLocation")
     var userItemReference = Firestore.firestore().collection("UserItems")
@@ -54,10 +58,8 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
     var pickerView: UIPickerView!
     var pickerData: [Int]!
     var itemFunctionsController: ItemFunctionsController?
-
-    
     //    var managedObjectContext: NSManagedObjectContext?
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         locationManager.delegate = self
@@ -70,21 +72,24 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
         itemFunctionsController = appDelegate.itemFunctionsController
         itemFunctionsController!.bagViewDelegate = self
     }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "shopSegue" {
+            let destination = segue.destination as! ShopViewController
+            shopViewDelegate = destination
+            destination.initialGoldAmount = userGoldLabel!.text!
+        }
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setNeedsStatusBarAppearanceUpdate()
         
         // Start to update user location in real time
         if CLLocationManager.locationServicesEnabled() {
             locationManager.startUpdatingLocation()
         }
     }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
-    }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         
         //Stop updating user location in real time
@@ -159,6 +164,29 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
         }
     }
     
+    func sellItem(forPrice: Int){
+        let email=UserDefaults.standard.string(forKey: "useremail")
+        let userItemDocReference = userItemReference.document(email!)
+        
+        db.runTransaction({ (transaction, errorPointer) -> Any? in
+            transaction.updateData([
+                self.selectedItem!.name! : self.selectedItem!.itemCount! - 1,
+                "Gold" : FieldValue.increment(Int64(forPrice))
+                ], forDocument: userItemDocReference)
+            return nil
+        }) { (object, error) in
+            if let error = error {
+                print("Transaction failed: \(error)")
+            } else {
+                print("Transaction successfully committed!")
+                self.selectedItem = nil
+                self.descriptionTextView.text = nil
+                self.itemTitleLabel.text = nil
+            }
+        }
+        
+    }
+    
     //Reference https://stackoverflow.com/questions/24022479/how-would-i-create-a-uialertview-in-swift
     func showDropConfirmation(){
         let alert = UIAlertController(title: "Drop Confirm", message: "Would you like to drop item at current location?", preferredStyle: UIAlertController.Style.alert)
@@ -170,7 +198,7 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
     }
     
     func showUseConfirmation(){
-        let alert = UIAlertController(title: "Use \(selectedItem!.name!)?", message: selectedItem?.desc, preferredStyle: UIAlertController.Style.alert)
+        let alert = UIAlertController(title: "\(useButton!.currentTitle!) \(selectedItem!.name!)?", message: selectedItem?.desc, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertAction.Style.default, handler: { action in
             self.itemFunctionsController!.use(item: self.selectedItem!)
         }))
@@ -201,8 +229,8 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
                 print("error getting all existing items: \(err)")
             } else {
                 for document in querySnapshot!.documents{
-                    print("\(document.documentID) => \(document.data())")
-                    print("\(document.documentID) => \(document.data()["itemImage"] as! String)")
+//                    print("\(document.documentID) => \(document.data())")
+//                    print("\(document.documentID) => \(document.data()["itemImage"] as! String)")
                     self.allExistingItems.append(Item(name: document.documentID,
                                                       desc: document.data()["description"] as! String,
                                                       imageIcon: UIImage(named: document.data()["itemImage"] as! String) ?? UIImage(named: "none")!))
@@ -212,6 +240,8 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
             }
         }
     }
+    
+    
     
     func userItemListener(){
         let email = UserDefaults.standard.string(forKey: "useremail")
@@ -225,9 +255,16 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
             print(data!)
             for (name, count) in data! {
                 print(name, count)
-                if count as! Int > 0 {
-//                    self.userItemList[name] = count as! Int
-                    self.userItemArray.append(Item(name: name, itemCount: count as! Int))
+                if name == "Gold"{
+                    self.configureGoldLabel(text: String(count as! Int))
+                    if self.shopViewDelegate != nil {
+                        self.shopViewDelegate?.configureUserGoldLabel(text: String(count as! Int))
+                    }
+                } else {
+                    if count as! Int > 0 {
+    //                    self.userItemList[name] = count as! Int
+                        self.userItemArray.append(Item(name: name, itemCount: count as! Int))
+                    }
                 }
             }
             self.userItemArray.sort{$0.name! < $1.name!}
@@ -236,19 +273,19 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
     }
     
     private func setUI() {
+        descriptionView.backgroundColor = UIColor(patternImage: UIImage(named: "blueWood")!)
         // Register cell classes
         //        self.bagCollectionView!.register(BagCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         bagCollectionView.dataSource = self
         bagCollectionView.delegate = self
-        bagCollectionView.backgroundColor = UIColor.Custom.darkBlue
+        bagCollectionView.backgroundColor = .brown
         //8CEBD3
         //let backgroundImageView = UIImageView()
         //backgroundImageView.image = UIImage(named:"background-login")
         //bagCollectionView.backgroundView = backgroundImageView
         
         navigationItem.title = "Bag"
-        navigationItem.largeTitleDisplayMode = .always
-        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.isTranslucent = true
         
 //        navigationController?.navigationBar.barTintColor = UIColor.Custom.darkBlue
 //        navigationController?.navigationBar.backgroundColor = UIColor.Custom.darkBlue
@@ -277,6 +314,30 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
         self.dropButton.layer.shadowOpacity = 1.0
         self.dropButton.layer.shadowRadius = 2.0
         self.dropButton.layer.shadowOffset = CGSize(width: 0, height: 3)
+        
+        userGoldLabel.textColor = .white
+        userGoldLabel.shadowColor = .black
+        userGoldLabel.shadowOffset = CGSize(width: 0.7, height: 0.7)
+    }
+    
+    private func configureGoldLabel(text: String){
+        // Create Attachment
+        let imageAttachment = NSTextAttachment()
+        imageAttachment.image = UIImage(named:"dollar")
+        // Set bound to reposition
+        let imageOffsetY: CGFloat = -3.0
+        imageAttachment.bounds = CGRect(x: -1, y: imageOffsetY, width: 20, height: 20)
+        // Create string with attachment
+        let attachmentString = NSAttributedString(attachment: imageAttachment)
+        // Initialize mutable string
+        let completeText = NSMutableAttributedString(string: "")
+        // Add image to mutable string
+        completeText.append(attachmentString)
+        // Add your text to mutable string
+        let textAfterIcon = NSAttributedString(string: text)
+        completeText.append(textAfterIcon)
+        self.userGoldLabel.textAlignment = .center
+        self.userGoldLabel.attributedText = completeText
     }
     
     //        let appDelegate = UIApplication.shared.delegate as? AppDelegate
@@ -314,7 +375,7 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 40
+        return 20
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -354,12 +415,29 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
         let cell = collectionView.cellForItem(at: indexPath) as! BagCollectionViewCell
         
         if cell.item!.name != nil{
+            
+            //Briefly fade the cell on selection
+               UIView.animate(withDuration: 0.5,
+                              animations: {
+                               //Fade-out
+                               cell.alpha = 0.5
+                            
+               }) { (completed) in
+                   UIView.animate(withDuration: 0.5,
+                                  animations: {
+                                   //Fade-out
+                                   cell.alpha = 1
+                   })
+               }
+            
             cell.selectCell()
             selectedItem = cell.item
             descriptionTextView.text = cell.item?.desc
             itemTitleLabel.text = cell.item?.name
             if selectedItem!.name!.contains("Map Piece"){
                 self.useButton.setTitle("Read", for: .normal)
+            } else if selectedItem!.name!.contains("Normal Oyster") || selectedItem!.name!.contains("Large Treasure Chest"){
+                self.useButton.setTitle("Sell", for: .normal)
             } else {
                 self.useButton.setTitle("Use", for: .normal)
             }

@@ -46,8 +46,8 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "378"
-            endingLineNumber = "378"
+            startingLineNumber = "379"
+            endingLineNumber = "379"
             landmarkName = "locationManager(_:didUpdateLocations:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -62,8 +62,8 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "407"
-            endingLineNumber = "407"
+            startingLineNumber = "408"
+            endingLineNumber = "408"
             landmarkName = "HomeViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -78,8 +78,8 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "408"
-            endingLineNumber = "408"
+            startingLineNumber = "409"
+            endingLineNumber = "409"
             landmarkName = "unknown"
             landmarkType = "0">
          </BreakpointContent>

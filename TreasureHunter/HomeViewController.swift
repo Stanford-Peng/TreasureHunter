@@ -173,6 +173,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
             "Map Piece 5": 0,
             "Map Piece 6": 0,
             "Large Treasure Chest": 0,
+            "Gold": 300
         ])
     }
     
