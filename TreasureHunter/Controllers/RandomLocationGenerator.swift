@@ -9,10 +9,10 @@ import Foundation
 import CoreLocation
 //reference:https://gist.github.com/inorganik/fcaa143eba6178fb672c5c335a11c564
 //https://gis.stackexchange.com/questions/334297/generate-coordinates-with-minimum-maximum-distance-from-given-coordinates
-struct randomLocations {
+struct RandomLocationGenerator {
 
     // create random locations (lat and long coordinates) around user's location
-    func getMockLocationsFor(location: CLLocation, count: Int, minDistanceKM:Int, maxDistanceKM:Int) throws -> [CLLocation] {
+    func getMockLocationsFor(location: CLLocationCoordinate2D, count: Int, minDistanceKM:Int, maxDistanceKM:Int) throws -> [CLLocation] {
         if (minDistanceKM > maxDistanceKM){
             throw "Error in randomLocations"
         }
@@ -34,8 +34,8 @@ struct randomLocations {
         let dx = r * cos(theta)
         
         // arc/radius = radian
-        let newLatitude = location.coordinate.latitude + dy/DEGREE
-        let newLongitude = location.coordinate.longitude + dx/DEGREE
+        let newLatitude = location.latitude + dy/DEGREE
+        let newLongitude = location.longitude + dx/DEGREE
         
 //        func getBase(number: Double) -> Double {
 //            return round(number * 1000)/1000

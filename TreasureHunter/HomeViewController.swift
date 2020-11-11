@@ -19,6 +19,8 @@ protocol HomeViewDelegate{
 
 //timer reference:
 //https://medium.com/ios-os-x-development/build-an-stopwatch-with-swift-3-0-c7040818a10f
+
+//https://docs.mapbox.com/help/tutorials/ios-navigation-sdk/#generate-a-route
 class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, HomeViewDelegate{
     func getTimer() -> Int{
         return seconds!
@@ -54,13 +56,17 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(appMovedToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
         setUpLocationAuthorisation()
+
+        mapView.mapType = MKMapType.hybridFlyover
         mapView.delegate = self
+        
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let vc = appDelegate.itemFunctionsController
         vc.homeViewDelegate = self
         getAllExistingItems()
         
         //*** Get seconds from server database and load into SceneDelegate
+        
     }
     
     func setupLabel(){
@@ -225,7 +231,10 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
                 for item in items {
                     itemsDisplay += "\(item.name!) x \(item.itemCount!)\n"
                 }
-                self.showAlert(title: "Item found!", message: itemsDisplay)
+//                let closure = {
+//                    self.generateRandomItemToMap()
+//                }
+                self.showAlertWithCompletion(title: "Item found!", message: itemsDisplay, completion: self.generateRandomItemToMap)
                 self.addToBag(itemList: items, itemDocIDS: locationDocIDs)
             }
         }
@@ -304,7 +313,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
             }
         }
         if generatedItem == "Nothing"{
-            showAlert(title: "Found nothing", message: "Bad luck :( You found nothing at this location")
+            showAlertWithCompletion(title: "Found nothing", message: "Bad luck :( You found nothing at this location", completion: self.generateRandomItemToMap)
             return
         }
         
@@ -318,14 +327,91 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
                 print("Error adding generated item to bag: \(err)")
             } else {
                 print("Added generated item to bag")
-                self.showAlert(title: "Found Item!!", message: generatedItem)
+                self.showAlertWithCompletion(title: "Found Item!!", message: generatedItem, completion: self.generateRandomItemToMap)
             }
         }
     }
     
     func generateRandomItemToMap(){
+        let randonLocationGenerator = RandomLocationGenerator()
+        
+        let locations = try? randonLocationGenerator.getMockLocationsFor(location: userLocation!, count: 1, minDistanceKM: 1, maxDistanceKM: 3)
+        
+        var goodItemList:[Item] = [Item]()
+        var exist = false
+        let userPosition = CLLocation(latitude: userLocation!.latitude, longitude: userLocation!.longitude)
+        for item in allExistingItems {
+            if item.dropChance == 1 {
+                goodItemList.append(item)
+            }
+        }
+        let email=UserDefaults.standard.string(forKey: "useremail")
+        itemLocationReference.document(email!).getDocument { (document, error) in
+            if let error = error{
+                print(error)
+                return
+            }
+            
+            if let document = document, document.exists{
+                let coordinate = document.get("location") as! GeoPoint
+                let itemLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+                let distance = userPosition.distance(from: itemLocation)
+                if distance > 3000{
+                    exist = false
+                } else{
+                    exist = true
+                    //self.showAlert(title: "new item", message: "Item \(document.get("name")!) is only around \(Int(distance)) meters away from you")
+                    self.showLocationWithNavigation(title: "Go to Next Item", message: "Item \(document.get("itemID")!) is only around \(Int(distance)) meters away from you", coordinate: itemLocation.coordinate)
+                    
+                }
+                print(itemLocation)
+            }
+            if !exist {
+                for location in locations! {
+                    let distance = userPosition.distance(from: location)
+                    let slice = Int.random(in: 0 ..< goodItemList.count)
+                    let generatedItem = goodItemList[slice]
+                    print(generatedItem)
+                    print("Item is \(distance) meters away from you")
+                    
+                    self.itemLocationReference.document(email!).setData([
+                        "itemID":generatedItem.name!,
+                        "itemCount":1,
+                        "location":GeoPoint(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+                    ]) { (error) in
+                        if let error = error{
+                            print(error)
+                            return
+                        }
+                        //self.showAlert(title: "new item", message: "Item \(generatedItem.name!) is only around \(Int(distance)) meters away from you")
+                        self.showLocationWithNavigation(title: "Go to Next Item", message: "Item \(generatedItem.name!) is only around \(Int(distance)) meters away from you", coordinate: location.coordinate)
+                    }
+                }
+            }
+        }
+
         
     }
+    // reference using url : https://stackoverflow.com/questions/38250397/open-an-alert-asking-to-choose-app-to-open-map-with/60930491#60930491
+    func showLocationWithNavigation(title:String, message:String, coordinate:CLLocationCoordinate2D ){
+        let alert = UIAlertController(title: title, message:
+                                        message, preferredStyle:
+                                            UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style:
+                                        UIAlertAction.Style.cancel, handler: nil))
+        let navigateAction = UIAlertAction(title : "Route", style:UIAlertAction.Style.default) { (action) in
+        let placeMark = MKPlacemark(coordinate: coordinate)
+        print(coordinate)
+        let mapItem = MKMapItem(placemark: placeMark)
+            mapItem.name = "Next Item Location"
+            mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeWalking])
+        }
+        alert.addAction(navigateAction)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    
     
     @objc func updateTimer() {
         if seconds! < 1 {
@@ -387,6 +473,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
             mapView.setRegion(region, animated: true)
         }
     }
+    
     func createSpinnerView() {
         let child = SpinnerViewController()
 
@@ -440,6 +527,33 @@ extension UIViewController{
         alert.addAction(UIAlertAction(title: "Ok", style:
                                         UIAlertAction.Style.default, handler: nil))
         alert.view.addSubview(imageView)
+        self.present(alert, animated: true, completion:nil)
+    }
+    
+    func showAlertWithCompletion(title: String, message: String, completion:@escaping () -> Void){
+        let alert = UIAlertController(title: title, message:
+                                        message, preferredStyle:
+                                            UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style:
+                                        UIAlertAction.Style.default,handler: { (UIAlertAction) in
+                                            completion()
+                                        }))
         self.present(alert, animated: true, completion: nil)
+    }
+}
+
+
+extension HomeViewController{
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        guard status == .authorizedWhenInUse else {
+          return
+        }
+
+        manager.requestLocation()
+    }
+
+
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+      print("Error requesting location: \(error.localizedDescription)")
     }
 }
