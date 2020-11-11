@@ -406,6 +406,27 @@ PODS:
     - InputBarAccessoryView/Core (= 5.2.1)
   - InputBarAccessoryView/Core (5.2.1)
   - leveldb-library (1.22)
+  - Mapbox-iOS-SDK (5.9.0):
+    - MapboxMobileEvents (= 0.10.2)
+  - MapboxAccounts (2.2.0)
+  - MapboxCoreNavigation (0.40.0):
+    - MapboxAccounts (~> 2.2.0)
+    - MapboxDirections (~> 0.31.0)
+    - MapboxMobileEvents (~> 0.10.2)
+    - MapboxNavigationNative (~> 6.2.1)
+    - Turf (~> 0.3.0)
+  - MapboxDirections (0.31.1):
+    - Polyline (~> 4.2)
+    - Turf (~> 0.3.0)
+  - MapboxMobileEvents (0.10.2)
+  - MapboxNavigation (0.40.0):
+    - Mapbox-iOS-SDK (~> 5.6)
+    - MapboxCoreNavigation (= 0.40.0)
+    - MapboxMobileEvents (~> 0.10.2)
+    - MapboxSpeech (~> 0.3.0)
+    - Solar (~> 2.1)
+  - MapboxNavigationNative (6.2.1)
+  - MapboxSpeech (0.3.1)
   - MessageKit (3.4.2):
     - InputBarAccessoryView (~> 5.2.1)
   - nanopb (1.30906.0):
@@ -413,10 +434,13 @@ PODS:
     - nanopb/encode (= 1.30906.0)
   - nanopb/decode (1.30906.0)
   - nanopb/encode (1.30906.0)
+  - Polyline (4.2.1)
   - PromisesObjC (1.2.10)
   - SDWebImage (5.9.4):
     - SDWebImage/Core (= 5.9.4)
   - SDWebImage/Core (5.9.4)
+  - Solar (2.1.0)
+  - Turf (0.3.0)
 
 DEPENDENCIES:
   - Firebase/Auth
@@ -426,6 +450,7 @@ DEPENDENCIES:
   - Firebase/Storage
   - FirebaseFirestoreSwift
   - FirebaseUI
+  - MapboxNavigation (~> 0.40.0)
   - MessageKit
 
 SPEC REPOS:
@@ -457,10 +482,21 @@ SPEC REPOS:
     - GTMSessionFetcher
     - InputBarAccessoryView
     - leveldb-library
+    - Mapbox-iOS-SDK
+    - MapboxAccounts
+    - MapboxCoreNavigation
+    - MapboxDirections
+    - MapboxMobileEvents
+    - MapboxNavigation
+    - MapboxNavigationNative
+    - MapboxSpeech
     - MessageKit
     - nanopb
+    - Polyline
     - PromisesObjC
     - SDWebImage
+    - Solar
+    - Turf
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
@@ -490,11 +526,22 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
   InputBarAccessoryView: 39a7ed22727baf3b8550ecdf6c8a4d28b2c6aa91
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
+  Mapbox-iOS-SDK: a5915700ec84bc1a7f8b3e746d474789e35b7956
+  MapboxAccounts: f9716ba2cc66013e44ef93e0e16cfa1049f3aeec
+  MapboxCoreNavigation: 2856c46bd064bb11c406ba00191d579cda424efa
+  MapboxDirections: 69dca02d780c5e506bdcc65385dd5fb77b9e90b5
+  MapboxMobileEvents: 2bc0ca2eedb627b73cf403258dce2b2fa98074a6
+  MapboxNavigation: 42bae50b0381dce317c85884ba0de38fc68a4814
+  MapboxNavigationNative: 11dc22140f4698d3f26989f2b6379dc81ef0d4c1
+  MapboxSpeech: 67a558a672dc2b6266a993f4624895f69e58d105
   MessageKit: 5ff0908bce5a7b6e11bd0b60e13a33e03697d161
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
+  Polyline: 0e9890790292741c8186201a536b6bb6a78d02dd
   PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
   SDWebImage: b69257f4ab14e9b6a2ef53e910fdf914d8f757c1
+  Solar: 2dc6e7cc39186cb0c8228fa08df76fb50c7d8f24
+  Turf: c6bdf62d6a70c647874f295dd1cf4eefc0c3e9e6
 
-PODFILE CHECKSUM: f87f034539b5a79018001de171d959b3beda37e3
+PODFILE CHECKSUM: 8364624a33144b192ee5a06bab69edd7ba65e66b
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.9.3
