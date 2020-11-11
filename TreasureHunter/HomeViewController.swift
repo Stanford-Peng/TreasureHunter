@@ -224,7 +224,10 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
                 for item in items {
                     itemsDisplay += "\(item.name!) x \(item.itemCount!)\n"
                 }
-                self.showAlertWithCompletion(title: "Item found!", message: itemsDisplay, completion: self.generateRandomItemToBag)
+//                let closure = {
+//                    self.generateRandomItemToMap()
+//                }
+                self.showAlertWithCompletion(title: "Item found!", message: itemsDisplay, completion: self.generateRandomItemToMap)
                 self.addToBag(itemList: items, itemDocIDS: locationDocIDs)
             }
         }
