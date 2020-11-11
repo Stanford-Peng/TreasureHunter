@@ -191,20 +191,21 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         }
     }
     
-    func findItems() -> [Item]{
+    func findItems(){
         var items:[Item] = []
+        var locationDocIDs: [String] = []
         functions.httpsCallable("findItems").call(["long":userLocation?.longitude, "lat":userLocation?.latitude]) { (result, error) in
             if let error = error as NSError? {
                 if error.domain == FunctionsErrorDomain {
-                    let code = FunctionsErrorCode(rawValue: error.code)
-                    let message = error.localizedDescription
-                    let details = error.userInfo[FunctionsErrorDetailsKey]
+                    _ = FunctionsErrorCode(rawValue: error.code)
+                    _ = error.localizedDescription
+                    _ = error.userInfo[FunctionsErrorDetailsKey]
                 }
                 // ...
                 print(error)
                 return
             }
-            print(result?.data)
+            print(result!.data)
             
             let diggedItems = result?.data as! NSArray
             if(diggedItems.count == 0){
@@ -212,40 +213,58 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
             }else{
                 for item in diggedItems{
                     let parsed = item as! NSDictionary
-                    
-//                    let data = parsed["data"] as! NSDictionary
-//                    let id = parsed["id"] as! String
                     print(parsed)
-                    items.append(Item(name: parsed["itemID"] as! String))
-                    self.showAlert(title: "Found Item", message: "\(parsed["itemID"] as! String) is found with amount: \(parsed["itemCount"] as! Int)" )
-                    //MARK: only alert once
-                    
-                    //Add to bag
-                    //self.addToBag(itemName: parsed["itemID"] as! String, itemLocationID: id)
+                    let ids = parsed["id"] as! [String]
+                    locationDocIDs += ids
+                    items.append(Item(name: parsed["itemID"] as! String, itemCount: parsed["itemCount"] as! Int))
                 }
+                var itemsDisplay = "\n"
+                for item in items {
+                    itemsDisplay += "\(item.name!) x \(item.itemCount!)\n"
+                }
+                self.showAlert(title: "Item found!", message: itemsDisplay)
+                self.addToBag(itemList: items, itemDocIDS: locationDocIDs)
             }
         }
-        //wait function
-        return items
     }
 
-    func addToBag(itemName: String, itemLocationID: String){
-        // transaction to delete item from itemLocation and add it to userItems https://firebase.google.com/docs/firestore/manage-data/transactions
-        let email=UserDefaults.standard.string(forKey: "useremail")
+    func addToBag(itemList: [Item], itemDocIDS: [String]){
+                let email=UserDefaults.standard.string(forKey: "useremail")
         let userItemDocReference = userItemReference.document(email!)
-        let itemLocationDocReference = itemLocationReference.document(itemLocationID)
-        db.runTransaction({ (transaction, errorPointer) -> Any? in
-            transaction.deleteDocument(itemLocationDocReference)
-            transaction.updateData([itemName : FieldValue.increment(Int64(1))], forDocument: userItemDocReference)
-            return nil
-        }) { (object, error) in
-            if let error = error {
-                print("Transaction failed: \(error)")
+        
+        //Batch Write https://firebase.google.com/docs/firestore/manage-data/transactions#batched-writes
+        let batch = db.batch()
+        // Delete Item Location Documents
+        for id in itemDocIDS {
+            let docRef = itemLocationReference.document(id)
+            batch.deleteDocument(docRef)
+        }
+        // Add Items to User Bag
+        for item in itemList {
+            batch.updateData([item.name! : FieldValue.increment(Int64(item.itemCount!))], forDocument: userItemDocReference)
+        }
+        // Commit Batch Operation
+        batch.commit() {err in
+            if let err = err {
+                print("Error writing batch \(err)")
             } else {
-                print("Transaction successfully committed!")
+                print("Batch write succeeded.")
             }
         }
+        // transaction to delete item from itemLocation and add it to userItems https://firebase.google.com/docs/firestore/manage-data/transactions
+//        db.runTransaction({ (transaction, errorPointer) -> Any? in
+//            transaction.deleteDocument(itemLocationDocReference)
+//            transaction.updateData([itemName : FieldValue.increment(Int64(1))], forDocument: userItemDocReference)
+//            return nil
+//        }) { (object, error) in
+//            if let error = error {
+//                print("Transaction failed: \(error)")
+//            } else {
+//                print("Transaction successfully committed!")
+//            }
+//        }
     }
+    
     private func getAllExistingItems(){
         ItemReference.getDocuments() {(querySnapshot, err) in
             if let err = err {
@@ -265,13 +284,13 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
 
     func generateRandomItemToBag(){
         // Generate item here
-        allExistingItems.shuffle()
         var totalDropChance = 0
         for item in allExistingItems{
             totalDropChance += item.dropChance!
         }
         var generatedItem = ""
         var randomInt = Int.random(in: 0..<totalDropChance)
+        allExistingItems.shuffle()
         
         for item in allExistingItems{
             randomInt -= item.dropChance!

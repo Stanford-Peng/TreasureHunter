@@ -22,4 +22,5 @@ class SpinnerViewController: UIViewController {
         spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
+
 }

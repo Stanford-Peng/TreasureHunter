@@ -261,8 +261,8 @@
 				BAE631ED2544665E005FAA21 /* HomeViewController.swift */,
 				BAE5E3E325453C6800E4FCFA /* SettingsViewController.swift */,
 				BAE5E3E825453C8500E4FCFA /* ChatViewController.swift */,
-				BAE5E3ED25453C9A00E4FCFA /* BagViewController.swift */,
 				E6147D5C2546B93D00B799F5 /* ChannelMessagesViewController.swift */,
+				BAE5E3ED25453C9A00E4FCFA /* BagViewController.swift */,
 			);
 			path = TreasureHunter;
 			sourceTree = "<group>";
