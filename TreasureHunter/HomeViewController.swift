@@ -320,6 +320,10 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         }
     }
     
+    func generateRandomItemToMap(){
+        
+    }
+    
     @objc func updateTimer() {
         if seconds! < 1 {
             timeUp()
