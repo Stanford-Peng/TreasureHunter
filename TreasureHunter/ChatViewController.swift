@@ -82,7 +82,6 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
                                 self.showAlert(title: "Database Error", message: "Failed")
                                 return
                             }
-                            
                             self.showAlert(title: "Successful", message: "This friend is removed from your list")
                         })
                     })
@@ -188,7 +187,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()
-        view.backgroundColor = UIColor.Custom.lightBrown
+        view.backgroundColor = UIColor.Custom.darkBlue
         let title = UILabel()
         title.font = UIFont.boldSystemFont(ofSize: 16)
         title.textColor = .white
