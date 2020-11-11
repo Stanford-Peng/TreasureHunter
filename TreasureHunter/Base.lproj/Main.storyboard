@@ -94,7 +94,7 @@
                             </navigationBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="XZs-r4-hKP"/>
-                        <color key="backgroundColor" red="0.95294117647058818" green="0.82745098039215681" blue="0.5490196078431373" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.10588235294117647" green="0.34901960784313724" blue="0.61568627450980395" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="zBL-NP-daB" firstAttribute="top" secondItem="M1D-4v-hr0" secondAttribute="bottom" id="8Ha-xB-37C"/>
                             <constraint firstItem="M1D-4v-hr0" firstAttribute="leading" secondItem="XZs-r4-hKP" secondAttribute="leading" id="KnV-6S-YDy"/>
@@ -121,7 +121,7 @@
             <objects>
                 <viewController id="FaI-Pg-0SO" customClass="ChannelMessagesViewController" customModule="TreasureHunter" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NYW-YU-gsZ">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="14h-a5-UfX">
@@ -218,7 +218,7 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="QrH-Me-RCm"/>
-                        <color key="backgroundColor" red="0.95294117647058818" green="0.82745098039215681" blue="0.5490196078431373" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.10588235294117647" green="0.34901960784313724" blue="0.61568627450980395" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="KMY-va-oft" firstAttribute="leading" secondItem="QrH-Me-RCm" secondAttribute="leading" id="C2u-Y4-vef"/>
                             <constraint firstItem="KMY-va-oft" firstAttribute="trailing" secondItem="QrH-Me-RCm" secondAttribute="trailing" id="DbT-Vg-IQ8"/>
@@ -329,7 +329,7 @@
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="scroll" translatesAutoresizingMaskIntoConstraints="NO" id="FFm-kP-fDc">
                                         <rect key="frame" x="0.0" y="0.0" width="271" height="192"/>
                                     </imageView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" bouncesZoom="NO" editable="NO" text="Select an item to see its description." textAlignment="center" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v8i-W4-tZ3">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" editable="NO" text="Select an item to see its description." textAlignment="center" adjustsFontForContentSizeCategory="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v8i-W4-tZ3">
                                         <rect key="frame" x="40" y="72" width="191" height="88"/>
                                         <color key="backgroundColor" red="0.96434803299492389" green="0.96434803299492389" blue="0.96434803299492389" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="textColor" systemColor="labelColor"/>
@@ -364,7 +364,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.95294117647058818" green="0.82745098039215681" blue="0.5490196078431373" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.13725490196078433" green="0.54509803921568623" blue="0.82745098039215681" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="v8i-W4-tZ3" firstAttribute="trailing" secondItem="Eog-uo-eqQ" secondAttribute="trailing" id="3tH-1r-yBf"/>
                                     <constraint firstAttribute="bottom" secondItem="v8i-W4-tZ3" secondAttribute="bottom" constant="32" id="5u9-ZU-8CA"/>
@@ -387,7 +387,7 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6k3-vF-QJb"/>
-                        <color key="backgroundColor" red="0.95294117647058818" green="0.82745098039215681" blue="0.5490196078431373" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.10588235294117647" green="0.34901960784313724" blue="0.61568627450980395" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="1XS-Va-Kmr" firstAttribute="leading" secondItem="6k3-vF-QJb" secondAttribute="leading" id="DRd-ga-exK"/>
                             <constraint firstItem="6k3-vF-QJb" firstAttribute="bottom" secondItem="URC-I7-6NM" secondAttribute="bottom" constant="192" id="Lfv-PL-Ira"/>
@@ -447,7 +447,7 @@
                             </navigationBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="y6g-WS-N7i"/>
-                        <color key="backgroundColor" red="0.95294117647058818" green="0.82745098039215681" blue="0.5490196078431373" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.10588235294117647" green="0.34901960784313724" blue="0.61568627450980395" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="FNm-5p-miM" firstAttribute="top" secondItem="y6g-WS-N7i" secondAttribute="top" id="4Pf-sU-qJ2"/>
                             <constraint firstItem="Q9G-qa-4hN" firstAttribute="top" secondItem="FNm-5p-miM" secondAttribute="bottom" id="Bb0-YY-aAl"/>

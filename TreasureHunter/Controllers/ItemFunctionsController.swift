@@ -37,22 +37,22 @@ class ItemFunctionsController{
             break
             
         case "Map Piece 1":
-            break
+            homeViewDelegate?.showAlertWithImage(title: "Hint 1", message: "P", imageName: "hint-kangaroo")
             
         case "Map Piece 2":
-            break
+            homeViewDelegate?.showAlert(title: "Hint 2", message: "S")
             
         case "Map Piece 3":
-            break
+            homeViewDelegate?.showAlertWithImage(title: "Hint 3", message: "O x2", imageName: "hint-tram")
             
         case "Map Piece 4":
-            break
+            homeViewDelegate?.showAlert(title: "Hint 4", message: "TH")
             
         case "Map Piece 5":
-            break
+            homeViewDelegate?.showAlertWithImage(title: "Hint 5", message: "M", imageName: "hint-uni")
             
         case "Map Piece 6":
-            break
+            homeViewDelegate?.showAlert(title: "Hint 6", message: "N")
             
         default:
             print("Invalid Item")

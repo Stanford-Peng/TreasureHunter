@@ -71,7 +71,6 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        userItemArray.removeAll()
         
         // Start to update user location in real time
         if CLLocationManager.locationServicesEnabled() {
@@ -348,6 +347,11 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
             selectedItem = cell.item
             descriptionTextView.text = cell.item?.desc
             itemTitleLabel.text = cell.item?.name
+            if selectedItem!.name!.contains("Map Piece"){
+                self.useButton.setTitle("Read", for: .normal)
+            } else {
+                self.useButton.setTitle("Use", for: .normal)
+            }
         }
     }
     
@@ -385,5 +389,6 @@ extension UIColor {
     struct Custom {
         static let Cyan = UIColor(displayP3Red: 140/255, green: 235/255, blue: 211/255, alpha: 1.0)
         static let lightBrown = UIColor(displayP3Red: 243/255, green: 211/255, blue: 140/255, alpha: 1.0)
+        static let darkBlue = UIColor(displayP3Red: 27/255, green: 89/255, blue: 157/255, alpha: 0.85)
     }
 }

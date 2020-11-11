@@ -111,7 +111,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     // MARK: - Table view functions
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()
-        view.backgroundColor = UIColor.Custom.lightBrown
+        view.backgroundColor = UIColor.Custom.darkBlue
         let title = UILabel()
         title.font = UIFont.boldSystemFont(ofSize: 16)
         title.textColor = .white

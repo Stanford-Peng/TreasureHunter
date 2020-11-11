@@ -13,6 +13,7 @@ import FirebaseFunctions
 protocol HomeViewDelegate{
     func resetDigTimer()
     func showAlert(title: String, message: String)
+    func showAlertWithImage(title: String, message: String, imageName: String)
     func getTimer() -> Int
 }
 
@@ -157,14 +158,15 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         // Initialize user bag with all items set to 0
         let userItemData = self.userItemReference.document(email!).setData([
             "Bottle Of Water" : 3,
-            "Normal Oyster": 0,
+            "Normal Oyster": 1,
             "Pearl Oyster": 0,
             "Map Piece 1": 0,
             "Map Piece 2": 0,
             "Map Piece 3": 0,
             "Map Piece 4": 0,
             "Map Piece 5": 0,
-            "Map Piece 6": 0
+            "Map Piece 6": 0,
+            "Large Treasure Chest": 0,
         ])
     }
     
@@ -405,7 +407,7 @@ extension HomeViewController{
         if overlay is MKCircle {
             let circleRenderer = MKCircleRenderer(overlay: overlay)
             circleRenderer.lineWidth = 1.0
-            circleRenderer.strokeColor = .purple
+            circleRenderer.strokeColor = .blue
             circleRenderer.fillColor = UIColor.purple.withAlphaComponent(0.2)
             return circleRenderer
         }
@@ -421,6 +423,18 @@ extension UIViewController{
                                             UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Ok", style:
                                         UIAlertAction.Style.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func showAlertWithImage(title: String, message: String, imageName: String){
+        let imageView = UIImageView(frame: CGRect(x: 20, y: 20, width: 40, height: 40))
+        imageView.image = UIImage(named: imageName)
+        let alert = UIAlertController(title: title, message:
+                                        message, preferredStyle:
+                                            UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style:
+                                        UIAlertAction.Style.default, handler: nil))
+        alert.view.addSubview(imageView)
         self.present(alert, animated: true, completion: nil)
     }
 }
