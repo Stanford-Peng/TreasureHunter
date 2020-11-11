@@ -224,7 +224,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
                 for item in items {
                     itemsDisplay += "\(item.name!) x \(item.itemCount!)\n"
                 }
-                self.showAlert(title: "Item found!", message: itemsDisplay)
+                self.showAlertWithCompletion(title: "Item found!", message: itemsDisplay, completion: self.generateRandomItemToBag)
                 self.addToBag(itemList: items, itemDocIDS: locationDocIDs)
             }
         }
@@ -317,12 +317,30 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
                 print("Error adding generated item to bag: \(err)")
             } else {
                 print("Added generated item to bag")
-                self.showAlert(title: "Found Item!!", message: generatedItem)
+                self.showAlertWithCompletion(title: "Found Item!!", message: generatedItem, completion: self.generateRandomItemToMap)
             }
         }
     }
     
     func generateRandomItemToMap(){
+        let randonLocationGenerator = RandomLocationGenerator()
+//        var goodItemList:[Item] = [Item]()
+//        for item in allExistingItems{
+//            if item.dropChance == 1 {
+//                goodItemList.append(item)
+//            }
+//        }
+        let locations = try? randonLocationGenerator.getMockLocationsFor(location: userLocation!, count: 1, minDistanceKM: 1, maxDistanceKM: 3)
+        
+        for location in locations!{
+            let userPosition = CLLocation(latitude: userLocation!.latitude, longitude: userLocation!.longitude)
+            let distance = userPosition.distance(from: location)
+            print("Item is \(distance) meters away from you")
+            self.showAlert(title: "new item", message: "Item is \(distance) meters away from you")
+        }
+        
+        
+        
         
     }
     
@@ -439,6 +457,17 @@ extension UIViewController{
         alert.addAction(UIAlertAction(title: "Ok", style:
                                         UIAlertAction.Style.default, handler: nil))
         alert.view.addSubview(imageView)
+        self.present(alert, animated: true, completion:nil)
+    }
+    
+    func showAlertWithCompletion(title: String, message: String, completion:@escaping () -> Void){
+        let alert = UIAlertController(title: title, message:
+                                        message, preferredStyle:
+                                            UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style:
+                                        UIAlertAction.Style.default,handler: { (UIAlertAction) in
+                                            completion()
+                                        }))
         self.present(alert, animated: true, completion: nil)
     }
 }

@@ -253,7 +253,7 @@ class ChannelMessagesViewController: MessagesViewController, MessagesDataSource,
             })
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let popVC = storyboard.instantiateViewController(identifier: "PopVC") as! GroupMemberController
-            popVC.modalPresentationStyle = .popover
+            popVC.modalPresentationStyle = .fullScreen
             popVC.groupMembers = self.groupMembers
             let popover = popVC.popoverPresentationController
             popover?.delegate = self
