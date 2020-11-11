@@ -71,6 +71,7 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        //userItemArray.removeAll()
         
         // Start to update user location in real time
         if CLLocationManager.locationServicesEnabled() {

@@ -41,6 +41,7 @@
 		E6CC24CA2542F2BD004EF299 /* TreasureHunterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CC24C92542F2BD004EF299 /* TreasureHunterUITests.swift */; };
 		E6CC24FE2543EEF9004EF299 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E6CC24FD2543EEF9004EF299 /* GoogleService-Info.plist */; };
 		E6CC25322543FAEB004EF299 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CC25312543FAEB004EF299 /* LoginController.swift */; };
+		E6E03C09255B9DE1000BF9A4 /* RandomLocationGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E03C08255B9DE1000BF9A4 /* RandomLocationGenerator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +108,7 @@
 		E6CC24CB2542F2BD004EF299 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E6CC24FD2543EEF9004EF299 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E6CC25312543FAEB004EF299 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		E6E03C08255B9DE1000BF9A4 /* RandomLocationGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomLocationGenerator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +184,7 @@
 			children = (
 				BA6F99C3255A8E36000BC7ED /* ItemFunctionsController.swift */,
 				BA6F99CF255AC4AB000BC7ED /* SpinnerViewController.swift */,
+				E6E03C08255B9DE1000BF9A4 /* RandomLocationGenerator.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -570,6 +573,7 @@
 				E6147D5D2546B93D00B799F5 /* ChannelMessagesViewController.swift in Sources */,
 				E6CC24A82542F2BB004EF299 /* AppDelegate.swift in Sources */,
 				BA6F99C4255A8E36000BC7ED /* ItemFunctionsController.swift in Sources */,
+				E6E03C09255B9DE1000BF9A4 /* RandomLocationGenerator.swift in Sources */,
 				BA5E55C825470F29000E0C33 /* Item.swift in Sources */,
 				E6A84AC6255A6098009285F7 /* Group.swift in Sources */,
 				E6A84ACB255AB2C0009285F7 /* GroupMemberController.swift in Sources */,

@@ -22,12 +22,14 @@ class ItemFunctionsController{
             print("Using bottle of water")
             
             if homeViewDelegate!.getTimer() < 1 {
-                homeViewDelegate?.showAlert(title: "Drank Water", message: "You could dig already, but you drank the bottle of water anyway")
+                homeViewDelegate?.showAlert(title: "Alert", message: "You cannot drink because you already can dig!")
             } else {
+                homeViewDelegate?.resetDigTimer()
+                bagViewDelegate?.confirmItemUsed()
                 homeViewDelegate?.showAlert(title: "Drank Water", message: "You feel refreshed and ready to dig again")
             }
-            homeViewDelegate?.resetDigTimer()
-            bagViewDelegate?.confirmItemUsed()
+            
+            
             
         case "Normal Oyster":
             homeViewDelegate?.showAlert(title: "Cannot Use This Item", message: "Normal Oyster can only be sold at the shop")
