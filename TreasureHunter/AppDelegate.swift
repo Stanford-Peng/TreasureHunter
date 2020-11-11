@@ -11,6 +11,7 @@ import Firebase
 import FirebaseAuth
 import FirebaseFirestore
 
+//UI color guideline:https://uxplanet.org/best-three-color-scheme-for-music-player-5da996d7f460
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UIWindowSceneDelegate{
     
