@@ -15,6 +15,8 @@
 		BA5E55C825470F29000E0C33 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5E55C725470F29000E0C33 /* Item.swift */; };
 		BA6F99C4255A8E36000BC7ED /* ItemFunctionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6F99C3255A8E36000BC7ED /* ItemFunctionsController.swift */; };
 		BA6F99D0255AC4AB000BC7ED /* SpinnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6F99CF255AC4AB000BC7ED /* SpinnerViewController.swift */; };
+		BA6F99DE255BDC0A000BC7ED /* ShopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6F99DD255BDC0A000BC7ED /* ShopViewController.swift */; };
+		BA6F99E3255BDDAB000BC7ED /* ShopCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6F99E2255BDDAB000BC7ED /* ShopCollectionViewCell.swift */; };
 		BAE5E3E425453C6800E4FCFA /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE5E3E325453C6800E4FCFA /* SettingsViewController.swift */; };
 		BAE5E3E925453C8500E4FCFA /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE5E3E825453C8500E4FCFA /* ChatViewController.swift */; };
 		BAE5E3EE25453C9A00E4FCFA /* BagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE5E3ED25453C9A00E4FCFA /* BagViewController.swift */; };
@@ -73,6 +75,8 @@
 		BA5E55C725470F29000E0C33 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		BA6F99C3255A8E36000BC7ED /* ItemFunctionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemFunctionsController.swift; sourceTree = "<group>"; };
 		BA6F99CF255AC4AB000BC7ED /* SpinnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerViewController.swift; sourceTree = "<group>"; };
+		BA6F99DD255BDC0A000BC7ED /* ShopViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopViewController.swift; sourceTree = "<group>"; };
+		BA6F99E2255BDDAB000BC7ED /* ShopCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopCollectionViewCell.swift; sourceTree = "<group>"; };
 		BAE5E3E325453C6800E4FCFA /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		BAE5E3E825453C8500E4FCFA /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		BAE5E3ED25453C9A00E4FCFA /* BagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagViewController.swift; sourceTree = "<group>"; };
@@ -162,12 +166,13 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		BA5E55BD25470C17000E0C33 /* BagViews */ = {
+		BA5E55BD25470C17000E0C33 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
 				BA5E55C125470E3D000E0C33 /* BagCollectionViewCell.swift */,
+				BA6F99E2255BDDAB000BC7ED /* ShopCollectionViewCell.swift */,
 			);
-			path = BagViews;
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		BA5E55C625470F11000E0C33 /* Entities */ = {
@@ -250,7 +255,7 @@
 			children = (
 				BA6F99CE255AC48D000BC7ED /* Controllers */,
 				BA5E55C625470F11000E0C33 /* Entities */,
-				BA5E55BD25470C17000E0C33 /* BagViews */,
+				BA5E55BD25470C17000E0C33 /* Cells */,
 				E6147D472546AF2500B799F5 /* ChatViews */,
 				BAE5E3F32545615700E4FCFA /* SettingsTabViews */,
 				E6CC24A72542F2BB004EF299 /* AppDelegate.swift */,
@@ -266,6 +271,7 @@
 				BAE5E3E825453C8500E4FCFA /* ChatViewController.swift */,
 				E6147D5C2546B93D00B799F5 /* ChannelMessagesViewController.swift */,
 				BAE5E3ED25453C9A00E4FCFA /* BagViewController.swift */,
+				BA6F99DD255BDC0A000BC7ED /* ShopViewController.swift */,
 			);
 			path = TreasureHunter;
 			sourceTree = "<group>";
@@ -568,6 +574,7 @@
 			files = (
 				BA6F99D0255AC4AB000BC7ED /* SpinnerViewController.swift in Sources */,
 				E60B179F25595EB100AA37F9 /* Contact.swift in Sources */,
+				BA6F99E3255BDDAB000BC7ED /* ShopCollectionViewCell.swift in Sources */,
 				E6147D4D2546AF5800B799F5 /* Sender.swift in Sources */,
 				BAE5E3EE25453C9A00E4FCFA /* BagViewController.swift in Sources */,
 				E6147D5D2546B93D00B799F5 /* ChannelMessagesViewController.swift in Sources */,
@@ -586,6 +593,7 @@
 				BA5E55C225470E3D000E0C33 /* BagCollectionViewCell.swift in Sources */,
 				BAE5E3E425453C6800E4FCFA /* SettingsViewController.swift in Sources */,
 				BAE5E3E925453C8500E4FCFA /* ChatViewController.swift in Sources */,
+				BA6F99DE255BDC0A000BC7ED /* ShopViewController.swift in Sources */,
 				BAE5E3F52545618100E4FCFA /* SettingsCell.swift in Sources */,
 				BAE5E40325456A6D00E4FCFA /* SettingsSection.swift in Sources */,
 				BAE631EE2544665E005FAA21 /* HomeViewController.swift in Sources */,

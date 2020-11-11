@@ -7,15 +7,16 @@
 
 import Foundation
 
+// Handles item use functions and buy from shop
 class ItemFunctionsController{
     
     var homeViewDelegate: HomeViewDelegate?
     var bagViewDelegate: BagViewDelegate?
+    var shopViewDelegate: ShopViewDelegate?
     
     init(){
-        
     }
-
+    
     func use(item: Item){
         switch item.name {
         case "Bottle Of Water":
@@ -28,13 +29,12 @@ class ItemFunctionsController{
                 bagViewDelegate?.confirmItemUsed()
                 homeViewDelegate?.showAlert(title: "Drank Water", message: "You feel refreshed and ready to dig again")
             }
-            
-            
-            
         case "Normal Oyster":
-            homeViewDelegate?.showAlert(title: "Cannot Use This Item", message: "Normal Oyster can only be sold at the shop")
-            print("Using normal Oyster")
+            bagViewDelegate?.sellItem(forPrice: 500)
             
+        case "Large Treasure Chest":
+            bagViewDelegate?.sellItem(forPrice: 5000)
+    
         case "Pearl Oyster":
             break
             
@@ -60,7 +60,6 @@ class ItemFunctionsController{
             print("Invalid Item")
         }
     }
-    
-    
+       
 }
 

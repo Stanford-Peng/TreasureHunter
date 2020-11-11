@@ -16,6 +16,7 @@ class Item: NSObject {
     var imageIcon: UIImage?
     var dropChance: Int?
     var itemCount: Int?
+    var itemShopPrice: Int?
     
     init(name: String, desc: String, imageIcon: UIImage, dropChance:Int){
         self.name = name
@@ -34,6 +35,12 @@ class Item: NSObject {
         self.name = name
         self.desc = desc
         self.imageIcon = imageIcon
+    }
+    init(name: String, desc: String, imageIcon: UIImage, shopPrice: Int){
+        self.name = name
+        self.desc = desc
+        self.imageIcon = imageIcon
+        self.itemShopPrice = shopPrice
     }
     override init(){
     }
