@@ -28,12 +28,13 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
     }
     
     @IBOutlet weak var itemTitleLabel: UILabel!
-    @IBOutlet weak var navBar: UINavigationBar!
+    //@IBOutlet weak var navBar: UINavigationBar!
     @IBOutlet weak var bagCollectionView: UICollectionView!
     @IBOutlet weak var itemDescriptionView: UIView!
     @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var useButton: UIButton!
     @IBOutlet weak var dropButton: UIButton!
+    @IBOutlet weak var shopButton: UIBarButtonItem!
     
     private let itemsPerRow: CGFloat = 4
     private let numberOfRow: CGFloat = 10
@@ -53,6 +54,7 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
     var pickerView: UIPickerView!
     var pickerData: [Int]!
     var itemFunctionsController: ItemFunctionsController?
+
     
     //    var managedObjectContext: NSManagedObjectContext?
     
@@ -71,12 +73,16 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //userItemArray.removeAll()
+        setNeedsStatusBarAppearanceUpdate()
         
         // Start to update user location in real time
         if CLLocationManager.locationServicesEnabled() {
             locationManager.startUpdatingLocation()
         }
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .lightContent
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -234,17 +240,21 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
         //        self.bagCollectionView!.register(BagCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         bagCollectionView.dataSource = self
         bagCollectionView.delegate = self
-        bagCollectionView.backgroundColor = UIColor.Custom.Cyan
+        bagCollectionView.backgroundColor = UIColor.Custom.darkBlue
         //8CEBD3
         //let backgroundImageView = UIImageView()
         //backgroundImageView.image = UIImage(named:"background-login")
         //bagCollectionView.backgroundView = backgroundImageView
         
-        navBar.tintColor = UIColor.Custom.Cyan
-        navBar.barTintColor = UIColor.Custom.Cyan
-        navBar.prefersLargeTitles = true
-        navBar.isTranslucent = false
-        navBar.barStyle = .black
+        navigationItem.title = "Bag"
+        navigationItem.largeTitleDisplayMode = .always
+        navigationController?.navigationBar.isTranslucent = false
+        
+//        navigationController?.navigationBar.barTintColor = UIColor.Custom.darkBlue
+//        navigationController?.navigationBar.backgroundColor = UIColor.Custom.darkBlue
+//        navigationController?.navigationBar.prefersLargeTitles = true
+//        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+//        navigationController?.navigationBar.barStyle = .black
         //        navBar.isTranslucent = false
         //        navBar.barStyle = .black
         
@@ -390,6 +400,7 @@ extension UIColor {
     struct Custom {
         static let Cyan = UIColor(displayP3Red: 140/255, green: 235/255, blue: 211/255, alpha: 1.0)
         static let lightBrown = UIColor(displayP3Red: 243/255, green: 211/255, blue: 140/255, alpha: 1.0)
-        static let darkBlue = UIColor(displayP3Red: 27/255, green: 89/255, blue: 157/255, alpha: 0.85)
+        static let darkBlue = UIColor(displayP3Red: 27/255, green: 89/255, blue: 157/255, alpha: 1.0)
     }
 }
+
