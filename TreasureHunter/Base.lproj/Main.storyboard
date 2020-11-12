@@ -157,7 +157,7 @@
         <scene sceneID="hit-c8-yfS">
             <objects>
                 <tableViewController storyboardIdentifier="PopVC" id="3eN-K0-jfr" customClass="GroupMemberController" customModule="TreasureHunter" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="cKa-4x-FVa">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cKa-4x-FVa">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -216,6 +216,13 @@
                                     <action selector="testDig:" destination="6sU-5b-pVJ" eventType="touchUpInside" id="Wqm-Mx-LhR"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HC0-cV-6X9">
+                                <rect key="frame" x="16" y="16" width="89" height="30"/>
+                                <state key="normal" title="Stashed Hint"/>
+                                <connections>
+                                    <action selector="stashedHintTapped:" destination="6sU-5b-pVJ" eventType="touchUpInside" id="tvv-kY-Net"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="QrH-Me-RCm"/>
                         <color key="backgroundColor" red="0.10588235294117647" green="0.34901960784313724" blue="0.61568627450980395" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
@@ -227,13 +234,16 @@
                             <constraint firstItem="k3x-ee-bzg" firstAttribute="top" secondItem="QrH-Me-RCm" secondAttribute="top" constant="16" id="QsP-eg-dSq"/>
                             <constraint firstItem="KMY-va-oft" firstAttribute="top" secondItem="QrH-Me-RCm" secondAttribute="top" id="R0W-BK-kid"/>
                             <constraint firstItem="QrH-Me-RCm" firstAttribute="trailing" secondItem="szW-3f-MvN" secondAttribute="trailing" id="Rtl-jM-5CG"/>
+                            <constraint firstItem="HC0-cV-6X9" firstAttribute="top" secondItem="QrH-Me-RCm" secondAttribute="top" constant="16" id="a9T-z5-hRU"/>
                             <constraint firstItem="QrH-Me-RCm" firstAttribute="bottom" secondItem="szW-3f-MvN" secondAttribute="bottom" constant="16" id="dl6-2d-Vg6"/>
+                            <constraint firstItem="HC0-cV-6X9" firstAttribute="leading" secondItem="QrH-Me-RCm" secondAttribute="leading" constant="16" id="tOP-NQ-TIs"/>
                             <constraint firstItem="szW-3f-MvN" firstAttribute="leading" secondItem="QrH-Me-RCm" secondAttribute="leading" id="vCO-ul-T9P"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="HOME" image="homeIcon" id="bcz-4I-9IM"/>
                     <navigationItem key="navigationItem" title="Home" id="vLO-sN-krf"/>
                     <connections>
+                        <outlet property="hintButton" destination="HC0-cV-6X9" id="Ntv-WF-QKT"/>
                         <outlet property="mapView" destination="KMY-va-oft" id="IXY-Zq-ysf"/>
                         <outlet property="timerLabel" destination="k3x-ee-bzg" id="fYi-7J-6c3"/>
                     </connections>
