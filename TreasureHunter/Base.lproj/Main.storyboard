@@ -201,14 +201,6 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KMY-va-oft">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                             </mapView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading dig status..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k3x-ee-bzg">
-                                <rect key="frame" x="171" y="16" width="188" height="23.5"/>
-                                <fontDescription key="fontDescription" name="Futura-Bold" family="Futura" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                                <color key="shadowColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <size key="shadowOffset" width="3" height="1"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="szW-3f-MvN">
                                 <rect key="frame" x="0.0" y="572" width="375" height="30"/>
                                 <state key="normal" title="Button"/>
@@ -217,27 +209,41 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HC0-cV-6X9">
-                                <rect key="frame" x="16" y="16" width="89" height="30"/>
+                                <rect key="frame" x="16" y="16" width="116" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="116" id="f8O-tU-mLL"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="16"/>
+                                <color key="tintColor" red="0.17187196530000001" green="0.094732039879999994" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Stashed Hint"/>
                                 <connections>
                                     <action selector="stashedHintTapped:" destination="6sU-5b-pVJ" eventType="touchUpInside" id="tvv-kY-Net"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading dig status..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k3x-ee-bzg">
+                                <rect key="frame" x="0.0" y="553.5" width="375" height="24.5"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Heavy" family="Avenir Next" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <size key="shadowOffset" width="0.80000000000000004" height="0.80000000000000004"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="QrH-Me-RCm"/>
                         <color key="backgroundColor" red="0.10588235294117647" green="0.34901960784313724" blue="0.61568627450980395" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="k3x-ee-bzg" firstAttribute="leading" secondItem="QrH-Me-RCm" secondAttribute="leading" id="B0a-6I-NAl"/>
                             <constraint firstItem="KMY-va-oft" firstAttribute="leading" secondItem="QrH-Me-RCm" secondAttribute="leading" id="C2u-Y4-vef"/>
                             <constraint firstItem="KMY-va-oft" firstAttribute="trailing" secondItem="QrH-Me-RCm" secondAttribute="trailing" id="DbT-Vg-IQ8"/>
-                            <constraint firstItem="QrH-Me-RCm" firstAttribute="trailing" secondItem="k3x-ee-bzg" secondAttribute="trailing" constant="16" id="HbJ-nf-mdT"/>
+                            <constraint firstItem="QrH-Me-RCm" firstAttribute="bottom" secondItem="k3x-ee-bzg" secondAttribute="bottom" constant="40" id="NdE-Jd-0D8"/>
                             <constraint firstItem="KMY-va-oft" firstAttribute="bottom" secondItem="QrH-Me-RCm" secondAttribute="bottom" id="PYW-z6-DhA"/>
-                            <constraint firstItem="k3x-ee-bzg" firstAttribute="top" secondItem="QrH-Me-RCm" secondAttribute="top" constant="16" id="QsP-eg-dSq"/>
                             <constraint firstItem="KMY-va-oft" firstAttribute="top" secondItem="QrH-Me-RCm" secondAttribute="top" id="R0W-BK-kid"/>
                             <constraint firstItem="QrH-Me-RCm" firstAttribute="trailing" secondItem="szW-3f-MvN" secondAttribute="trailing" id="Rtl-jM-5CG"/>
-                            <constraint firstItem="HC0-cV-6X9" firstAttribute="top" secondItem="QrH-Me-RCm" secondAttribute="top" constant="16" id="a9T-z5-hRU"/>
                             <constraint firstItem="QrH-Me-RCm" firstAttribute="bottom" secondItem="szW-3f-MvN" secondAttribute="bottom" constant="16" id="dl6-2d-Vg6"/>
-                            <constraint firstItem="HC0-cV-6X9" firstAttribute="leading" secondItem="QrH-Me-RCm" secondAttribute="leading" constant="16" id="tOP-NQ-TIs"/>
+                            <constraint firstItem="HC0-cV-6X9" firstAttribute="leading" secondItem="QrH-Me-RCm" secondAttribute="leading" constant="16" id="eQ6-kI-ZoX"/>
+                            <constraint firstItem="QrH-Me-RCm" firstAttribute="trailing" secondItem="k3x-ee-bzg" secondAttribute="trailing" id="hnS-4k-jxW"/>
                             <constraint firstItem="szW-3f-MvN" firstAttribute="leading" secondItem="QrH-Me-RCm" secondAttribute="leading" id="vCO-ul-T9P"/>
+                            <constraint firstItem="HC0-cV-6X9" firstAttribute="top" secondItem="QrH-Me-RCm" secondAttribute="top" constant="16" id="zaF-Dg-lMN"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="HOME" image="homeIcon" id="bcz-4I-9IM"/>
