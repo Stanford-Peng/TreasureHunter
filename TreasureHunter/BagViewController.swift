@@ -287,8 +287,8 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
         navigationItem.title = "Bag"
         navigationController?.navigationBar.isTranslucent = true
         
-//        navigationController?.navigationBar.barTintColor = UIColor.Custom.darkBlue
-//        navigationController?.navigationBar.backgroundColor = UIColor.Custom.darkBlue
+        navigationController?.navigationBar.barTintColor = UIColor.Custom.darkBlue
+        navigationController?.navigationBar.backgroundColor = UIColor.Custom.darkBlue
 //        navigationController?.navigationBar.prefersLargeTitles = true
 //        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
 //        navigationController?.navigationBar.barStyle = .black
