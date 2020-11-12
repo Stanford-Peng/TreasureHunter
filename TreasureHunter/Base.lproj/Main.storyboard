@@ -121,7 +121,7 @@
             <objects>
                 <viewController id="FaI-Pg-0SO" customClass="ChannelMessagesViewController" customModule="TreasureHunter" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NYW-YU-gsZ">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="14h-a5-UfX">
@@ -201,14 +201,6 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KMY-va-oft">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                             </mapView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading dig status..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k3x-ee-bzg">
-                                <rect key="frame" x="171" y="16" width="188" height="23.5"/>
-                                <fontDescription key="fontDescription" name="Futura-Bold" family="Futura" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                                <color key="shadowColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <size key="shadowOffset" width="3" height="1"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="szW-3f-MvN">
                                 <rect key="frame" x="0.0" y="572" width="375" height="30"/>
                                 <state key="normal" title="Button"/>
@@ -217,27 +209,41 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HC0-cV-6X9">
-                                <rect key="frame" x="16" y="16" width="89" height="30"/>
+                                <rect key="frame" x="16" y="16" width="116" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="116" id="f8O-tU-mLL"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="16"/>
+                                <color key="tintColor" red="0.17187196530000001" green="0.094732039879999994" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Stashed Hint"/>
                                 <connections>
                                     <action selector="stashedHintTapped:" destination="6sU-5b-pVJ" eventType="touchUpInside" id="tvv-kY-Net"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading dig status..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k3x-ee-bzg">
+                                <rect key="frame" x="0.0" y="554" width="375" height="24"/>
+                                <fontDescription key="fontDescription" name="Futura-Bold" family="Futura" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" red="0.1058823529" green="0.34901960780000002" blue="0.61568627450000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <size key="shadowOffset" width="0.40000000000000002" height="0.40000000000000002"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="QrH-Me-RCm"/>
                         <color key="backgroundColor" red="0.10588235294117647" green="0.34901960784313724" blue="0.61568627450980395" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="k3x-ee-bzg" firstAttribute="leading" secondItem="QrH-Me-RCm" secondAttribute="leading" id="B0a-6I-NAl"/>
                             <constraint firstItem="KMY-va-oft" firstAttribute="leading" secondItem="QrH-Me-RCm" secondAttribute="leading" id="C2u-Y4-vef"/>
                             <constraint firstItem="KMY-va-oft" firstAttribute="trailing" secondItem="QrH-Me-RCm" secondAttribute="trailing" id="DbT-Vg-IQ8"/>
-                            <constraint firstItem="QrH-Me-RCm" firstAttribute="trailing" secondItem="k3x-ee-bzg" secondAttribute="trailing" constant="16" id="HbJ-nf-mdT"/>
+                            <constraint firstItem="QrH-Me-RCm" firstAttribute="bottom" secondItem="k3x-ee-bzg" secondAttribute="bottom" constant="40" id="NdE-Jd-0D8"/>
                             <constraint firstItem="KMY-va-oft" firstAttribute="bottom" secondItem="QrH-Me-RCm" secondAttribute="bottom" id="PYW-z6-DhA"/>
-                            <constraint firstItem="k3x-ee-bzg" firstAttribute="top" secondItem="QrH-Me-RCm" secondAttribute="top" constant="16" id="QsP-eg-dSq"/>
                             <constraint firstItem="KMY-va-oft" firstAttribute="top" secondItem="QrH-Me-RCm" secondAttribute="top" id="R0W-BK-kid"/>
                             <constraint firstItem="QrH-Me-RCm" firstAttribute="trailing" secondItem="szW-3f-MvN" secondAttribute="trailing" id="Rtl-jM-5CG"/>
-                            <constraint firstItem="HC0-cV-6X9" firstAttribute="top" secondItem="QrH-Me-RCm" secondAttribute="top" constant="16" id="a9T-z5-hRU"/>
                             <constraint firstItem="QrH-Me-RCm" firstAttribute="bottom" secondItem="szW-3f-MvN" secondAttribute="bottom" constant="16" id="dl6-2d-Vg6"/>
-                            <constraint firstItem="HC0-cV-6X9" firstAttribute="leading" secondItem="QrH-Me-RCm" secondAttribute="leading" constant="16" id="tOP-NQ-TIs"/>
+                            <constraint firstItem="HC0-cV-6X9" firstAttribute="leading" secondItem="QrH-Me-RCm" secondAttribute="leading" constant="16" id="eQ6-kI-ZoX"/>
+                            <constraint firstItem="QrH-Me-RCm" firstAttribute="trailing" secondItem="k3x-ee-bzg" secondAttribute="trailing" id="hnS-4k-jxW"/>
                             <constraint firstItem="szW-3f-MvN" firstAttribute="leading" secondItem="QrH-Me-RCm" secondAttribute="leading" id="vCO-ul-T9P"/>
+                            <constraint firstItem="HC0-cV-6X9" firstAttribute="top" secondItem="QrH-Me-RCm" secondAttribute="top" constant="16" id="zaF-Dg-lMN"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="HOME" image="homeIcon" id="bcz-4I-9IM"/>
@@ -257,7 +263,7 @@
             <objects>
                 <viewController id="eiH-P6-KmB" customClass="BagViewController" customModule="TreasureHunter" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hFd-Wy-iF4">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="URC-I7-6NM">
@@ -412,7 +418,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="AG8-YJ-g2U">
                         <barButtonItem key="backBarButtonItem" title="Bag" id="3qQ-bH-9r1"/>
-                        <barButtonItem key="rightBarButtonItem" title="Shop" id="Vao-It-dwE">
+                        <barButtonItem key="rightBarButtonItem" tag="123" title="Shop" id="Vao-It-dwE">
                             <connections>
                                 <segue destination="anj-Jz-qdD" kind="show" identifier="shopSegue" id="TKa-Pu-YWl"/>
                             </connections>
@@ -425,7 +431,7 @@
                         <outlet property="dropButton" destination="Zyw-Nr-zUi" id="MAs-yv-wvN"/>
                         <outlet property="itemDescriptionView" destination="1XS-Va-Kmr" id="jCr-IO-7qh"/>
                         <outlet property="itemTitleLabel" destination="Eog-uo-eqQ" id="b1S-AS-7RU"/>
-                        <outlet property="shopButton" destination="Vao-It-dwE" id="ctY-KN-0Ba"/>
+                        <outlet property="shopButton" destination="Vao-It-dwE" id="gd8-xK-9cu"/>
                         <outlet property="useButton" destination="IxS-jH-M8l" id="lFR-et-9eB"/>
                         <outlet property="userGoldLabel" destination="AG1-A4-2R9" id="BVk-vv-mXT"/>
                     </connections>
@@ -439,7 +445,7 @@
             <objects>
                 <viewController storyboardIdentifier="shopViewController" title="Shop" id="anj-Jz-qdD" customClass="ShopViewController" customModule="TreasureHunter" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="z5k-PC-r2N">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="571"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="KzI-4O-9WX">

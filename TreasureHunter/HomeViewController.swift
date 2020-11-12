@@ -51,12 +51,19 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     var digradius = 10.0
     let DEFAULT_DIG_RADIUS = 10.0
     
+    let strokeTextAttributes = [
+      NSAttributedString.Key.strokeColor : UIColor.black,
+      NSAttributedString.Key.foregroundColor : UIColor.white,
+      NSAttributedString.Key.strokeWidth : -2.0,
+        NSAttributedString.Key.font : UIFont.monospacedSystemFont(ofSize: 19, weight: UIFont.Weight(rawValue: 20.0))]
+      as [NSAttributedString.Key : Any]
+    
     @IBOutlet weak var hintButton: UIButton!
     //    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         createSpinnerView()
-        setupLabel()
+        setupTimerLabel(text: "Loading Dig Status")
         configureUI()
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(appMovedToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
@@ -120,8 +127,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     
     
     func configureUI(){
-        
-        
         self.hintButton.backgroundColor = UIColor(displayP3Red: 222/255, green: 194/255, blue: 152/255, alpha: 1.0)
         self.hintButton.layer.cornerRadius = 7.0
         self.hintButton.layer.borderWidth = 5.0
@@ -132,8 +137,9 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         self.hintButton.layer.shadowOffset = CGSize(width: 0, height: 3)
     }
     
-    func setupLabel(){
+    func setupTimerLabel(text: String){
         // F3D38C primary background color
+        timerLabel.attributedText = NSMutableAttributedString(string: text, attributes: strokeTextAttributes)
     }
     
     func getDigRadius() -> Double {
@@ -265,6 +271,8 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
             timerReference.document(email!).setData(["lastDigDatetime":Timestamp(date: Date.init())])
             setUpTimer()
             canDig = false
+        } else {
+            showAlert(title: "Cannot dig yet", message: "You cannot dig yet!")
         }
     }
     
@@ -521,12 +529,12 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         } else {
             canDig = false
             seconds! -= 1
-            timerLabel.text = timeString(time: TimeInterval(seconds!))
+            setupTimerLabel(text: timeString(time: TimeInterval(seconds!)))
         }
     }
     
     func timeUp(){
-        timerLabel.text = "You can dig"
+        setupTimerLabel(text: "Shake to dig")
         canDig = true
     }
     
@@ -603,6 +611,8 @@ extension HomeViewController{
             circleRenderer.lineWidth = 1.0
             circleRenderer.strokeColor = .blue
             circleRenderer.fillColor = UIColor.purple.withAlphaComponent(0.2)
+            print(circleRenderer.circle.radius)
+            print(circleRenderer)
             return circleRenderer
         }
         return MKOverlayRenderer(overlay: overlay)
