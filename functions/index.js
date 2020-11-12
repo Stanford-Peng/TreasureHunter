@@ -40,7 +40,7 @@ exports.findItems = functions.https.onCall(async(data, context) => {
     // Grab the long parameter.
     const long = parseFloat(data.long);
     const lat = parseFloat(data.lat);
-
+    const radius = parseFloat(data.radius)
     const userPoint = new admin.firestore.GeoPoint(lat,long)
     //console.log(userPoint)
     functions.logger.log(userPoint);
@@ -67,7 +67,7 @@ exports.findItems = functions.https.onCall(async(data, context) => {
             const itemLocation = doc.get("location")
             const itemID = doc.get("itemID")
 
-            if(distance(userPoint.latitude, userPoint.longitude, itemLocation.latitude, itemLocation.longitude,"K")*1000 < 10){
+            if(distance(userPoint.latitude, userPoint.longitude, itemLocation.latitude, itemLocation.longitude,"K")*1000 < radius){
                 let exist = false;
                 items.forEach(
                     (item, index) => {
