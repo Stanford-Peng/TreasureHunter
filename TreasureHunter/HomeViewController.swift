@@ -48,7 +48,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     
     let COOLDOWN = 50
     var shakeCounter = 0
-    var digradius = 0.0
+    var digradius = 10.0
     let DEFAULT_DIG_RADIUS = 10.0
     
     @IBOutlet weak var hintButton: UIButton!
@@ -62,8 +62,9 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         notificationCenter.addObserver(self, selector: #selector(appMovedToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
         setUpLocationAuthorisation()
 
-        mapView.mapType = MKMapType.hybridFlyover
+        mapView.mapType = MKMapType.standard
         mapView.delegate = self
+       
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let vc = appDelegate.itemFunctionsController
@@ -238,7 +239,10 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
                 return
             }
             self.digradius = self.DEFAULT_DIG_RADIUS
-            print(result!.data)
+            //reset digRadius overlay
+            self.mapView.removeOverlays(self.mapView.overlays)
+            self.mapView.addOverlay(MKCircle(center:self.userLocation!, radius: self.digradius))
+            
             let diggedItems = result?.data as! NSArray
             if(diggedItems.count == 0){
                 self.generateRandomItemToBag()
@@ -523,6 +527,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
             //zoom to region of near 100 meters
             let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 100, longitudinalMeters: 100)
             mapView.setRegion(region, animated: true)
+            //mapView.
         }
     }
     
