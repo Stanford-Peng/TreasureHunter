@@ -72,7 +72,52 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         getAllExistingItems()
         
         //*** Get seconds from server database and load into SceneDelegate
+        
+        //start annotation
+       
+        //self.view.addSubview(label)
+
+        //self.view.addSubview(label)
+       // addAnnotationOnce(view: label)
+        //addAnnotationOnce(view: label)
+        
+
+        
     }
+    
+    func addAnnotations(step:Int){
+        switch step{
+            case 0:
+                let label1 = UILabel(frame: CGRect(x: 64 , y: 32, width: 200, height: 30))
+                //let label = UILabel(frame: CGRect(x: 64 , y: 32, width: 200, height: 30))
+                label1.numberOfLines = 5
+                label1.lineBreakMode = .byWordWrapping
+                label1.text = "<- This button show can always show you the last after-digging hint! Use it wisely!"
+                addAnnotationView(view: label1)
+            case 1:
+                break
+            default:
+                break
+        }
+    }
+        
+    func addAnnotationView(view:UIView){
+        view.fadeIn(0.5, delay: 0) { (bool) in
+            self.view.addSubview(view)
+            view.fadeOut(2, delay: 5) { (bool) in
+                view.removeFromSuperview()
+                
+            }
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+
+
+        
+        
+    }
+    
     
     func configureUI(){
         
@@ -613,4 +658,22 @@ extension HomeViewController{
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
       print("Error requesting location: \(error.localizedDescription)")
     }
+}
+
+extension UIView {
+
+    func fadeIn(_ duration: TimeInterval = 0.5, delay: TimeInterval = 0.0, completion: @escaping ((Bool) -> Void) = {(finished: Bool) -> Void in}) {
+        
+        UIView.animate(withDuration: duration, delay: delay, options: UIView.AnimationOptions.curveEaseIn, animations: {
+            self.alpha = 1.0
+    }, completion: completion)
+        
+    }
+
+    func fadeOut(_ duration: TimeInterval = 0.5, delay: TimeInterval = 5, completion: @escaping (Bool) -> Void = {(finished: Bool) -> Void in}) {
+        
+        UIView.animate(withDuration: duration, delay: delay, options: UIView.AnimationOptions.curveEaseIn, animations: {
+            self.alpha = 0.3
+    }, completion: completion)
+   }
 }
