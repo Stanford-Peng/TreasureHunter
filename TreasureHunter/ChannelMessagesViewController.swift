@@ -253,14 +253,21 @@ class ChannelMessagesViewController: MessagesViewController, MessagesDataSource,
             })
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let popVC = storyboard.instantiateViewController(identifier: "PopVC") as! GroupMemberController
-            popVC.modalPresentationStyle = .fullScreen
+//            let navBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 44))
+////            popVC.navigationItem.title = "Member List of \(self.currentGroup!.name)"
+//            let item = UINavigationItem(title:"Member List of \(self.currentGroup!.name)")
+//            navBar.setItems([item], animated: true)
+//            popVC.view.addSubview(navBar)
+            
+            popVC.modalPresentationStyle = .popover
+            //popVC.title = "Member List of \(self.currentGroup!.name)"
             popVC.groupMembers = self.groupMembers
+            popVC.groupName = self.currentGroup?.name
             let popover = popVC.popoverPresentationController
             popover?.delegate = self
             popover?.barButtonItem = self.viewItem
             self.present(popVC, animated: true, completion: nil)
-            
-            
+
         })
         
     }

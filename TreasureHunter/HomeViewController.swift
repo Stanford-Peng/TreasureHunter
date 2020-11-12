@@ -48,11 +48,13 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     var shakeCounter = 0
     let DIGRADIUS:Double = 10
     
+    @IBOutlet weak var hintButton: UIButton!
     //    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         createSpinnerView()
         setupLabel()
+        configureUI()
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(appMovedToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
         setUpLocationAuthorisation()
@@ -67,6 +69,19 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         
         //*** Get seconds from server database and load into SceneDelegate
         
+    }
+    
+    func configureUI(){
+        
+        
+        self.hintButton.backgroundColor = UIColor(displayP3Red: 222/255, green: 194/255, blue: 152/255, alpha: 1.0)
+        self.hintButton.layer.cornerRadius = 7.0
+        self.hintButton.layer.borderWidth = 5.0
+        self.hintButton.layer.borderColor = UIColor.clear.cgColor
+        self.hintButton.layer.shadowColor = UIColor(displayP3Red: 158/255, green: 122/255, blue: 82/255, alpha: 1.0).cgColor
+        self.hintButton.layer.shadowOpacity = 1.0
+        self.hintButton.layer.shadowRadius = 2.0
+        self.hintButton.layer.shadowOffset = CGSize(width: 0, height: 3)
     }
     
     func setupLabel(){
@@ -331,6 +346,35 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
             }
         }
     }
+    
+    @IBAction func stashedHintTapped(_ sender: Any) {
+        let email=UserDefaults.standard.string(forKey: "useremail")
+        let userPosition = CLLocation(latitude: userLocation!.latitude, longitude: userLocation!.longitude)
+        itemLocationReference.document(email!).getDocument { (document, error) in
+            if let error = error{
+                print(error)
+                return
+            }
+            if let document = document, document.exists{
+                let coordinate = document.get("location") as! GeoPoint
+                let itemLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+                let distance = userPosition.distance(from: itemLocation)
+                if distance > 3000{
+//                    exist = false
+                    self.showLocationWithNavigation(title: "The hint left from last digging", message: "Item \(document.get("itemID")!) is around \(Int(distance)) meters away from you and kind of far away from you. You can try digging to get a new closer hint within 3 KM", coordinate: itemLocation.coordinate)
+                } else{
+//                    exist = true
+                    //self.showAlert(title: "new item", message: "Item \(document.get("name")!) is only around \(Int(distance)) meters away from you")
+                    self.showLocationWithNavigation(title: "The hint left from last digging", message: "Item \(document.get("itemID")!) is only around \(Int(distance)) meters away from you", coordinate: itemLocation.coordinate)
+                    
+                }
+                print(itemLocation)
+            } else{
+                self.showAlert(title: "No Stashed hint.", message: "Sorry,you don't have any stashed hint and you can try to dig and get a new hint.")
+            }
+        }
+    }
+    
     
     func generateRandomItemToMap(){
         let randonLocationGenerator = RandomLocationGenerator()

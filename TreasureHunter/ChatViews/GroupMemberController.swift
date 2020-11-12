@@ -10,10 +10,11 @@ import UIKit
 class GroupMemberController: UITableViewController {
     
     var groupMembers:[Contact]?
-
+    var groupName:String?
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        let value = self.view.frame.offsetBy(dx: 0, dy: 44)
+       // self.tableView.frame = CGRectOff
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -45,6 +46,18 @@ class GroupMemberController: UITableViewController {
         return cell
     }
 
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView()
+        let title = UILabel()
+        title.font = UIFont.boldSystemFont(ofSize: 16)
+        title.textColor = .black
+        view.addSubview(title)
+        title.translatesAutoresizingMaskIntoConstraints = false
+        title.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        title.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16).isActive = true
+        title.text = "Member List of \(self.groupName!)"
+        return view
+    }
 
     /*
     // Override to support conditional editing of the table view.
