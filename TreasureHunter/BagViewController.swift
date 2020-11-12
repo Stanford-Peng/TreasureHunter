@@ -28,6 +28,7 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
         return "\(pickerData[row])"
     }
     
+    @IBOutlet weak var shopButton: UIBarButtonItem!
     @IBOutlet weak var descriptionView: UIView!
     @IBOutlet weak var itemTitleLabel: UILabel!
     //@IBOutlet weak var navBar: UINavigationBar!
@@ -36,7 +37,6 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
     @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var useButton: UIButton!
     @IBOutlet weak var dropButton: UIButton!
-    @IBOutlet weak var shopButton: UIBarButtonItem!
     @IBOutlet weak var userGoldLabel: UILabel!
     
     private let itemsPerRow: CGFloat = 4
@@ -318,6 +318,17 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
         userGoldLabel.textColor = .white
         userGoldLabel.shadowColor = .black
         userGoldLabel.shadowOffset = CGSize(width: 0.7, height: 0.7)
+        
+        let button: UIButton = UIButton(type: UIButton.ButtonType.custom)
+        button.backgroundColor = UIColor(displayP3Red: 222/255, green: 194/255, blue: 152/255, alpha: 1.0)
+        button.layer.cornerRadius = 7.0
+        button.layer.borderWidth = 5.0
+        button.layer.borderColor = UIColor.clear.cgColor
+        button.layer.shadowColor = UIColor(displayP3Red: 158/255, green: 122/255, blue: 82/255, alpha: 1.0).cgColor
+        button.layer.shadowOpacity = 1.0
+        button.layer.shadowRadius = 2.0
+        button.layer.shadowOffset = CGSize(width: 0, height: 3)
+        
     }
     
     private func configureGoldLabel(text: String){

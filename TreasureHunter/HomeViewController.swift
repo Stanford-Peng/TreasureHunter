@@ -54,8 +54,8 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     let strokeTextAttributes = [
       NSAttributedString.Key.strokeColor : UIColor.black,
       NSAttributedString.Key.foregroundColor : UIColor.white,
-      NSAttributedString.Key.strokeWidth : -3.0,
-        NSAttributedString.Key.font : UIFont.systemFont(ofSize: 18, weight: UIFont.Weight(rawValue: 25.0))]
+      NSAttributedString.Key.strokeWidth : -2.0,
+        NSAttributedString.Key.font : UIFont.monospacedSystemFont(ofSize: 19, weight: UIFont.Weight(rawValue: 20.0))]
       as [NSAttributedString.Key : Any]
     
     @IBOutlet weak var hintButton: UIButton!
