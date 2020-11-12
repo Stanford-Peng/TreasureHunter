@@ -15,6 +15,8 @@ protocol HomeViewDelegate{
     func showAlert(title: String, message: String)
     func showAlertWithImage(title: String, message: String, imageName: String)
     func getTimer() -> Int
+    func increaseDigRadius(by: Double)
+    func getDigRadius() -> Double
 }
 
 //timer reference:
@@ -46,7 +48,8 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     
     let COOLDOWN = 50
     var shakeCounter = 0
-    let DIGRADIUS:Double = 10
+    var digradius = 0.0
+    let DEFAULT_DIG_RADIUS = 10.0
     
     @IBOutlet weak var hintButton: UIButton!
     //    let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -68,7 +71,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         getAllExistingItems()
         
         //*** Get seconds from server database and load into SceneDelegate
-        
     }
     
     func configureUI(){
@@ -86,6 +88,10 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     
     func setupLabel(){
         // F3D38C primary background color
+    }
+    
+    func getDigRadius() -> Double {
+        return digradius
     }
     
     func resetDigTimer() {
@@ -170,6 +176,11 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         }
     }
     
+    func increaseDigRadius(by: Double){
+        digradius = DEFAULT_DIG_RADIUS
+        digradius += by
+    }
+    
     func isFirstTimeUser(){
         // Set up user timer
         let email=UserDefaults.standard.string(forKey: "useremail")
@@ -203,10 +214,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     
     func dig(){
         if canDig! {
-            //            let items=findItems()
-            //            for item in items{
-            //                showAlert(title: "Found Item: ", message: item.name!)
-            //            }
             findItems()
             let email=UserDefaults.standard.string(forKey: "useremail")
             timerReference.document(email!).setData(["lastDigDatetime":Timestamp(date: Date.init())])
@@ -218,7 +225,8 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     func findItems(){
         var items:[Item] = []
         var locationDocIDs: [String] = []
-        functions.httpsCallable("findItems").call(["long":userLocation?.longitude, "lat":userLocation?.latitude]) { (result, error) in
+        
+        functions.httpsCallable("findItems").call(["radius": digradius, "long":userLocation?.longitude, "lat":userLocation?.latitude]) { (result, error) in
             if let error = error as NSError? {
                 if error.domain == FunctionsErrorDomain {
                     _ = FunctionsErrorCode(rawValue: error.code)
@@ -229,8 +237,8 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
                 print(error)
                 return
             }
+            self.digradius = self.DEFAULT_DIG_RADIUS
             print(result!.data)
-            
             let diggedItems = result?.data as! NSArray
             if(diggedItems.count == 0){
                 self.generateRandomItemToBag()
@@ -510,7 +518,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
             //clear overlays
             mapView.removeOverlays(mapView.overlays)
             //add dig circle
-            mapView.addOverlay(MKCircle(center:coordinate, radius: DIGRADIUS))
+            mapView.addOverlay(MKCircle(center:coordinate, radius: digradius))
             
             //zoom to region of near 100 meters
             let region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 100, longitudinalMeters: 100)

@@ -23,7 +23,7 @@ class ItemFunctionsController{
             print("Using bottle of water")
             
             if homeViewDelegate!.getTimer() < 1 {
-                homeViewDelegate?.showAlert(title: "Alert", message: "You cannot drink because you already can dig!")
+                homeViewDelegate?.showAlert(title: "Could not drink", message: "You can already dig!")
             } else {
                 homeViewDelegate?.resetDigTimer()
                 bagViewDelegate?.confirmItemUsed()
@@ -55,7 +55,14 @@ class ItemFunctionsController{
             
         case "Map Piece 6":
             homeViewDelegate?.showAlert(title: "Hint 6", message: "N")
-            
+        case "Energy Drink":
+            if homeViewDelegate!.getDigRadius() > 10.0 {
+                homeViewDelegate?.showAlert(title: "Could not drink", message: "Your next dig radius is already increased!")
+            } else {
+                homeViewDelegate?.increaseDigRadius(by: 20)
+                bagViewDelegate?.confirmItemUsed()
+                homeViewDelegate?.showAlert(title: "Dig Radius Increased", message: "Your next dig will be 3x the normal radius")
+            }
         default:
             print("Invalid Item")
         }
