@@ -242,8 +242,6 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
         }
     }
     
-    
-    
     func userItemListener(){
         let email = UserDefaults.standard.string(forKey: "useremail")
         databaseListener = userItemReference.document(email!).addSnapshotListener { (querySnapshot, error) in
