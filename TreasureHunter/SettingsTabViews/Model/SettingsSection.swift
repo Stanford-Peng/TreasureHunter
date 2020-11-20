@@ -42,6 +42,7 @@ enum ProfileOptions: Int, CaseIterable, SectionType{
 enum ApplicationOptions: Int, CaseIterable, SectionType{
     case mapType
     case notifications
+    case tutorial
     case feedback
     
     // adds a switch to the selected cell
@@ -50,6 +51,7 @@ enum ApplicationOptions: Int, CaseIterable, SectionType{
             case .mapType: return true
             case .notifications: return true
             case .feedback: return false
+        case .tutorial: return true
         }
     }
     
@@ -58,6 +60,7 @@ enum ApplicationOptions: Int, CaseIterable, SectionType{
         case .mapType: return "Hybrid Map"
         case .notifications: return "Notifications"
         case .feedback: return "Send Feedback"
+        case .tutorial: return "Show Tutorial"
         }
     }
 }

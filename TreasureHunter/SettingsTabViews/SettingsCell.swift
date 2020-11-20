@@ -72,6 +72,13 @@ class SettingsCell: UITableViewCell {
             }
         case "Notifications":
             break
+        case "Show Tutorial":
+            let tutorial = UserDefaults.standard.string(forKey: "showTutorial")
+            if tutorial == "true"{
+                switchControl.isOn = true
+            } else {
+                switchControl.isOn = false
+            }
         default:
             break
         }
