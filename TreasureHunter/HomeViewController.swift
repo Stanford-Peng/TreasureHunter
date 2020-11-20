@@ -82,8 +82,8 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         //*** Get seconds from server database and load into SceneDelegate
         //start annotation
        
-        step = 0
-        addAnnotations(sender: nil)
+//        step = 0
+//        addAnnotations(sender: nil)
 
         
     }
@@ -92,13 +92,15 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         switch step{
             case 0:
                 let label1 = UILabel(frame: CGRect(x: self.view.frame.width/2 , y: self.view.frame.height/2, width: 224, height: 30))
-                label1.center = CGPoint(x: self.view.frame.width/2 , y: self.view.frame.height/2)
+                
                 //let label = UILabel(frame: CGRect(x: 64 , y: 32, width: 200, height: 30))
                 label1.numberOfLines = 5
                 label1.lineBreakMode = .byWordWrapping
                 label1.text = "Welcome to Treasure Hunter! Tap me to start tutorial"
                 label1.textColor = .blue
+                label1.textAlignment = .center
                 label1.sizeToFit()
+                label1.center = CGPoint(x: self.view.frame.width/2 , y: self.view.frame.height/2)
                 step = step! + 1
                 label1.fadeIn(0.5, delay: 0) { (bool) in
                     let labelTapGesture = UITapGestureRecognizer(target:self,action:#selector(self.addAnnotations(sender:)))
@@ -118,12 +120,14 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
                     }
                 }
                 let label2 = UILabel(frame: CGRect(x: 64 , y: 32, width: 320, height: 30))
-                label2.center = CGPoint(x: self.view.frame.width/2 , y: self.view.frame.height - 176)
+                
                 label2.numberOfLines = 5
                 label2.lineBreakMode = .byWordWrapping
                 label2.text = "The below Label shows you whether you can dig! You need to shake three times in a row to dig."
                 label2.textColor = .blue
+                label2.textAlignment = .center
                 label2.sizeToFit()
+                label2.center = CGPoint(x: self.view.frame.width/2 , y: self.view.frame.height - 176)
                 step = step! + 1
                 label2.fadeIn(0.5, delay: 0) { (bool) in
 
@@ -148,6 +152,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
                 label3.lineBreakMode = .byWordWrapping
                 label3.text = "<- This button show can always show you the last after-digging hint! Use it wisely! Tap me to end this tutorial!"
                 label3.textColor = .blue
+                label3.textAlignment = .center
                 label3.sizeToFit()
                 step = step! + 1
                 label3.fadeIn(0.5, delay: 0) { (bool) in
@@ -166,7 +171,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
                         viewToBeRemoved.removeFromSuperview()
                     }
                 }
-                self.removeSpinner(child: child)
+                //self.removeSpinner(child: child)
                 break
         }
     }
@@ -327,6 +332,10 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
             "Large Treasure Chest": 0,
             "Gold": 300
         ])
+        
+        //tutorial begins when the user is first logging in
+        step = 0
+        addAnnotations(sender: nil)
     }
     
     func runTimer() {
@@ -666,13 +675,13 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         child.view.frame = self.view.frame
         view.addSubview(child.view)
         child.didMove(toParent: self)
-
+        removeSpinner(child: child)
         // wait two seconds to simulate some work happening
 
     }
     
     func removeSpinner(child:SpinnerViewController){
-        DispatchQueue.main.asyncAfter(deadline: .now()) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             // then remove the spinner view controller
             child.willMove(toParent: nil)
             child.view.removeFromSuperview()
