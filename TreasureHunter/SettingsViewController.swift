@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseFirestore
 
 private let reuseIdentifier = "SettingsCell"
 
@@ -14,7 +15,7 @@ class SettingsViewController: UIViewController{
     @IBOutlet weak var navBar: UINavigationBar!
     @IBOutlet weak var settingsTableView: UITableView!
     var userInfoHeader: UserInfoHeader!
-    
+    var userReference = Firestore.firestore().collection("User")
     var optionsList = [String]()
     let userDefaults = UserDefaults.standard
     
@@ -53,6 +54,27 @@ class SettingsViewController: UIViewController{
         navBar.isTranslucent = false
         navBar.barStyle = .black
     }
+
+    func promptForFeedback() {
+        let ac = UIAlertController(title: "Leave Feedback", message: nil, preferredStyle: .alert)
+        ac.addTextField()
+        let submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned ac] _ in
+            let answer = ac.textFields![0].text
+            self.storeFeedback(feedback: answer!)
+        }
+        ac.addAction(submitAction)
+        present(ac, animated: true)
+    }
+    
+    func storeFeedback(feedback: String){
+        let email=UserDefaults.standard.string(forKey: "useremail")
+        
+        self.userReference.document(email!).collection("Feedback").addDocument(data: [
+            "text": feedback,
+            "time": Timestamp(date: Date.init())
+        ])
+    }
+    
     /*
      // MARK: - Navigation
      
@@ -173,6 +195,9 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
 
         case .Application:
             print(ApplicationOptions(rawValue: indexPath.row)?.description)
+            if ApplicationOptions(rawValue: indexPath.row)?.description == "Send Feedback" {
+                promptForFeedback()
+            }
         }
     }
 }
