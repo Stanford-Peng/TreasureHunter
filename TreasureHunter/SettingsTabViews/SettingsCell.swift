@@ -31,8 +31,8 @@ class SettingsCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
         accessoryView = switchControl
+        setupCell()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -43,9 +43,37 @@ class SettingsCell: UITableViewCell {
     
     @objc func handleSwitchAction(sender: UISwitch){
         if sender.isOn{
+            switch sectionType?.description{
+            case "Hybrid Map":
+                UserDefaults.standard.set("hybrid", forKey: "mapType")
+            default:
+                break
+            }
             print("is on")
         } else {
+            switch sectionType?.description{
+            case "Hybrid Map":
+                UserDefaults.standard.set("standard", forKey: "mapType")
+            default:
+                break
+            }
             print("is off")
+        }
+    }
+    
+    func setupCell(){
+        switch sectionType?.description {
+        case "Hybrid Map":
+            let mapType = UserDefaults.standard.string(forKey: "mapType")
+            if mapType == "hybrid"{
+                switchControl.isOn = true
+            } else {
+                switchControl.isOn = false
+            }
+        case "Notifications":
+            break
+        default:
+            break
         }
     }
 

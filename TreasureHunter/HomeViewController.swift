@@ -80,7 +80,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         getAllExistingItems()
         
         //*** Get seconds from server database and load into SceneDelegate
-        
         //start annotation
        
         step = 0
@@ -189,12 +188,17 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
 //    }
     
     override func viewDidAppear(_ animated: Bool) {
-
-
-        
-        
+        setUserMapPreference()
     }
     
+    func setUserMapPreference(){
+        let userMapType = UserDefaults.standard.string(forKey: "mapType")
+        if userMapType == "hybrid" {
+            mapView.mapType = MKMapType.hybridFlyover
+        } else {
+            mapView.mapType = MKMapType.standard
+        }
+    }
     
     func configureUI(){
         self.hintButton.backgroundColor = UIColor(displayP3Red: 222/255, green: 194/255, blue: 152/255, alpha: 1.0)

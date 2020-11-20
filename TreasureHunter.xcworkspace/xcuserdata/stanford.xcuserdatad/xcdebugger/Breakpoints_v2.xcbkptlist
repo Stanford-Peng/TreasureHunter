@@ -16,7 +16,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "252"
             endingLineNumber = "252"
-            landmarkName = "viewWillAppear(_:)"
+            landmarkName = "setUpLocationAuthorisation()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -32,7 +32,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "253"
             endingLineNumber = "253"
-            landmarkName = "viewWillAppear(_:)"
+            landmarkName = "setUpLocationAuthorisation()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -48,7 +48,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "258"
             endingLineNumber = "258"
-            landmarkName = "viewWillAppear(_:)"
+            landmarkName = "setUpLocationAuthorisation()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -64,7 +64,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "207"
             endingLineNumber = "207"
-            landmarkName = "configureUI()"
+            landmarkName = "setUserMapPreference()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -80,7 +80,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "254"
             endingLineNumber = "254"
-            landmarkName = "viewWillAppear(_:)"
+            landmarkName = "setUpLocationAuthorisation()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -96,7 +96,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "255"
             endingLineNumber = "255"
-            landmarkName = "viewWillAppear(_:)"
+            landmarkName = "setUpLocationAuthorisation()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -128,7 +128,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "206"
             endingLineNumber = "206"
-            landmarkName = "configureUI()"
+            landmarkName = "setUserMapPreference()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -272,8 +272,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "305"
             endingLineNumber = "305"
-            landmarkName = "HomeViewController"
-            landmarkType = "3">
+            landmarkName = "setUpTimer()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -288,8 +288,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "327"
             endingLineNumber = "327"
-            landmarkName = "HomeViewController"
-            landmarkType = "3">
+            landmarkName = "isFirstTimeUser()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -304,7 +304,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "307"
             endingLineNumber = "307"
-            landmarkName = "isFirstTimeUser()"
+            landmarkName = "setUpTimer()"
             landmarkType = "7">
             <Locations>
                <Location
@@ -352,7 +352,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "309"
             endingLineNumber = "309"
-            landmarkName = "isFirstTimeUser()"
+            landmarkName = "setUpTimer()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -368,7 +368,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "280"
             endingLineNumber = "280"
-            landmarkName = "setUpTimer()"
+            landmarkName = "appMovedToForeground()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -384,7 +384,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "308"
             endingLineNumber = "308"
-            landmarkName = "isFirstTimeUser()"
+            landmarkName = "setUpTimer()"
             landmarkType = "7">
             <Locations>
                <Location
@@ -432,8 +432,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "282"
             endingLineNumber = "282"
-            landmarkName = "setUpTimer()"
-            landmarkType = "7">
+            landmarkName = "HomeViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -448,7 +448,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "315"
             endingLineNumber = "315"
-            landmarkName = "isFirstTimeUser()"
+            landmarkName = "increaseDigRadius(by:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -793,8 +793,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "707"
             endingLineNumber = "707"
-            landmarkName = "UIViewController"
-            landmarkType = "21">
+            landmarkName = "mapView(_:rendererFor:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -809,8 +809,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "709"
             endingLineNumber = "709"
-            landmarkName = "showAlertWithImage(title:message:imageName:)"
-            landmarkType = "7">
+            landmarkName = "HomeViewController"
+            landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -825,7 +825,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "702"
             endingLineNumber = "702"
-            landmarkName = "showAlert(title:message:)"
+            landmarkName = "mapView(_:rendererFor:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -857,8 +857,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "635"
             endingLineNumber = "635"
-            landmarkName = "HomeViewController"
-            landmarkType = "3">
+            landmarkName = "timeString(time:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -985,7 +985,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "351"
             endingLineNumber = "351"
-            landmarkName = "findItems()"
+            landmarkName = "dig()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1033,7 +1033,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "522"
             endingLineNumber = "522"
-            landmarkName = "generateRandomItemToMap()"
+            landmarkName = "stashedHintTapped(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1049,7 +1049,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "519"
             endingLineNumber = "519"
-            landmarkName = "generateRandomItemToMap()"
+            landmarkName = "stashedHintTapped(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1145,7 +1145,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "683"
             endingLineNumber = "683"
-            landmarkName = "mapView(_:rendererFor:)"
+            landmarkName = "removeSpinner(child:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1161,8 +1161,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "644"
             endingLineNumber = "644"
-            landmarkName = "locationManager(_:didUpdateLocations:)"
-            landmarkType = "7">
+            landmarkName = "HomeViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1225,8 +1225,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "181"
             endingLineNumber = "181"
-            landmarkName = "HomeViewController"
-            landmarkType = "3">
+            landmarkName = "tappedTest()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1241,7 +1241,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "93"
             endingLineNumber = "93"
-            landmarkName = "addAnnotations(sender:)"
+            landmarkName = "viewDidLoad()"
             landmarkType = "7">
             <Locations>
                <Location
@@ -1319,7 +1319,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "105"
             endingLineNumber = "105"
-            landmarkName = "addAnnotations(sender:)"
+            landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1335,7 +1335,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "114"
             endingLineNumber = "114"
-            landmarkName = "addAnnotations(sender:)"
+            landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1351,7 +1351,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "107"
             endingLineNumber = "107"
-            landmarkName = "addAnnotations(sender:)"
+            landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1367,7 +1367,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "108"
             endingLineNumber = "108"
-            landmarkName = "addAnnotations(sender:)"
+            landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1383,7 +1383,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "115"
             endingLineNumber = "115"
-            landmarkName = "addAnnotations(sender:)"
+            landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1399,7 +1399,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "117"
             endingLineNumber = "117"
-            landmarkName = "addAnnotations(sender:)"
+            landmarkName = "viewDidLoad()"
             landmarkType = "7">
             <Locations>
                <Location

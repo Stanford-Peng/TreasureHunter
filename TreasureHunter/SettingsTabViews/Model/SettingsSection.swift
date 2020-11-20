@@ -40,12 +40,14 @@ enum ProfileOptions: Int, CaseIterable, SectionType{
 }
 
 enum ApplicationOptions: Int, CaseIterable, SectionType{
+    case mapType
     case notifications
     case feedback
-     
+    
     // adds a switch to the selected cell
     var containsSwitch: Bool {
         switch self {
+            case .mapType: return true
             case .notifications: return true
             case .feedback: return false
         }
@@ -53,6 +55,7 @@ enum ApplicationOptions: Int, CaseIterable, SectionType{
     
     var description: String {
         switch self {
+        case .mapType: return "Hybrid Map"
         case .notifications: return "Notifications"
         case .feedback: return "Send Feedback"
         }
