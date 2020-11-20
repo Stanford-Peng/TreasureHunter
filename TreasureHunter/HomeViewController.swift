@@ -68,30 +68,21 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(appMovedToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
         setUpLocationAuthorisation()
-
-        mapView.mapType = MKMapType.standard
+        
         mapView.delegate = self
        
-        
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let vc = appDelegate.itemFunctionsController
         vc.homeViewDelegate = self
         getAllExistingItems()
-        
         //*** Get seconds from server database and load into SceneDelegate
-        
         //start annotation
-       
         //self.view.addSubview(label)
-
         //self.view.addSubview(label)
-       // addAnnotationOnce(view: label)
         //addAnnotationOnce(view: label)
-        
-
-        
+        //addAnnotationOnce(view: label)
     }
-    
+        
     func addAnnotations(step:Int){
         switch step{
             case 0:
@@ -119,12 +110,17 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     }
     
     override func viewDidAppear(_ animated: Bool) {
-
-
-        
-        
+        setUserMapPreference()
     }
     
+    func setUserMapPreference(){
+        let userMapType = UserDefaults.standard.string(forKey: "mapType")
+        if userMapType == "hybrid" {
+            mapView.mapType = MKMapType.hybrid
+        } else {
+            mapView.mapType = MKMapType.standard
+        }
+    }
     
     func configureUI(){
         self.hintButton.backgroundColor = UIColor(displayP3Red: 222/255, green: 194/255, blue: 152/255, alpha: 1.0)
@@ -601,7 +597,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
             child.removeFromParent()
         }
     }
-    
 }
 
 extension HomeViewController{

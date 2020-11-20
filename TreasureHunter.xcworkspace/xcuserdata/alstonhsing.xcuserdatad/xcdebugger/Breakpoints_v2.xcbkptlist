@@ -14,9 +14,9 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "132"
-            endingLineNumber = "132"
-            landmarkName = "setUpLocationAuthorisation()"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
+            landmarkName = "configureUI()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -30,9 +30,9 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "116"
-            endingLineNumber = "116"
-            landmarkName = "motionEnded(_:with:)"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
+            landmarkName = "addAnnotationView(view:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -46,9 +46,9 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "424"
-            endingLineNumber = "424"
-            landmarkName = "generateRandomItemToMap()"
+            startingLineNumber = "420"
+            endingLineNumber = "420"
+            landmarkName = "stashedHintTapped(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -62,9 +62,9 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "425"
-            endingLineNumber = "425"
-            landmarkName = "generateRandomItemToMap()"
+            startingLineNumber = "421"
+            endingLineNumber = "421"
+            landmarkName = "stashedHintTapped(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -78,10 +78,10 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "571"
-            endingLineNumber = "571"
-            landmarkName = "mapView(_:rendererFor:)"
-            landmarkType = "7">
+            startingLineNumber = "567"
+            endingLineNumber = "567"
+            landmarkName = "HomeViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -94,9 +94,9 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "533"
-            endingLineNumber = "533"
-            landmarkName = "locationManager(_:didUpdateLocations:)"
+            startingLineNumber = "529"
+            endingLineNumber = "529"
+            landmarkName = "updateTimer()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
