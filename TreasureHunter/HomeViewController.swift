@@ -51,13 +51,14 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     var digradius = 10.0
     let DEFAULT_DIG_RADIUS = 10.0
     
+    var step:Int?
     let strokeTextAttributes = [
       NSAttributedString.Key.strokeColor : UIColor.black,
       NSAttributedString.Key.foregroundColor : UIColor.white,
       NSAttributedString.Key.strokeWidth : -2.0,
         NSAttributedString.Key.font : UIFont.monospacedSystemFont(ofSize: 19, weight: UIFont.Weight(rawValue: 20.0))]
       as [NSAttributedString.Key : Any]
-    
+    let child = SpinnerViewController()
     @IBOutlet weak var hintButton: UIButton!
     //    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     override func viewDidLoad() {
@@ -68,46 +69,123 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(appMovedToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
         setUpLocationAuthorisation()
-        
+
+        mapView.mapType = MKMapType.standard
         mapView.delegate = self
        
+        
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let vc = appDelegate.itemFunctionsController
         vc.homeViewDelegate = self
         getAllExistingItems()
+        
         //*** Get seconds from server database and load into SceneDelegate
         //start annotation
-        //self.view.addSubview(label)
-        //self.view.addSubview(label)
-        //addAnnotationOnce(view: label)
-        //addAnnotationOnce(view: label)
-    }
+       
+        step = 0
+        addAnnotations(sender: nil)
+
         
-    func addAnnotations(step:Int){
+    }
+    
+    @objc func addAnnotations(sender:Any?){
         switch step{
             case 0:
-                let label1 = UILabel(frame: CGRect(x: 64 , y: 32, width: 200, height: 30))
+                let label1 = UILabel(frame: CGRect(x: self.view.frame.width/2 , y: self.view.frame.height/2, width: 224, height: 30))
+                label1.center = CGPoint(x: self.view.frame.width/2 , y: self.view.frame.height/2)
                 //let label = UILabel(frame: CGRect(x: 64 , y: 32, width: 200, height: 30))
                 label1.numberOfLines = 5
                 label1.lineBreakMode = .byWordWrapping
-                label1.text = "<- This button show can always show you the last after-digging hint! Use it wisely!"
-                addAnnotationView(view: label1)
+                label1.text = "Welcome to Treasure Hunter! Tap me to start tutorial"
+                label1.textColor = .blue
+                label1.sizeToFit()
+                step = step! + 1
+                label1.fadeIn(0.5, delay: 0) { (bool) in
+                    let labelTapGesture = UITapGestureRecognizer(target:self,action:#selector(self.addAnnotations(sender:)))
+                    label1.isUserInteractionEnabled = true
+                    label1.addGestureRecognizer(labelTapGesture)
+                    self.view.addSubview(label1)
+                }
+                //addAnnotationView(view:label1,step:nextStep)
+                //addAnnotations(step: step)
+                //addAnnotationView(view: UIView, step: Int)
+                break
             case 1:
+                if let gesture = sender as? UITapGestureRecognizer{
+                    let viewToBeRemoved = gesture.view!
+                    viewToBeRemoved.fadeOut(1, delay: 0) { (bool) in
+                        viewToBeRemoved.removeFromSuperview()
+                    }
+                }
+                let label2 = UILabel(frame: CGRect(x: 64 , y: 32, width: 320, height: 30))
+                label2.center = CGPoint(x: self.view.frame.width/2 , y: self.view.frame.height - 176)
+                label2.numberOfLines = 5
+                label2.lineBreakMode = .byWordWrapping
+                label2.text = "The below Label shows you whether you can dig! You need to shake three times in a row to dig."
+                label2.textColor = .blue
+                label2.sizeToFit()
+                step = step! + 1
+                label2.fadeIn(0.5, delay: 0) { (bool) in
+
+                    let labelTapGesture = UITapGestureRecognizer(target:self,action:#selector(self.addAnnotations(sender:)))
+                    label2.isUserInteractionEnabled = true
+                    label2.addGestureRecognizer(labelTapGesture)
+                    self.view.addSubview(label2)
+                }
+                //addAnnotations(step: step)
+                //addAnnotationView(view:label2,step:nextStep)
+                break
+            case 2:
+                if let gesture = sender as? UITapGestureRecognizer{
+                    let viewToBeRemoved = gesture.view!
+                    viewToBeRemoved.fadeOut(1, delay: 0) { (bool) in
+                        viewToBeRemoved.removeFromSuperview()
+                    }
+                }
+                let label3 = UILabel(frame: CGRect(x: 144 , y: 32, width: 224, height: 30))
+
+                label3.numberOfLines = 5
+                label3.lineBreakMode = .byWordWrapping
+                label3.text = "<- This button show can always show you the last after-digging hint! Use it wisely! Tap me to end this tutorial!"
+                label3.textColor = .blue
+                label3.sizeToFit()
+                step = step! + 1
+                label3.fadeIn(0.5, delay: 0) { (bool) in
+                    let labelTapGesture = UITapGestureRecognizer(target:self,action:#selector(self.addAnnotations(sender:)))
+                    label3.isUserInteractionEnabled = true
+                    label3.addGestureRecognizer(labelTapGesture)
+                    self.view.addSubview(label3)
+                }
+                //addAnnotations(step: step)
+                //addAnnotationView(view:label3,step:nextStep)
                 break
             default:
+                if let gesture = sender as? UITapGestureRecognizer{
+                    let viewToBeRemoved = gesture.view!
+                    viewToBeRemoved.fadeOut(1, delay: 0) { (bool) in
+                        viewToBeRemoved.removeFromSuperview()
+                    }
+                }
+                self.removeSpinner(child: child)
                 break
         }
     }
         
-    func addAnnotationView(view:UIView){
-        view.fadeIn(0.5, delay: 0) { (bool) in
-            self.view.addSubview(view)
-            view.fadeOut(2, delay: 5) { (bool) in
-                view.removeFromSuperview()
-                
-            }
-        }
+    @objc func tappedTest(){
+        print("Label tapped")
     }
+//    func addAnnotationView(view:UIView, step:Int){
+//        view.fadeIn(0.5, delay: 0) { (bool) in
+//            self.view.addSubview(view)
+//            let labelTapGesture = UITapGestureRecognizer(target:self,action:#selector(self.addAnnotations(step:step, viewToBeRemoved:view)))
+//            view.addGestureRecognizer(labelTapGesture)
+//        }
+////            view.fadeOut(2, delay: 5) { (bool) in
+////                view.removeFromSuperview()
+////                self.addAnnotations(step: step)
+////            }
+//
+//    }
     
     override func viewDidAppear(_ animated: Bool) {
         setUserMapPreference()
@@ -581,22 +659,28 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     }
     
     func createSpinnerView() {
-        let child = SpinnerViewController()
+
 
         // add the spinner view controller
         addChild(child)
-        child.view.frame = view.frame
+        child.view.frame = self.view.frame
         view.addSubview(child.view)
         child.didMove(toParent: self)
 
         // wait two seconds to simulate some work happening
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+
+    }
+    
+    func removeSpinner(child:SpinnerViewController){
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
             // then remove the spinner view controller
             child.willMove(toParent: nil)
             child.view.removeFromSuperview()
             child.removeFromParent()
         }
     }
+    
+    
 }
 
 extension HomeViewController{
