@@ -14,8 +14,8 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "182"
-            endingLineNumber = "182"
+            startingLineNumber = "252"
+            endingLineNumber = "252"
             landmarkName = "viewWillAppear(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -30,10 +30,10 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "183"
-            endingLineNumber = "183"
-            landmarkName = "HomeViewController"
-            landmarkType = "3">
+            startingLineNumber = "253"
+            endingLineNumber = "253"
+            landmarkName = "viewWillAppear(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -46,9 +46,9 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "188"
-            endingLineNumber = "188"
-            landmarkName = "viewWillDisappear(_:)"
+            startingLineNumber = "258"
+            endingLineNumber = "258"
+            landmarkName = "viewWillAppear(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -62,9 +62,9 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
-            landmarkName = "setupLabel()"
+            startingLineNumber = "207"
+            endingLineNumber = "207"
+            landmarkName = "configureUI()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -78,9 +78,9 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "184"
-            endingLineNumber = "184"
-            landmarkName = "viewWillDisappear(_:)"
+            startingLineNumber = "254"
+            endingLineNumber = "254"
+            landmarkName = "viewWillAppear(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -94,9 +94,9 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "185"
-            endingLineNumber = "185"
-            landmarkName = "viewWillDisappear(_:)"
+            startingLineNumber = "255"
+            endingLineNumber = "255"
+            landmarkName = "viewWillAppear(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -110,10 +110,10 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "7">
+            startingLineNumber = "61"
+            endingLineNumber = "61"
+            landmarkName = "HomeViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -126,9 +126,9 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "136"
-            endingLineNumber = "136"
-            landmarkName = "setupLabel()"
+            startingLineNumber = "206"
+            endingLineNumber = "206"
+            landmarkName = "configureUI()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -254,8 +254,8 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "337"
-            endingLineNumber = "337"
+            startingLineNumber = "407"
+            endingLineNumber = "407"
             landmarkName = "addToBag(itemList:itemDocIDS:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -270,10 +270,10 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "235"
-            endingLineNumber = "235"
-            landmarkName = "isFirstTimeUser()"
-            landmarkType = "7">
+            startingLineNumber = "305"
+            endingLineNumber = "305"
+            landmarkName = "HomeViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -286,10 +286,10 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "257"
-            endingLineNumber = "257"
-            landmarkName = "testDig(_:)"
-            landmarkType = "7">
+            startingLineNumber = "327"
+            endingLineNumber = "327"
+            landmarkName = "HomeViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -302,8 +302,8 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "237"
-            endingLineNumber = "237"
+            startingLineNumber = "307"
+            endingLineNumber = "307"
             landmarkName = "isFirstTimeUser()"
             landmarkType = "7">
             <Locations>
@@ -350,8 +350,8 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "239"
-            endingLineNumber = "239"
+            startingLineNumber = "309"
+            endingLineNumber = "309"
             landmarkName = "isFirstTimeUser()"
             landmarkType = "7">
          </BreakpointContent>
@@ -366,8 +366,8 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "210"
-            endingLineNumber = "210"
+            startingLineNumber = "280"
+            endingLineNumber = "280"
             landmarkName = "setUpTimer()"
             landmarkType = "7">
          </BreakpointContent>
@@ -382,8 +382,8 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "238"
-            endingLineNumber = "238"
+            startingLineNumber = "308"
+            endingLineNumber = "308"
             landmarkName = "isFirstTimeUser()"
             landmarkType = "7">
             <Locations>
@@ -430,8 +430,8 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "212"
-            endingLineNumber = "212"
+            startingLineNumber = "282"
+            endingLineNumber = "282"
             landmarkName = "setUpTimer()"
             landmarkType = "7">
          </BreakpointContent>
@@ -446,8 +446,8 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "245"
-            endingLineNumber = "245"
+            startingLineNumber = "315"
+            endingLineNumber = "315"
             landmarkName = "isFirstTimeUser()"
             landmarkType = "7">
          </BreakpointContent>
@@ -572,10 +572,10 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "256"
-            endingLineNumber = "256"
-            landmarkName = "HomeViewController"
-            landmarkType = "3">
+            startingLineNumber = "326"
+            endingLineNumber = "326"
+            landmarkName = "isFirstTimeUser()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -791,10 +791,10 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "632"
-            endingLineNumber = "632"
-            landmarkName = "showAlertWithImage(title:message:imageName:)"
-            landmarkType = "7">
+            startingLineNumber = "707"
+            endingLineNumber = "707"
+            landmarkName = "UIViewController"
+            landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -807,10 +807,10 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "634"
-            endingLineNumber = "634"
-            landmarkName = "UIViewController"
-            landmarkType = "21">
+            startingLineNumber = "709"
+            endingLineNumber = "709"
+            landmarkName = "showAlertWithImage(title:message:imageName:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -823,9 +823,9 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "627"
-            endingLineNumber = "627"
-            landmarkName = "showAlertWithImage(title:message:imageName:)"
+            startingLineNumber = "702"
+            endingLineNumber = "702"
+            landmarkName = "showAlert(title:message:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -839,8 +839,8 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "428"
-            endingLineNumber = "428"
+            startingLineNumber = "498"
+            endingLineNumber = "498"
             landmarkName = "stashedHintTapped(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -855,10 +855,10 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "565"
-            endingLineNumber = "565"
-            landmarkName = "locationManager(_:didUpdateLocations:)"
-            landmarkType = "7">
+            startingLineNumber = "635"
+            endingLineNumber = "635"
+            landmarkName = "HomeViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -871,8 +871,8 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "430"
-            endingLineNumber = "430"
+            startingLineNumber = "500"
+            endingLineNumber = "500"
             landmarkName = "stashedHintTapped(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -887,8 +887,8 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "393"
-            endingLineNumber = "393"
+            startingLineNumber = "463"
+            endingLineNumber = "463"
             landmarkName = "generateRandomItemToBag()"
             landmarkType = "7">
          </BreakpointContent>
@@ -903,8 +903,8 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "433"
-            endingLineNumber = "433"
+            startingLineNumber = "503"
+            endingLineNumber = "503"
             landmarkName = "stashedHintTapped(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -919,9 +919,9 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "440"
-            endingLineNumber = "440"
-            landmarkName = "generateRandomItemToMap()"
+            startingLineNumber = "510"
+            endingLineNumber = "510"
+            landmarkName = "stashedHintTapped(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -935,8 +935,8 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "492"
-            endingLineNumber = "492"
+            startingLineNumber = "562"
+            endingLineNumber = "562"
             landmarkName = "generateRandomItemToMap()"
             landmarkType = "7">
          </BreakpointContent>
@@ -951,8 +951,8 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "392"
-            endingLineNumber = "392"
+            startingLineNumber = "462"
+            endingLineNumber = "462"
             landmarkName = "generateRandomItemToBag()"
             landmarkType = "7">
          </BreakpointContent>
@@ -967,8 +967,8 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "461"
-            endingLineNumber = "461"
+            startingLineNumber = "531"
+            endingLineNumber = "531"
             landmarkName = "generateRandomItemToMap()"
             landmarkType = "7">
          </BreakpointContent>
@@ -983,8 +983,8 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "281"
-            endingLineNumber = "281"
+            startingLineNumber = "351"
+            endingLineNumber = "351"
             landmarkName = "findItems()"
             landmarkType = "7">
          </BreakpointContent>
@@ -999,8 +999,8 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "301"
-            endingLineNumber = "301"
+            startingLineNumber = "371"
+            endingLineNumber = "371"
             landmarkName = "findItems()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1015,8 +1015,8 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "300"
-            endingLineNumber = "300"
+            startingLineNumber = "370"
+            endingLineNumber = "370"
             landmarkName = "findItems()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1031,8 +1031,8 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "452"
-            endingLineNumber = "452"
+            startingLineNumber = "522"
+            endingLineNumber = "522"
             landmarkName = "generateRandomItemToMap()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1047,8 +1047,8 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "449"
-            endingLineNumber = "449"
+            startingLineNumber = "519"
+            endingLineNumber = "519"
             landmarkName = "generateRandomItemToMap()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1136,22 +1136,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "52EEF1E0-8E1A-49F0-8BBA-4B1C308D65AF"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TreasureHunter/HomeViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "600"
-            endingLineNumber = "600"
-            landmarkName = "mapView(_:rendererFor:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "AAE4A995-64CC-4608-A9F7-6A058C6BD79B"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -1159,24 +1143,8 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "608"
-            endingLineNumber = "608"
-            landmarkName = "mapView(_:rendererFor:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "0FE5422C-CF5F-46CB-9164-2BEE3EF38857"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TreasureHunter/HomeViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "602"
-            endingLineNumber = "602"
+            startingLineNumber = "683"
+            endingLineNumber = "683"
             landmarkName = "mapView(_:rendererFor:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1191,8 +1159,8 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "574"
-            endingLineNumber = "574"
+            startingLineNumber = "644"
+            endingLineNumber = "644"
             landmarkName = "locationManager(_:didUpdateLocations:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1207,8 +1175,8 @@
             filePath = "TreasureHunter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1217,23 +1185,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "6C50A7FD-BA51-4520-8EDB-F13992E9D99B"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TreasureHunter/HomeViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2873981A-30EF-466C-8206-90B16EFB0E9F"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TreasureHunter/HomeViewController.swift"
@@ -1243,6 +1195,244 @@
             endingLineNumber = "82"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2873981A-30EF-466C-8206-90B16EFB0E9F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TreasureHunter/HomeViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "AC15A043-2D26-4B68-8B76-3EF42849A5DA"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TreasureHunter/HomeViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "181"
+            endingLineNumber = "181"
+            landmarkName = "HomeViewController"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "52A3632B-91B3-42B0-8FAE-723E4CB442BE"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TreasureHunter/HomeViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "93"
+            endingLineNumber = "93"
+            landmarkName = "addAnnotations(sender:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "52A3632B-91B3-42B0-8FAE-723E4CB442BE - 407a3329faf0ee5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TreasureHunter.HomeViewController.addAnnotations(sender: Swift.Optional&lt;Any&gt;) -&gt; ()"
+                  moduleName = "TreasureHunter"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stanford/Documents/MIT/FIT5140AMS/ass3&amp;4/TreasureHunter/TreasureHunter/HomeViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "98"
+                  endingLineNumber = "98"
+                  offsetFromSymbolStart = "262">
+               </Location>
+               <Location
+                  uuid = "52A3632B-91B3-42B0-8FAE-723E4CB442BE - 407a3329faf0ee5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TreasureHunter.HomeViewController.addAnnotations(sender: Swift.Optional&lt;Any&gt;) -&gt; ()"
+                  moduleName = "TreasureHunter"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stanford/Documents/MIT/FIT5140AMS/ass3&amp;4/TreasureHunter/TreasureHunter/HomeViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "98"
+                  endingLineNumber = "98"
+                  offsetFromSymbolStart = "298">
+               </Location>
+               <Location
+                  uuid = "52A3632B-91B3-42B0-8FAE-723E4CB442BE - 407a3329faf0ee5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TreasureHunter.HomeViewController.addAnnotations(sender: Swift.Optional&lt;Any&gt;) -&gt; ()"
+                  moduleName = "TreasureHunter"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stanford/Documents/MIT/FIT5140AMS/ass3&amp;4/TreasureHunter/TreasureHunter/HomeViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "98"
+                  endingLineNumber = "98"
+                  offsetFromSymbolStart = "3027">
+               </Location>
+               <Location
+                  uuid = "52A3632B-91B3-42B0-8FAE-723E4CB442BE - 407a3329faf0ee5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TreasureHunter.HomeViewController.addAnnotations(sender: Swift.Optional&lt;Any&gt;) -&gt; ()"
+                  moduleName = "TreasureHunter"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stanford/Documents/MIT/FIT5140AMS/ass3&amp;4/TreasureHunter/TreasureHunter/HomeViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "98"
+                  endingLineNumber = "98"
+                  offsetFromSymbolStart = "4386">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0018A575-2F69-4C1B-BE7A-C278531478BC"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TreasureHunter/HomeViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
+            landmarkName = "addAnnotations(sender:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8EAF8B6D-8A4D-4B85-94C6-ACD4FC6A3B95"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TreasureHunter/HomeViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
+            landmarkName = "addAnnotations(sender:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "110F7402-67DE-4A82-9D74-B5212EDF6D95"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TreasureHunter/HomeViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
+            landmarkName = "addAnnotations(sender:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "423FB5EF-9327-409C-AD89-5C1F3623182D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TreasureHunter/HomeViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
+            landmarkName = "addAnnotations(sender:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B1089850-2702-4BCF-B033-5D5F09631D92"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TreasureHunter/HomeViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
+            landmarkName = "addAnnotations(sender:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "ABAF5FB8-EC89-4926-B23D-A1669048B137"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TreasureHunter/HomeViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "117"
+            endingLineNumber = "117"
+            landmarkName = "addAnnotations(sender:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "ABAF5FB8-EC89-4926-B23D-A1669048B137 - 407a3329faf33f2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TreasureHunter.HomeViewController.addAnnotations(sender: Swift.Optional&lt;Any&gt;) -&gt; ()"
+                  moduleName = "TreasureHunter"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stanford/Documents/MIT/FIT5140AMS/ass3&amp;4/TreasureHunter/TreasureHunter/HomeViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "121"
+                  endingLineNumber = "121"
+                  offsetFromSymbolStart = "3603">
+               </Location>
+               <Location
+                  uuid = "ABAF5FB8-EC89-4926-B23D-A1669048B137 - 1a32ef904091ea84"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Bool) -&gt; () in TreasureHunter.HomeViewController.addAnnotations(sender: Swift.Optional&lt;Any&gt;) -&gt; ()"
+                  moduleName = "TreasureHunter"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/stanford/Documents/MIT/FIT5140AMS/ass3&amp;4/TreasureHunter/TreasureHunter/HomeViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "122"
+                  endingLineNumber = "122"
+                  offsetFromSymbolStart = "32">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

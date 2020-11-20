@@ -10,7 +10,7 @@ import UIKit
 class SpinnerViewController: UIViewController {
     
     var spinner = UIActivityIndicatorView(style: .large)
-    
+//    var step:Int?
     override func loadView() {
         view = UIView()
         view.backgroundColor = UIColor(white: 0, alpha: 0.7)
@@ -21,6 +21,9 @@ class SpinnerViewController: UIViewController {
         
         spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
+//        step = 0
+//        addAnnotations(sender: nil)
     }
 
 }
