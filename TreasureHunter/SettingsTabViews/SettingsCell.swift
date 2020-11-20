@@ -16,6 +16,7 @@ class SettingsCell: UITableViewCell {
             guard let sectionType = sectionType else {return}
             textLabel?.text = sectionType.description
             switchControl.isHidden = !sectionType.containsSwitch
+            setupCell()
         }
     }
     
@@ -32,7 +33,6 @@ class SettingsCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         accessoryView = switchControl
-        setupCell()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -62,7 +62,7 @@ class SettingsCell: UITableViewCell {
     }
     
     func setupCell(){
-        switch sectionType?.description {
+        switch sectionType!.description {
         case "Hybrid Map":
             let mapType = UserDefaults.standard.string(forKey: "mapType")
             if mapType == "hybrid"{

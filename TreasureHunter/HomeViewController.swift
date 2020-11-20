@@ -34,7 +34,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     @IBOutlet weak var mapView: MKMapView!
     
     lazy var functions = Functions.functions()
-    var userLocation:CLLocationCoordinate2D?
+    var userLocation: CLLocationCoordinate2D?
     let locationManager = CLLocationManager()
     var seconds:Int? //This variable will hold a starting value of seconds. It could be any amount above 0.
     var timer = Timer()
@@ -84,8 +84,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
        
 //        step = 0
 //        addAnnotations(sender: nil)
-
-        
     }
     
     @objc func addAnnotations(sender:Any?){
@@ -603,8 +601,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         self.present(alert, animated: true, completion: nil)
     }
     
-    
-    
     @objc func updateTimer() {
         if seconds! < 1 {
             timeUp()
@@ -619,10 +615,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     func timeUp(){
         setupTimerLabel(text: "Shake to dig")
         canDig = true
-    }
-    
-    func useWater(){
-        
     }
     
     //    func resetTimer(){

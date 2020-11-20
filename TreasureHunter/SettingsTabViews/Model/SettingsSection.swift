@@ -51,16 +51,16 @@ enum ApplicationOptions: Int, CaseIterable, SectionType{
             case .mapType: return true
             case .notifications: return true
             case .feedback: return false
-        case .tutorial: return true
+            case .tutorial: return true
         }
     }
     
     var description: String {
         switch self {
-        case .mapType: return "Hybrid Map"
-        case .notifications: return "Notifications"
-        case .feedback: return "Send Feedback"
-        case .tutorial: return "Show Tutorial"
+            case .mapType: return "Hybrid Map"
+            case .notifications: return "Notifications"
+            case .feedback: return "Send Feedback"
+            case .tutorial: return "Show Tutorial"
         }
     }
 }
