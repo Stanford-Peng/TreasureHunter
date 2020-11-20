@@ -116,7 +116,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     func setUserMapPreference(){
         let userMapType = UserDefaults.standard.string(forKey: "mapType")
         if userMapType == "hybrid" {
-            mapView.mapType = MKMapType.hybrid
+            mapView.mapType = MKMapType.hybridFlyover
         } else {
             mapView.mapType = MKMapType.standard
         }
