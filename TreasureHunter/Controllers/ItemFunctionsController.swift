@@ -27,14 +27,16 @@ class ItemFunctionsController{
             } else {
                 homeViewDelegate?.resetDigTimer()
                 bagViewDelegate?.confirmItemUsed()
-                homeViewDelegate?.showAlert(title: "Drank Water", message: "You feel refreshed and ready to dig again")
+                bagViewDelegate?.showToast(message: "You feel refreshed and ready to dig again", font: .systemFont(ofSize: 16.0))
             }
         case "Normal Oyster":
             bagViewDelegate?.sellItem(forPrice: 500)
+            bagViewDelegate?.showToast(message: "Normal Oyster sold for 500 gold", font: .systemFont(ofSize: 16.0))
             
         case "Large Treasure Chest":
             bagViewDelegate?.sellItem(forPrice: 5000)
-    
+            bagViewDelegate?.showToast(message: "Large Treasure Chest sold for 5000 gold" , font: .systemFont(ofSize: 16.0))
+            
         case "Pearl Oyster":
             break
             
@@ -61,7 +63,7 @@ class ItemFunctionsController{
             } else {
                 homeViewDelegate?.increaseDigRadius(by: 20)
                 bagViewDelegate?.confirmItemUsed()
-                homeViewDelegate?.showAlert(title: "Dig Radius Increased", message: "Your next dig will be 3x the normal radius")
+                bagViewDelegate?.showToast(message: "Next dig radius increased by x3!", font: .systemFont(ofSize: 16.0))
             }
         default:
             print("Invalid Item")

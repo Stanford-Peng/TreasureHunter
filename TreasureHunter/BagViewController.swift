@@ -12,6 +12,7 @@ import MapKit
 protocol BagViewDelegate{
     func confirmItemUsed()
     func sellItem(forPrice: Int)
+    func showToast(message: String, font: UIFont)
 }
 
 class BagViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, CLLocationManagerDelegate, UIPickerViewDataSource, UIPickerViewDelegate, BagViewDelegate{

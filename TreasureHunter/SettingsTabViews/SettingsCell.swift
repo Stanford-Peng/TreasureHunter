@@ -67,7 +67,6 @@ class SettingsCell: UITableViewCell {
             let mapType = UserDefaults.standard.string(forKey: "mapType")
             if mapType == "hybrid"{
                 switchControl.isOn = true
-                
             } else {
                 switchControl.isOn = false
             }

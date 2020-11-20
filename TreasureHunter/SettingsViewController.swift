@@ -58,10 +58,14 @@ class SettingsViewController: UIViewController{
     func promptForFeedback() {
         let ac = UIAlertController(title: "Leave Feedback", message: nil, preferredStyle: .alert)
         ac.addTextField()
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default) { [unowned ac] _ in
+        }
         let submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned ac] _ in
             let answer = ac.textFields![0].text
             self.storeFeedback(feedback: answer!)
         }
+        
+        ac.addAction(cancelAction)
         ac.addAction(submitAction)
         present(ac, animated: true)
     }
@@ -73,6 +77,7 @@ class SettingsViewController: UIViewController{
             "text": feedback,
             "time": Timestamp(date: Date.init())
         ])
+        showToast(message: "Thank you for your feedback!", font: .systemFont(ofSize: 18))
     }
     
     /*
@@ -89,14 +94,26 @@ class SettingsViewController: UIViewController{
     func logoutTapped(){
         // Perform logout related functions
         
+        let ac = UIAlertController(title: "Confirm Logout", message: nil, preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+        let submitAction = UIAlertAction(title: "Log Out", style: .default) {_ in
+            self.userDefaults.set("", forKey: Keys.username)
+            self.userDefaults.set("", forKey: Keys.useremail)
+            exit(0)
+        }
+        
+        ac.addAction(cancelAction)
+        ac.addAction(submitAction)
+        present(ac, animated: true)
+        
         //Remove Username from User Defaults
-        userDefaults.set("", forKey: Keys.username)
-        userDefaults.set("", forKey: Keys.useremail)
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let loginNavController = storyboard.instantiateViewController(identifier: "LoginNavController")
-        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(loginNavController)
-        
+//        userDefaults.set("", forKey: Keys.username)
+//        userDefaults.set("", forKey: Keys.useremail)
+//
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let loginNavController = storyboard.instantiateViewController(identifier: "LoginNavController")
+//        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(loginNavController)
     }
     
     
@@ -174,10 +191,9 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         case .Profile:
             print(ProfileOptions(rawValue: indexPath.row)?.description)
             if ProfileOptions(rawValue: indexPath.row)?.description == "Log Out"{
-                userDefaults.set("", forKey: Keys.username)
-                userDefaults.set("", forKey: Keys.useremail)
+                logoutTapped()
                 //userDefaults.synchronize()
-                exit(0)
+                
 //                break
 //                self.dismiss(animated: true) {
 //                    (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.logOut()

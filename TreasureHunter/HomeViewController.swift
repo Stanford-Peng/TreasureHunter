@@ -17,6 +17,7 @@ protocol HomeViewDelegate{
     func getTimer() -> Int
     func increaseDigRadius(by: Double)
     func getDigRadius() -> Double
+    func showToast(message: String, font: UIFont)
 }
 
 //timer reference:
@@ -70,9 +71,8 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         notificationCenter.addObserver(self, selector: #selector(appMovedToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
         setUpLocationAuthorisation()
 
-        mapView.mapType = MKMapType.standard
         mapView.delegate = self
-       
+        setUserMapPreference()
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let vc = appDelegate.itemFunctionsController
@@ -731,9 +731,31 @@ extension UIViewController{
                                         }))
         self.present(alert, animated: true, completion: nil)
     }
+    
+    func showToast(message : String, font: UIFont) {
+
+        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 75, y: self.view.frame.size.height-112, width: self.view.frame.size.width - 32, height: 35))
+        
+        toastLabel.lineBreakMode = .byWordWrapping
+        toastLabel.numberOfLines = 5
+        toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        toastLabel.textColor = UIColor.white
+        toastLabel.font = font
+        toastLabel.textAlignment = .center;
+        toastLabel.text = message
+        toastLabel.alpha = 1.0
+        toastLabel.layer.cornerRadius = 10;
+        toastLabel.clipsToBounds  =  true
+        toastLabel.sizeToFit()
+        toastLabel.center = CGPoint(x: self.view.frame.size.width/2, y: self.view.frame.size.height-112)
+        self.view.addSubview(toastLabel)
+        UIView.animate(withDuration: 1.0, delay: 4.0, options: .curveEaseOut, animations: {
+             toastLabel.alpha = 0.0
+        }, completion: {(isCompleted) in
+            toastLabel.removeFromSuperview()
+        })
+    }
 }
-
-
 extension HomeViewController{
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         guard status == .authorizedWhenInUse else {

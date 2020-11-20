@@ -16,7 +16,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "128"
             endingLineNumber = "128"
-            landmarkName = "configureUI()"
+            landmarkName = "addAnnotations(sender:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -32,7 +32,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "107"
             endingLineNumber = "107"
-            landmarkName = "addAnnotationView(view:)"
+            landmarkName = "addAnnotations(sender:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -48,7 +48,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "420"
             endingLineNumber = "420"
-            landmarkName = "stashedHintTapped(_:)"
+            landmarkName = "addToBag(itemList:itemDocIDS:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -64,7 +64,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "421"
             endingLineNumber = "421"
-            landmarkName = "stashedHintTapped(_:)"
+            landmarkName = "addToBag(itemList:itemDocIDS:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -80,23 +80,23 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "567"
             endingLineNumber = "567"
-            landmarkName = "locationManager(_:didUpdateLocations:)"
+            landmarkName = "generateRandomItemToMap()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "B93C0267-E724-4D72-8839-F5240FE413D9"
+            uuid = "98C7C185-4BF3-470B-A63E-B056C8ED7107"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TreasureHunter/HomeViewController.swift"
+            filePath = "TreasureHunter/Controllers/ItemFunctionsController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "529"
-            endingLineNumber = "529"
-            landmarkName = "updateTimer()"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
+            landmarkName = "use(item:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
