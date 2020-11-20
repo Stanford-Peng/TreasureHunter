@@ -66,6 +66,38 @@
             endingLineNumber = "421"
             landmarkName = "addToBag(itemList:itemDocIDS:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "43958161-3566-4E6A-B873-8AD34F3B02D6 - a1cd35e787ef7216"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TreasureHunter.HomeViewController.addToBag(itemList: Swift.Array&lt;TreasureHunter.Item&gt;, itemDocIDS: Swift.Array&lt;Swift.String&gt;) -&gt; ()"
+                  moduleName = "TreasureHunter"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alstonhsing/Desktop/TreasureHunter/TreasureHunter/HomeViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "422"
+                  endingLineNumber = "422"
+                  offsetFromSymbolStart = "2924">
+               </Location>
+               <Location
+                  uuid = "43958161-3566-4E6A-B873-8AD34F3B02D6 - 49f76f00ee62d52b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Swift.Error&gt;) -&gt; () in TreasureHunter.HomeViewController.addToBag(itemList: Swift.Array&lt;TreasureHunter.Item&gt;, itemDocIDS: Swift.Array&lt;Swift.String&gt;) -&gt; ()"
+                  moduleName = "TreasureHunter"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alstonhsing/Desktop/TreasureHunter/TreasureHunter/HomeViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "423"
+                  endingLineNumber = "423"
+                  offsetFromSymbolStart = "95">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

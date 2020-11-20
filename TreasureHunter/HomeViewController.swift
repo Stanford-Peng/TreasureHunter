@@ -741,6 +741,7 @@ extension UIViewController{
         self.present(alert, animated: true, completion: nil)
     }
     
+    //Shows toast message. Reference: https://stackoverflow.com/questions/31540375/how-to-toast-message-in-swift
     func showToast(message : String, font: UIFont) {
 
         let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 75, y: self.view.frame.size.height-112, width: self.view.frame.size.width - 32, height: 35))
