@@ -383,17 +383,17 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         diggingView.center = self.view.center
 //        self.view.addSubview(diggingView)
         diggingView.fadeIn(0.5, delay: 0) { (bool) in
-            self.view.addSubview(diggingView)
+//            self.view.addSubview(diggingView)
 //            print(Bundle.main.bundlePath)
 //            print(Bundle.main.bundleURL)
             
-
-//            print(Bundle.main.url(forResource: "dig", withExtension: "webp"))
+//            let filepath = Bundle.url(forResource: "dig", withExtension: "webp", subdirectory: nil, in: URL)
+            print(Bundle.main.url(forResource: "dig", withExtension: "webp"))
 //            print(Bundle.main.path(forResource: "dig", ofType: "webp"))
-//            guard let localFileUrl = Bundle.main.url(forResource: "dig", withExtension: "webp") else{
-//                print("cannot find the webp file")
-//                return
-//            }
+            guard let localFileUrl = Bundle.main.url(forResource: "dig", withExtension: "webp") else{
+                print("cannot find the webp file")
+                return
+            }
 //            guard let localFileUrl1 = Bundle.main.path(forResource: "dig", ofType: "webp") else{
 //
 //                print("cannot find the webp file")
@@ -403,9 +403,12 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
 //            print(localFileUrl)
 //            print(localFileUrl1)
             
+            //reference add unrecognized static file : https://rambo.codes/posts/2018-10-03-unleashing-the-power-of-asset-catalogs-and-bundles-on-ios
             DispatchQueue.main.async {
-                //diggingView.sd_setImage(with: URL(string: localFileUrl1),completed: nil)
-                diggingView.sd_setImage(with: URL(string: "https://im3.ezgif.com/tmp/ezgif-3-6865b0a6bda9.webp"), completed: nil)
+                diggingView.sd_setImage(with: localFileUrl) { (image, error, cacheType, url) in
+                    self.view.addSubview(diggingView)
+                }
+                //diggingView.sd_setImage(with: URL(string: "https://im3.ezgif.com/tmp/ezgif-3-6865b0a6bda9.webp"), completed: nil)
             }
         }
         
