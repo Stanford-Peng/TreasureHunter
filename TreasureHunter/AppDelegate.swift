@@ -59,7 +59,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UIWind
         UserDefaults.standard.set(name, forKey: "username")
         
         let userReference = Firestore.firestore().collection("User")
-        userReference.document(email!).setData(["name":name ?? ""], merge: true)
+        userReference.document(email!).setData([
+            "name":name ?? "",
+            "digCount" : 0,
+            "earnedGold" : 0
+        ], merge: true)
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let mainTabBarController = storyboard.instantiateViewController(identifier: "MainTabBarController")

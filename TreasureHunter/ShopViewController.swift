@@ -34,6 +34,7 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
     var ItemReference = Firestore.firestore().collection("Item")
     var initialGoldAmount = "..."
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUI()
@@ -48,6 +49,15 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         if selectedItem == nil {
             return
         }
+
+        //Reference for bug: https://developer.apple.com/forums/thread/90474 (Must remove image from text label to get the text)
+        let s = userGoldLabel.attributedText?.string
+        let stripped = s!.replacingOccurrences(of: "\u{fffc}", with: "", options: NSString.CompareOptions.literal, range:nil)
+        if selectedItem!.itemShopPrice! > Int(stripped)! {
+            showAlert(title: "Insufficient Gold", message: "You do not have enough gold!")
+            return
+        }
+        
         showBuyConfirmation()
     }
     

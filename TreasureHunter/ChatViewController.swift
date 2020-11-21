@@ -469,6 +469,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
             
             if let channel = sender as? Channel{
                 let destinationVC = segue.destination as! ChannelMessagesViewController
+                //destinationVC.modalPresentationStyle = .fullScreen
                 destinationVC.sender = currentSender
                 destinationVC.currentChannel = channel
                 destinationVC.currentContact = Optional.none

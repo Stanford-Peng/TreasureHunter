@@ -35,7 +35,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     @IBOutlet weak var mapView: MKMapView!
     
     lazy var functions = Functions.functions()
-    var userLocation:CLLocationCoordinate2D?
+    var userLocation: CLLocationCoordinate2D?
     let locationManager = CLLocationManager()
     var seconds:Int? //This variable will hold a starting value of seconds. It could be any amount above 0.
     var timer = Timer()
@@ -45,6 +45,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     var db = Firestore.firestore()
     var itemLocationReference = Firestore.firestore().collection("ItemLocation")
     var userItemReference = Firestore.firestore().collection("UserItems")
+    var userReference = Firestore.firestore().collection("User")
     var ItemReference = Firestore.firestore().collection("Item")
     var allExistingItems: [Item] = []
     
@@ -85,8 +86,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
        
 //        step = 0
 //        addAnnotations(sender: nil)
-
-        
     }
     
     @objc func addAnnotations(sender:Any?){
@@ -215,6 +214,12 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         self.hintButton.layer.shadowOpacity = 1.0
         self.hintButton.layer.shadowRadius = 2.0
         self.hintButton.layer.shadowOffset = CGSize(width: 0, height: 3)
+        
+        //tutorial begins if showTutorial key is true
+        if UserDefaults.standard.string(forKey: "showTutorial") == "true"{
+            step = 0
+            addAnnotations(sender: nil)
+        }
     }
     
     func setupTimerLabel(text: String){
@@ -337,6 +342,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         //tutorial begins when the user is first logging in
         step = 0
         addAnnotations(sender: nil)
+        UserDefaults.standard.set("false", forKey: "showTutorial")
     }
     
     func runTimer() {
@@ -481,6 +487,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
                 print("Error writing batch \(err)")
             } else {
                 print("Batch write succeeded.")
+                self.increaseUserDigCount()
             }
         }
         // transaction to delete item from itemLocation and add it to userItems https://firebase.google.com/docs/firestore/manage-data/transactions
@@ -547,7 +554,19 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
                 print("Error adding generated item to bag: \(err)")
             } else {
                 print("Added generated item to bag")
+                self.increaseUserDigCount()
                 self.showAlertWithCompletion(title: "Found Item!!", message: generatedItem, completion: self.generateRandomItemToMap)
+            }
+        }
+    }
+    
+    func increaseUserDigCount(){
+        let email = UserDefaults.standard.string(forKey: "useremail")
+        userReference.document(email!).updateData([
+            "digCount" : FieldValue.increment(Int64(1))
+        ]) { err in
+            if let err = err {
+                print ("error updating dig count \(err)")
             }
         }
     }
@@ -660,8 +679,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         self.present(alert, animated: true, completion: nil)
     }
     
-    
-    
     @objc func updateTimer() {
         if seconds! < 1 {
             timeUp()
@@ -676,10 +693,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     func timeUp(){
         setupTimerLabel(text: "Shake to dig")
         canDig = true
-    }
-    
-    func useWater(){
-        
     }
     
     //    func resetTimer(){
@@ -798,6 +811,7 @@ extension UIViewController{
         self.present(alert, animated: true, completion: nil)
     }
     
+    //Shows toast message. Reference: https://stackoverflow.com/questions/31540375/how-to-toast-message-in-swift
     func showToast(message : String, font: UIFont) {
 
         let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 75, y: self.view.frame.size.height-112, width: self.view.frame.size.width - 32, height: 35))

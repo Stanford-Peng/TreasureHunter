@@ -16,6 +16,7 @@ class SettingsCell: UITableViewCell {
             guard let sectionType = sectionType else {return}
             textLabel?.text = sectionType.description
             switchControl.isHidden = !sectionType.containsSwitch
+            setupCell()
         }
     }
     
@@ -32,7 +33,6 @@ class SettingsCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         accessoryView = switchControl
-        setupCell()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -46,6 +46,8 @@ class SettingsCell: UITableViewCell {
             switch sectionType?.description{
             case "Hybrid Map":
                 UserDefaults.standard.set("hybrid", forKey: "mapType")
+            case "Show Tutorial":
+                UserDefaults.standard.set("true", forKey: "showTutorial")
             default:
                 break
             }
@@ -54,6 +56,8 @@ class SettingsCell: UITableViewCell {
             switch sectionType?.description{
             case "Hybrid Map":
                 UserDefaults.standard.set("standard", forKey: "mapType")
+            case "Show Tutorial":
+                UserDefaults.standard.set("false", forKey: "showTutorial")
             default:
                 break
             }
@@ -62,7 +66,7 @@ class SettingsCell: UITableViewCell {
     }
     
     func setupCell(){
-        switch sectionType?.description {
+        switch sectionType!.description {
         case "Hybrid Map":
             let mapType = UserDefaults.standard.string(forKey: "mapType")
             if mapType == "hybrid"{
@@ -72,6 +76,13 @@ class SettingsCell: UITableViewCell {
             }
         case "Notifications":
             break
+        case "Show Tutorial":
+            let tutorial = UserDefaults.standard.string(forKey: "showTutorial")
+            if tutorial == "true"{
+                switchControl.isOn = true
+            } else {
+                switchControl.isOn = false
+            }
         default:
             break
         }
