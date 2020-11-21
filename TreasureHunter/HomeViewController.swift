@@ -9,6 +9,7 @@ import UIKit
 import MapKit
 import FirebaseFirestore
 import FirebaseFunctions
+import SDWebImage
 
 protocol HomeViewDelegate{
     func resetDigTimer()
@@ -363,6 +364,46 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         var items:[Item] = []
         var locationDocIDs: [String] = []
         
+//        //add loading animation
+//        let diggingGif = UIImage.gif(name: "digging")
+//        let diggingView = UIImageView(image: diggingGif)
+        
+        let diggingView = UIImageView()
+//        diggingView.loadGif(name: "digging")
+
+        diggingView.contentMode = .scaleAspectFit
+        diggingView.frame.size.width = 200
+        diggingView.frame.size.height = 200
+        diggingView.center = self.view.center
+//        self.view.addSubview(diggingView)
+        diggingView.fadeIn(0.5, delay: 0) { (bool) in
+            self.view.addSubview(diggingView)
+//            print(Bundle.main.bundlePath)
+//            print(Bundle.main.bundleURL)
+            
+
+//            print(Bundle.main.url(forResource: "dig", withExtension: "webp"))
+//            print(Bundle.main.path(forResource: "dig", ofType: "webp"))
+//            guard let localFileUrl = Bundle.main.url(forResource: "dig", withExtension: "webp") else{
+//                print("cannot find the webp file")
+//                return
+//            }
+//            guard let localFileUrl1 = Bundle.main.path(forResource: "dig", ofType: "webp") else{
+//
+//                print("cannot find the webp file")
+//                return
+//            }
+//
+//            print(localFileUrl)
+//            print(localFileUrl1)
+            
+            DispatchQueue.main.async {
+                //diggingView.sd_setImage(with: URL(string: localFileUrl1),completed: nil)
+                diggingView.sd_setImage(with: URL(string: "https://im3.ezgif.com/tmp/ezgif-3-6865b0a6bda9.webp"), completed: nil)
+            }
+        }
+        
+        
         functions.httpsCallable("findItems").call(["radius": digradius, "long":userLocation?.longitude, "lat":userLocation?.latitude]) { (result, error) in
             if let error = error as NSError? {
                 if error.domain == FunctionsErrorDomain {
@@ -381,6 +422,11 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
             
             let diggedItems = result?.data as! NSArray
             if(diggedItems.count == 0){
+                //ending animation
+                //diggingView.removeFromSuperview()
+//                diggingView.fadeOut(1, delay: 0) { (bool) in
+//                    diggingView.removeFromSuperview()
+//                }
                 self.generateRandomItemToBag()
             }else{
                 for item in diggedItems{
@@ -394,11 +440,22 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
                 for item in items {
                     itemsDisplay += "\(item.name!) x \(item.itemCount!)\n"
                 }
+                
+               
+//                diggingView.fadeOut(1, delay: 0) { (bool) in
+//                    diggingView.removeFromSuperview()
+//                }
 //                let closure = {
 //                    self.generateRandomItemToMap()
 //                }
+                //ending animation
+                //diggingView.removeFromSuperview()
+                
                 self.showAlertWithCompletion(title: "Item found!", message: itemsDisplay, completion: self.generateRandomItemToMap)
                 self.addToBag(itemList: items, itemDocIDS: locationDocIDs)
+            }
+            diggingView.fadeOut(1, delay: 0) { (bool) in
+                    diggingView.removeFromSuperview()
             }
         }
     }

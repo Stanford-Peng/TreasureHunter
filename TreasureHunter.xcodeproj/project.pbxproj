@@ -29,6 +29,8 @@
 		E6147D4C2546AF5800B799F5 /* ChannelMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6147D492546AF5800B799F5 /* ChannelMessage.swift */; };
 		E6147D4D2546AF5800B799F5 /* Sender.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6147D4A2546AF5800B799F5 /* Sender.swift */; };
 		E6147D5D2546B93D00B799F5 /* ChannelMessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6147D5C2546B93D00B799F5 /* ChannelMessagesViewController.swift */; };
+		E68A93372568D9FE00734D4E /* utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E68A93362568D9FE00734D4E /* utilities.swift */; };
+		E68A933C2568E31800734D4E /* digging.gif in Resources */ = {isa = PBXBuildFile; fileRef = E68A933B2568E31800734D4E /* digging.gif */; };
 		E6A84AC6255A6098009285F7 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A84AC5255A6097009285F7 /* Group.swift */; };
 		E6A84ACB255AB2C0009285F7 /* GroupMemberController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A84ACA255AB2BF009285F7 /* GroupMemberController.swift */; };
 		E6C5B31D2553C9BD00F62F2E /* RBG.gpx in Resources */ = {isa = PBXBuildFile; fileRef = E6C5B31C2553C9BC00F62F2E /* RBG.gpx */; };
@@ -92,6 +94,9 @@
 		E6147D492546AF5800B799F5 /* ChannelMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelMessage.swift; sourceTree = "<group>"; };
 		E6147D4A2546AF5800B799F5 /* Sender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sender.swift; sourceTree = "<group>"; };
 		E6147D5C2546B93D00B799F5 /* ChannelMessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelMessagesViewController.swift; sourceTree = "<group>"; };
+		E68A93362568D9FE00734D4E /* utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = utilities.swift; sourceTree = "<group>"; };
+		E68A933B2568E31800734D4E /* digging.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = digging.gif; sourceTree = "<group>"; };
+		E68A937D2568FB6B00734D4E /* dig.webp */ = {isa = PBXFileReference; lastKnownFileType = file; path = dig.webp; sourceTree = "<group>"; };
 		E6A84AC5255A6097009285F7 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		E6A84ACA255AB2BF009285F7 /* GroupMemberController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMemberController.swift; sourceTree = "<group>"; };
 		E6C5B31C2553C9BC00F62F2E /* RBG.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = RBG.gpx; sourceTree = "<group>"; };
@@ -225,6 +230,22 @@
 			path = ChatViews;
 			sourceTree = "<group>";
 		};
+		E68A93352568D9DA00734D4E /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				E68A93362568D9FE00734D4E /* utilities.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		E68A93402568E43300734D4E /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				E68A933B2568E31800734D4E /* digging.gif */,
+			);
+			path = resources;
+			sourceTree = "<group>";
+		};
 		E6CC249B2542F2BB004EF299 = {
 			isa = PBXGroup;
 			children = (
@@ -253,6 +274,8 @@
 		E6CC24A62542F2BB004EF299 /* TreasureHunter */ = {
 			isa = PBXGroup;
 			children = (
+				E68A93402568E43300734D4E /* resources */,
+				E68A93352568D9DA00734D4E /* Utilities */,
 				BA6F99CE255AC48D000BC7ED /* Controllers */,
 				BA5E55C625470F11000E0C33 /* Entities */,
 				BA5E55BD25470C17000E0C33 /* Cells */,
@@ -269,6 +292,7 @@
 				BAE631ED2544665E005FAA21 /* HomeViewController.swift */,
 				BAE5E3E325453C6800E4FCFA /* SettingsViewController.swift */,
 				BAE5E3E825453C8500E4FCFA /* ChatViewController.swift */,
+				E68A937D2568FB6B00734D4E /* dig.webp */,
 				E6147D5C2546B93D00B799F5 /* ChannelMessagesViewController.swift */,
 				BAE5E3ED25453C9A00E4FCFA /* BagViewController.swift */,
 				BA6F99DD255BDC0A000BC7ED /* ShopViewController.swift */,
@@ -404,6 +428,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E68A933C2568E31800734D4E /* digging.gif in Resources */,
 				E6CC24B42542F2BD004EF299 /* LaunchScreen.storyboard in Resources */,
 				E6CC24FE2543EEF9004EF299 /* GoogleService-Info.plist in Resources */,
 				E6CC24B12542F2BD004EF299 /* Assets.xcassets in Resources */,
@@ -588,6 +613,7 @@
 				E6CC25322543FAEB004EF299 /* LoginController.swift in Sources */,
 				E6CC24AA2542F2BB004EF299 /* SceneDelegate.swift in Sources */,
 				E6C5B34F255427F300F62F2E /* ItemLocation.swift in Sources */,
+				E68A93372568D9FE00734D4E /* utilities.swift in Sources */,
 				E6147D4C2546AF5800B799F5 /* ChannelMessage.swift in Sources */,
 				BAE5E3FD2545625900E4FCFA /* UserInfoHeader.swift in Sources */,
 				BA5E55C225470E3D000E0C33 /* BagCollectionViewCell.swift in Sources */,

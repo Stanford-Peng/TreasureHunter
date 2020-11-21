@@ -14,6 +14,7 @@ target 'TreasureHunter' do
 	pod 'MessageKit'
   pod 'FirebaseUI'
   pod 'Firebase/Functions'
+  pod 'SDWebImageWebPCoder'
   target 'TreasureHunterTests' do
     inherit! :search_paths
     # Pods for testing

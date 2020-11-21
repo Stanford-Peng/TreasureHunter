@@ -10,7 +10,7 @@ import GoogleSignIn
 import Firebase
 import FirebaseAuth
 import FirebaseFirestore
-
+import SDWebImageWebPCoder
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UIWindowSceneDelegate{
@@ -80,6 +80,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UIWind
         
         GIDSignIn.sharedInstance()?.clientID = "1026623119501-db5uqnrsqpdae01qm2l710o9fpvvi6cf.apps.googleusercontent.com"
         GIDSignIn.sharedInstance()?.delegate = self
+        
+        let WebPCoder = SDImageWebPCoder.shared
+        SDImageCodersManager.shared.addCoder(WebPCoder)
         
         return true
     }
