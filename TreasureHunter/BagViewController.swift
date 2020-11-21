@@ -50,6 +50,7 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
     var itemLocationReference = Firestore.firestore().collection("ItemLocation")
     var userItemReference = Firestore.firestore().collection("UserItems")
     var ItemReference = Firestore.firestore().collection("Item")
+    var userReference = Firestore.firestore().collection("User")
     var userItemArray = [Item]()
     var allExistingItems = [Item]()
     var databaseListener: ListenerRegistration?
@@ -60,7 +61,7 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
     var pickerData: [Int]!
     var itemFunctionsController: ItemFunctionsController?
     //    var managedObjectContext: NSManagedObjectContext?
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         locationManager.delegate = self
@@ -73,7 +74,7 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
         itemFunctionsController = appDelegate.itemFunctionsController
         itemFunctionsController!.bagViewDelegate = self
     }
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "shopSegue" {
             let destination = segue.destination as! ShopViewController
@@ -90,7 +91,7 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
             locationManager.startUpdatingLocation()
         }
     }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         
         //Stop updating user location in real time
@@ -105,7 +106,7 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
         let max = selectedItem!.itemCount!
         pickerData = Array(stride(from: min, to: max + 1, by: 1))
         pickerView.reloadAllComponents()
-
+        
         // show number picker
         let ac = UIAlertController(title: "Drop Amount", message: "\n\n\n\n\n\n\n\n\n\n", preferredStyle: .alert)
         ac.view.addSubview(self.pickerView)
@@ -173,7 +174,7 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
             transaction.updateData([
                 self.selectedItem!.name! : self.selectedItem!.itemCount! - 1,
                 "Gold" : FieldValue.increment(Int64(forPrice))
-                ], forDocument: userItemDocReference)
+            ], forDocument: userItemDocReference)
             return nil
         }) { (object, error) in
             if let error = error {
@@ -183,9 +184,20 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
                 self.selectedItem = nil
                 self.descriptionTextView.text = nil
                 self.itemTitleLabel.text = nil
+                self.increaseUserEarnedGold(amount: forPrice)
             }
         }
-        
+    }
+    
+    func increaseUserEarnedGold(amount: Int){
+        let email = UserDefaults.standard.string(forKey: "useremail")
+        userReference.document(email!).updateData([
+            "earnedGold" : FieldValue.increment(Int64(amount))
+        ]) { err in
+            if let err = err {
+                print ("error updating earned gold \(err)")
+            }
+        }
     }
     
     //Reference https://stackoverflow.com/questions/24022479/how-would-i-create-a-uialertview-in-swift
@@ -223,15 +235,15 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
         self.descriptionTextView.text = nil
         self.itemTitleLabel.text = nil
     }
-
+    
     private func getAllExistingItems(){
         ItemReference.getDocuments() {(querySnapshot, err) in
             if let err = err {
                 print("error getting all existing items: \(err)")
             } else {
                 for document in querySnapshot!.documents{
-//                    print("\(document.documentID) => \(document.data())")
-//                    print("\(document.documentID) => \(document.data()["itemImage"] as! String)")
+                    //                    print("\(document.documentID) => \(document.data())")
+                    //                    print("\(document.documentID) => \(document.data()["itemImage"] as! String)")
                     self.allExistingItems.append(Item(name: document.documentID,
                                                       desc: document.data()["description"] as! String,
                                                       imageIcon: UIImage(named: document.data()["itemImage"] as! String) ?? UIImage(named: "none")!))
@@ -261,7 +273,7 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
                     }
                 } else {
                     if count as! Int > 0 {
-    //                    self.userItemList[name] = count as! Int
+                        //                    self.userItemList[name] = count as! Int
                         self.userItemArray.append(Item(name: name, itemCount: count as! Int))
                     }
                 }
@@ -288,9 +300,9 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
         
         navigationController?.navigationBar.barTintColor = UIColor.Custom.darkBlue
         navigationController?.navigationBar.backgroundColor = UIColor.Custom.darkBlue
-//        navigationController?.navigationBar.prefersLargeTitles = true
-//        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-//        navigationController?.navigationBar.barStyle = .black
+        //        navigationController?.navigationBar.prefersLargeTitles = true
+        //        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        //        navigationController?.navigationBar.barStyle = .black
         //        navBar.isTranslucent = false
         //        navBar.barStyle = .black
         
@@ -427,18 +439,18 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
         if cell.item!.name != nil{
             
             //Briefly fade the cell on selection
-               UIView.animate(withDuration: 0.5,
-                              animations: {
-                               //Fade-out
-                               cell.alpha = 0.5
+            UIView.animate(withDuration: 0.5,
+                           animations: {
+                            //Fade-out
+                            cell.alpha = 0.5
                             
-               }) { (completed) in
-                   UIView.animate(withDuration: 0.5,
-                                  animations: {
-                                   //Fade-out
-                                   cell.alpha = 1
-                   })
-               }
+                           }) { (completed) in
+                UIView.animate(withDuration: 0.5,
+                               animations: {
+                                //Fade-out
+                                cell.alpha = 1
+                               })
+            }
             
             cell.selectCell()
             selectedItem = cell.item

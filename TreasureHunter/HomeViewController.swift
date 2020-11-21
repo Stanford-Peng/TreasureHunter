@@ -44,6 +44,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     var db = Firestore.firestore()
     var itemLocationReference = Firestore.firestore().collection("ItemLocation")
     var userItemReference = Firestore.firestore().collection("UserItems")
+    var userReference = Firestore.firestore().collection("User")
     var ItemReference = Firestore.firestore().collection("Item")
     var allExistingItems: [Item] = []
     
@@ -212,6 +213,12 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         self.hintButton.layer.shadowOpacity = 1.0
         self.hintButton.layer.shadowRadius = 2.0
         self.hintButton.layer.shadowOffset = CGSize(width: 0, height: 3)
+        
+        //tutorial begins if showTutorial key is true
+        if UserDefaults.standard.string(forKey: "showTutorial") == "true"{
+            step = 0
+            addAnnotations(sender: nil)
+        }
     }
     
     func setupTimerLabel(text: String){
@@ -334,6 +341,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         //tutorial begins when the user is first logging in
         step = 0
         addAnnotations(sender: nil)
+        UserDefaults.standard.set("false", forKey: "showTutorial")
     }
     
     func runTimer() {
@@ -422,6 +430,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
                 print("Error writing batch \(err)")
             } else {
                 print("Batch write succeeded.")
+                self.increaseUserDigCount()
             }
         }
         // transaction to delete item from itemLocation and add it to userItems https://firebase.google.com/docs/firestore/manage-data/transactions
@@ -488,7 +497,19 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
                 print("Error adding generated item to bag: \(err)")
             } else {
                 print("Added generated item to bag")
+                self.increaseUserDigCount()
                 self.showAlertWithCompletion(title: "Found Item!!", message: generatedItem, completion: self.generateRandomItemToMap)
+            }
+        }
+    }
+    
+    func increaseUserDigCount(){
+        let email = UserDefaults.standard.string(forKey: "useremail")
+        userReference.document(email!).updateData([
+            "digCount" : FieldValue.increment(Int64(1))
+        ]) { err in
+            if let err = err {
+                print ("error updating dig count \(err)")
             }
         }
     }

@@ -26,14 +26,14 @@ enum SettingsSection: Int, CaseIterable, CustomStringConvertible {
 }
 
 enum ProfileOptions: Int, CaseIterable, SectionType{
-    case editProfile
+    case achievements
     case logout
     
     var containsSwitch: Bool { return false}
     
     var description: String {
         switch self {
-        case .editProfile: return "Edit Profile"
+        case .achievements: return "Leaderboard & Achievements"
         case .logout: return "Log Out"
         }
     }

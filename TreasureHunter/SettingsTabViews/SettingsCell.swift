@@ -46,6 +46,8 @@ class SettingsCell: UITableViewCell {
             switch sectionType?.description{
             case "Hybrid Map":
                 UserDefaults.standard.set("hybrid", forKey: "mapType")
+            case "Show Tutorial":
+                UserDefaults.standard.set("true", forKey: "showTutorial")
             default:
                 break
             }
@@ -54,6 +56,8 @@ class SettingsCell: UITableViewCell {
             switch sectionType?.description{
             case "Hybrid Map":
                 UserDefaults.standard.set("standard", forKey: "mapType")
+            case "Show Tutorial":
+                UserDefaults.standard.set("false", forKey: "showTutorial")
             default:
                 break
             }

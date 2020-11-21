@@ -115,8 +115,7 @@ class SettingsViewController: UIViewController{
 //        let loginNavController = storyboard.instantiateViewController(identifier: "LoginNavController")
 //        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(loginNavController)
     }
-    
-    
+        
     @IBAction func logOut(_ sender: Any) {
         self.dismiss(animated: true) { [self] in
             self.userDefaults.set("", forKey: Keys.username)
@@ -125,6 +124,15 @@ class SettingsViewController: UIViewController{
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let loginNavController = storyboard.instantiateViewController(identifier: "LoginNavController")
             (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(loginNavController)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+        if segue.identifier == "achievementSegue" {
+            let destinationVC = segue.destination as! AchievementsViewController
+            destinationVC.modalPresentationStyle = .fullScreen
         }
     }
 }
@@ -189,11 +197,9 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         
         switch section {
         case .Profile:
-            print(ProfileOptions(rawValue: indexPath.row)?.description)
             if ProfileOptions(rawValue: indexPath.row)?.description == "Log Out"{
                 logoutTapped()
                 //userDefaults.synchronize()
-                
 //                break
 //                self.dismiss(animated: true) {
 //                    (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.logOut()
@@ -207,10 +213,12 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
 //                    (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(loginNavController)
 //                }
             }
+            if ProfileOptions(rawValue: indexPath.row)?.description == "Leaderboard & Achievements"{
+                performSegue(withIdentifier: "achievementSegue", sender: nil)
+            }
             break
 
         case .Application:
-            print(ApplicationOptions(rawValue: indexPath.row)?.description)
             if ApplicationOptions(rawValue: indexPath.row)?.description == "Send Feedback" {
                 promptForFeedback()
             }
