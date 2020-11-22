@@ -126,6 +126,11 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
     
     // Firebase transaction to handle user items being dropped
     func dropTransaction(dropAmount: Int){
+        
+        if self.userLocation == nil{
+            return
+        }
+        
         let amount = dropAmount
         if amount < 1 {
             return
@@ -135,8 +140,10 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
         let userItemDocReference = userItemReference.document(email!)
         let itemLocationDoc = self.itemLocationReference.document()
         let userReference = self.userReference.document(email!)
-        
+
         db.runTransaction({ (transaction, errorPointer) -> Any? in
+            
+
             let dropLocation = GeoPoint(latitude: self.userLocation!.latitude, longitude: self.userLocation!.longitude)
             let dropData = [
                 "itemID" : self.selectedItem!.name!,
