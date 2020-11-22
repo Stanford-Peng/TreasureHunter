@@ -11,8 +11,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     
     var window: UIWindow?
-    var seconds: Int?
-    
+    //var seconds: Int?
+    var leftSeconds:Int?
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
@@ -37,6 +37,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             // instantiate the navigation controller and set it as root view controller
             let loginNavController = storyboard.instantiateViewController(identifier: "LoginNavController")
             window?.rootViewController = loginNavController
+        }
+        
+        let options: UNAuthorizationOptions = [.badge, .sound, .alert]
+        UNUserNotificationCenter.current()
+          .requestAuthorization(options: options) { success, error in
+            if let error = error {
+              print("Error: \(error)")
+            }
         }
     }
     
@@ -85,13 +93,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
+        
+        //If scene is active, there is no need to use notifications
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+//        NotificationCenter.default.removeObserver(self)
     }
     
     func sceneWillResignActive(_ scene: UIScene) {
-        //store current time once
         
         // Called when the scene will move from an active state to an inactive state.
         // This may occur due to temporary interruptions (ex. an incoming phone call).
+        //let storyboard = UIStoryboard(name: "Main", bundle: nil)
+
+//        NotificationCenter.default.addObserver(self, selector: #selector(notify), name: Notification.Name("CanDig"),object: nil)
     }
     
     func sceneWillEnterForeground(_ scene: UIScene) {
@@ -103,8 +118,59 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
+        //let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        //let popVC = storyboard.instantiateViewController(identifier: "PopVC") as! GroupMemberController
+        
+        //if user is logged in and left time is > 0, schedule a notification
+        if UserDefaults.standard.string(forKey: "useremail") != "" && UserDefaults.standard.string(forKey: "useremail") != nil{
+            let tabController = window!.rootViewController as! UITabBarController
+            let homeViewController = tabController.viewControllers?.first as! HomeViewController
+            
+            leftSeconds = homeViewController.seconds
+            print("async start")
+
+            if leftSeconds! > 0{
+                self.notify(interval: leftSeconds!)
+            }
+        }
+        
+        
+        //        DispatchQueue.global(qos:.background).asyncAfter(deadline: .now() + Double(leftSeconds!)) {
+        //            self.notify()
+        //        }
     }
     
     
 }
 
+extension SceneDelegate{
+    //reference: https://www.hackingwithswift.com/example-code/system/how-to-run-code-when-your-app-is-terminated
+    //https://www.hackingwithswift.com/books/ios-swiftui/scheduling-local-notifications
+    @objc func notify(interval:Int){
+        print("notified")
+        
+        if UIApplication.shared.applicationState == .active {
+          //window?.rootViewController?.showAlert(title: "Attention", message: message)
+            //when window is active, do nothing
+            print("active")
+        } else {
+            print("background")
+            let message:String = "You can dig now!"
+          // Otherwise present a local notification
+          let notificationContent = UNMutableNotificationContent()
+          notificationContent.body = message
+          notificationContent.sound = UNNotificationSound.default
+          //notificationContent.badge = UIApplication.shared.applicationIconBadgeNumber + 1 as NSNumber
+          
+          let trigger = UNTimeIntervalNotificationTrigger(timeInterval: Double(interval), repeats: false)
+          let request = UNNotificationRequest(identifier: "can_dig",
+                                              content: notificationContent,
+                                              trigger: trigger)
+          UNUserNotificationCenter.current().add(request) { error in
+            if let error = error {
+              print("Error: \(error)")
+            }
+          }
+        }
+    }
+}
