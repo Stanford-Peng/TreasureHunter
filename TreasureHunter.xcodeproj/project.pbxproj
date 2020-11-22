@@ -19,6 +19,7 @@
 		BA6F99E3255BDDAB000BC7ED /* ShopCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6F99E2255BDDAB000BC7ED /* ShopCollectionViewCell.swift */; };
 		BA6F9BE12568D213000BC7ED /* AchievementsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6F9BE02568D213000BC7ED /* AchievementsViewController.swift */; };
 		BA6F9C162568EBB3000BC7ED /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6F9C152568EBB3000BC7ED /* User.swift */; };
+		BA6F9C87256A8BA6000BC7ED /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6F9C86256A8BA6000BC7ED /* AboutViewController.swift */; };
 		BAE5E3E425453C6800E4FCFA /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE5E3E325453C6800E4FCFA /* SettingsViewController.swift */; };
 		BAE5E3E925453C8500E4FCFA /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE5E3E825453C8500E4FCFA /* ChatViewController.swift */; };
 		BAE5E3EE25453C9A00E4FCFA /* BagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE5E3ED25453C9A00E4FCFA /* BagViewController.swift */; };
@@ -87,6 +88,7 @@
 		BA6F99E2255BDDAB000BC7ED /* ShopCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopCollectionViewCell.swift; sourceTree = "<group>"; };
 		BA6F9BE02568D213000BC7ED /* AchievementsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementsViewController.swift; sourceTree = "<group>"; };
 		BA6F9C152568EBB3000BC7ED /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		BA6F9C86256A8BA6000BC7ED /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		BAE5E3E325453C6800E4FCFA /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		BAE5E3E825453C8500E4FCFA /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		BAE5E3ED25453C9A00E4FCFA /* BagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagViewController.swift; sourceTree = "<group>"; };
@@ -312,6 +314,7 @@
 				E6147D5C2546B93D00B799F5 /* ChannelMessagesViewController.swift */,
 				BAE5E3ED25453C9A00E4FCFA /* BagViewController.swift */,
 				BA6F99DD255BDC0A000BC7ED /* ShopViewController.swift */,
+				BA6F9C86256A8BA6000BC7ED /* AboutViewController.swift */,
 			);
 			path = TreasureHunter;
 			sourceTree = "<group>";
@@ -643,6 +646,7 @@
 				BAE5E3E925453C8500E4FCFA /* ChatViewController.swift in Sources */,
 				BA6F99DE255BDC0A000BC7ED /* ShopViewController.swift in Sources */,
 				BAE5E3F52545618100E4FCFA /* SettingsCell.swift in Sources */,
+				BA6F9C87256A8BA6000BC7ED /* AboutViewController.swift in Sources */,
 				BAE5E40325456A6D00E4FCFA /* SettingsSection.swift in Sources */,
 				BAE631EE2544665E005FAA21 /* HomeViewController.swift in Sources */,
 			);

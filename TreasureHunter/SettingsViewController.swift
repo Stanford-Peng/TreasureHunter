@@ -141,6 +141,10 @@ class SettingsViewController: UIViewController{
             let destinationVC = segue.destination as! AchievementsViewController
             destinationVC.modalPresentationStyle = .fullScreen
         }
+        if segue.identifier == "aboutSegue" {
+            let destinationVC = segue.destination as! AboutViewController
+            destinationVC.modalPresentationStyle = .fullScreen
+        }
     }
 }
 
@@ -220,14 +224,20 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
 //                    (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(loginNavController)
 //                }
             }
+            // if user clicks on "Leaderboard & Achievements" tab
             if ProfileOptions(rawValue: indexPath.row)?.description == "Leaderboard & Achievements"{
                 performSegue(withIdentifier: "achievementSegue", sender: nil)
             }
             break
 
         case .Application:
+            // if user clicks on "Send Feedback" tab
             if ApplicationOptions(rawValue: indexPath.row)?.description == "Send Feedback" {
                 promptForFeedback()
+            }
+            // if user clicks on "About Treasure Hunter" tab
+            if ApplicationOptions(rawValue: indexPath.row)?.description == "About Treasure Hunter" {
+                performSegue(withIdentifier: "aboutSegue", sender: nil)
             }
         }
     }

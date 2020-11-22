@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9nc-aC-k8g">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -121,7 +121,7 @@
             <objects>
                 <viewController id="FaI-Pg-0SO" customClass="ChannelMessagesViewController" customModule="TreasureHunter" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NYW-YU-gsZ">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="14h-a5-UfX">
@@ -264,7 +264,7 @@
             <objects>
                 <viewController id="eiH-P6-KmB" customClass="BagViewController" customModule="TreasureHunter" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hFd-Wy-iF4">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="URC-I7-6NM">
@@ -446,7 +446,7 @@
             <objects>
                 <viewController id="ZQY-yD-amI" customClass="AchievementsViewController" customModule="TreasureHunter" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LEc-ZZ-OEI">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gaj-5H-LwC">
@@ -588,14 +588,139 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qgk-gj-gPj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3480.8000000000002" y="1638.5307346326838"/>
+            <point key="canvasLocation" x="3481" y="1639"/>
+        </scene>
+        <!--About View Controller-->
+        <scene sceneID="kUl-B9-LxJ">
+            <objects>
+                <viewController id="Hji-aI-iFf" customClass="AboutViewController" customModule="TreasureHunter" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7uD-NW-heU">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rxt-X3-daM">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                                <items>
+                                    <navigationItem title="About" id="tQv-TT-OcK">
+                                        <barButtonItem key="leftBarButtonItem" title="Close" id="kAf-dR-hIM">
+                                            <connections>
+                                                <action selector="onClose:" destination="Hji-aI-iFf" id="tYH-F4-Cku"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="4kD-bb-tEB">
+                                <rect key="frame" x="16" y="248" width="343" height="244"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="244" id="MFJ-dj-K0F"/>
+                                </constraints>
+                                <string key="text">As Shakespeare once said “The world is your oyster”. In “Treasure Hunter”, you can find exciting little gems scattered around the world, ranging from tools, hints, player-dropped items/messages, gold, and much more to help you on the journey to find the most sought-after treasure of all, THE PEARL OYSTER!
+Players who find the Pearl Oyster prize will receive plane tickets and accommodation to travel around the world to 3 different countries. And get recognition in the in-game global leaderboard.
+</string>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version: Closed Beta" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dwS-sH-m4c">
+                                <rect key="frame" x="0.0" y="208" width="375" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="DDK-sR-nR8"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="GSb-Fr-k8M">
+                                <rect key="frame" x="139.5" y="80" width="96" height="96"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="96" id="Wgj-OD-mVP"/>
+                                    <constraint firstAttribute="height" constant="96" id="x7V-ru-UvF"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About Developers" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0EU-7C-CoX">
+                                <rect key="frame" x="0.0" y="508" width="375" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shubin Peng: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pip-Gi-doJ">
+                                <rect key="frame" x="16" y="545" width="105" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kang Hsing:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d7z-0A-rdJ">
+                                <rect key="frame" x="16" y="582" width="92" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="gdufspsb@gmail.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x1k-U6-soN">
+                                <rect key="frame" x="193" y="545" width="166" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="akhsi1994@gmail.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p2v-Vo-Etn">
+                                <rect key="frame" x="187" y="582" width="172" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Treasure Hunter" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kSl-4r-DF1">
+                                <rect key="frame" x="0.0" y="176" width="375" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="Dm3-bD-7eF"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Iu5-cV-YCy"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Rxt-X3-daM" firstAttribute="top" secondItem="Iu5-cV-YCy" secondAttribute="top" id="5qg-Rx-9h3"/>
+                            <constraint firstItem="Iu5-cV-YCy" firstAttribute="trailing" secondItem="0EU-7C-CoX" secondAttribute="trailing" id="7KM-0p-gOx"/>
+                            <constraint firstItem="Iu5-cV-YCy" firstAttribute="trailing" secondItem="p2v-Vo-Etn" secondAttribute="trailing" constant="16" id="Jsa-IB-SCW"/>
+                            <constraint firstItem="x1k-U6-soN" firstAttribute="top" secondItem="0EU-7C-CoX" secondAttribute="bottom" constant="16" id="L0Z-vH-dHu"/>
+                            <constraint firstItem="d7z-0A-rdJ" firstAttribute="leading" secondItem="Iu5-cV-YCy" secondAttribute="leading" constant="16" id="MyY-H5-X6u"/>
+                            <constraint firstItem="dwS-sH-m4c" firstAttribute="top" secondItem="kSl-4r-DF1" secondAttribute="bottom" constant="8" id="NrN-m1-kq2"/>
+                            <constraint firstItem="Iu5-cV-YCy" firstAttribute="trailing" secondItem="4kD-bb-tEB" secondAttribute="trailing" constant="16" id="PjY-TT-krW"/>
+                            <constraint firstItem="4kD-bb-tEB" firstAttribute="leading" secondItem="Iu5-cV-YCy" secondAttribute="leading" constant="16" id="RA2-d6-nFs"/>
+                            <constraint firstItem="GSb-Fr-k8M" firstAttribute="top" secondItem="Rxt-X3-daM" secondAttribute="bottom" constant="24" id="RVM-yi-lkH"/>
+                            <constraint firstItem="kSl-4r-DF1" firstAttribute="trailing" secondItem="Iu5-cV-YCy" secondAttribute="trailing" id="Wng-SR-f7i"/>
+                            <constraint firstItem="dwS-sH-m4c" firstAttribute="leading" secondItem="Iu5-cV-YCy" secondAttribute="leading" id="XqZ-bx-FyE"/>
+                            <constraint firstItem="4kD-bb-tEB" firstAttribute="top" secondItem="dwS-sH-m4c" secondAttribute="bottom" constant="16" id="ZXr-Lr-Vrz"/>
+                            <constraint firstItem="GSb-Fr-k8M" firstAttribute="centerX" secondItem="7uD-NW-heU" secondAttribute="centerX" id="ZkJ-Zm-Pqy"/>
+                            <constraint firstItem="kSl-4r-DF1" firstAttribute="leading" secondItem="Iu5-cV-YCy" secondAttribute="leading" id="aoB-oH-M7I"/>
+                            <constraint firstItem="dwS-sH-m4c" firstAttribute="trailing" secondItem="Iu5-cV-YCy" secondAttribute="trailing" id="aql-Qe-5oc"/>
+                            <constraint firstItem="Iu5-cV-YCy" firstAttribute="trailing" secondItem="x1k-U6-soN" secondAttribute="trailing" constant="16" id="b1f-CW-Gtp"/>
+                            <constraint firstItem="Pip-Gi-doJ" firstAttribute="leading" secondItem="Iu5-cV-YCy" secondAttribute="leading" constant="16" id="cmQ-5x-GeB"/>
+                            <constraint firstItem="0EU-7C-CoX" firstAttribute="leading" secondItem="Iu5-cV-YCy" secondAttribute="leading" id="cmQ-Za-XCF"/>
+                            <constraint firstItem="p2v-Vo-Etn" firstAttribute="top" secondItem="x1k-U6-soN" secondAttribute="bottom" constant="16" id="dss-Qb-uon"/>
+                            <constraint firstItem="d7z-0A-rdJ" firstAttribute="top" secondItem="Pip-Gi-doJ" secondAttribute="bottom" constant="16" id="fKD-QY-2wf"/>
+                            <constraint firstItem="Pip-Gi-doJ" firstAttribute="top" secondItem="0EU-7C-CoX" secondAttribute="bottom" constant="16" id="fYI-Fl-lXR"/>
+                            <constraint firstItem="Rxt-X3-daM" firstAttribute="trailing" secondItem="Iu5-cV-YCy" secondAttribute="trailing" id="hAn-T6-rkf"/>
+                            <constraint firstItem="kSl-4r-DF1" firstAttribute="top" secondItem="GSb-Fr-k8M" secondAttribute="bottom" id="j5v-8c-E8A"/>
+                            <constraint firstItem="Rxt-X3-daM" firstAttribute="leading" secondItem="Iu5-cV-YCy" secondAttribute="leading" id="kKu-KG-xsE"/>
+                            <constraint firstItem="0EU-7C-CoX" firstAttribute="top" secondItem="4kD-bb-tEB" secondAttribute="bottom" constant="16" id="kv7-EO-Gqh"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="vO7-xH-8D7"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Q8w-zs-6mW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4261.6000000000004" y="1638.5307346326838"/>
         </scene>
         <!--Shop-->
         <scene sceneID="quv-gc-qdg">
             <objects>
                 <viewController storyboardIdentifier="shopViewController" title="Shop" id="anj-Jz-qdD" customClass="ShopViewController" customModule="TreasureHunter" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="z5k-PC-r2N">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="571"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="KzI-4O-9WX">
@@ -794,6 +919,7 @@
                         <outlet property="navBar" destination="FNm-5p-miM" id="DHc-kR-9ZI"/>
                         <outlet property="settingsTableView" destination="Q9G-qa-4hN" id="cyY-k5-Sdu"/>
                         <segue destination="ZQY-yD-amI" kind="show" identifier="achievementSegue" id="8hz-gl-wRc"/>
+                        <segue destination="Hji-aI-iFf" kind="show" identifier="aboutSegue" id="4lv-ct-xd0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ra4-ne-nqB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -878,6 +1004,7 @@
         <image name="chest" width="42" height="42"/>
         <image name="homeIcon" width="42" height="42"/>
         <image name="light.max" catalog="system" width="128" height="72"/>
+        <image name="logo" width="675" height="399"/>
         <image name="scroll" width="447.5" height="396"/>
         <image name="settingsIcon" width="42" height="42"/>
         <systemColor name="labelColor">

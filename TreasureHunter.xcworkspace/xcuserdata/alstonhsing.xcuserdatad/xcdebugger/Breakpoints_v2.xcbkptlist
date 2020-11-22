@@ -48,7 +48,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "624"
             endingLineNumber = "624"
-            landmarkName = "generateRandomItemToBag()"
+            landmarkName = "getAllExistingItems()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

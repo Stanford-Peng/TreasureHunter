@@ -46,6 +46,7 @@ enum ApplicationOptions: Int, CaseIterable, SectionType{
     case notifications
     case tutorial
     case feedback
+    case about
     
     // adds a switch to the selected cell
     var containsSwitch: Bool {
@@ -54,15 +55,16 @@ enum ApplicationOptions: Int, CaseIterable, SectionType{
             case .notifications: return true
             case .feedback: return false
             case .tutorial: return true
+            case .about: return false
         }
     }
-    
     var description: String {
         switch self {
             case .mapType: return "Hybrid Map"
             case .notifications: return "Notifications"
             case .feedback: return "Send Feedback"
             case .tutorial: return "Show Tutorial"
+            case .about: return "About Treasure Hunter"
         }
     }
 }
