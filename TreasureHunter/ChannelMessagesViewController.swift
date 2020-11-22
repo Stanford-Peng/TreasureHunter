@@ -10,7 +10,7 @@ import MessageKit
 import InputBarAccessoryView
 import FirebaseFirestore
 
-class ChannelMessagesViewController: MessagesViewController, MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDelegate, InputBarAccessoryViewDelegate, UIPopoverPresentationControllerDelegate {
+class ChannelMessagesViewController: MessagesViewController, MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDelegate, InputBarAccessoryViewDelegate, UIPopoverPresentationControllerDelegate, UITextFieldDelegate, UITextViewDelegate {
     
     var sender: Sender?
     var currentChannel: Channel?
@@ -51,6 +51,10 @@ class ChannelMessagesViewController: MessagesViewController, MessagesDataSource,
         
         //set up message inputbar delegate
         messageInputBar.delegate = self
+//        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
+//        
+//        tap.cancelsTouchesInView = false
+//        self.view.addGestureRecognizer(tap)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -322,6 +326,9 @@ class ChannelMessagesViewController: MessagesViewController, MessagesDataSource,
     
     // MARK: - Message Input Bar Delegate Functions
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
+//        inputBar.delegate = self
+//        inputBar.inputTextView.delegate = self
+        //inputBar.text
         if text.isEmpty {
             return
         }
@@ -368,6 +375,10 @@ class ChannelMessagesViewController: MessagesViewController, MessagesDataSource,
     @IBAction func onCancel(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
-    
+    //dismiss keyboard
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        textField.resignFirstResponder()
+//        return true
+//    }
 }
 

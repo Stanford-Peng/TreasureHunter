@@ -683,6 +683,11 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     
     // Handles when stashed hint button is tapped by user
     @IBAction func stashedHintTapped(_ sender: Any) {
+        
+        if self.userLocation == nil{
+            self.showAlert(title: "Notice", message: "User location is currently unavailable! Dig cannot be done.")
+            return
+        }
         let email=UserDefaults.standard.string(forKey: "useremail")
         let userPosition = CLLocation(latitude: userLocation!.latitude, longitude: userLocation!.longitude)
         itemLocationReference.document(email!).getDocument { (document, error) in
