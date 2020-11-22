@@ -37,26 +37,26 @@ class ChannelMessagesViewController: MessagesViewController, MessagesDataSource,
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(navBar)
+        
+        //set up message framework delegates
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
         
         messagesCollectionView.contentInset = UIEdgeInsets(top: navBar.frame.size.height, left: 0, bottom: 0, right: 0)
-        // Do any additional setup after loading the view.
         
+        // Do any additional setup after loading the view.
         scrollsToBottomOnKeyboardBeginsEditing = true // default false
         maintainPositionOnKeyboardFrameChanged = true // default false
         
+        //set up message inputbar delegate
         messageInputBar.delegate = self
-        
-
-        
-        //view.addSubview(navBar)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        //get messages when this is a public room channels
         if currentChannel != nil {
             channelRef = database.collection("channels").document(currentChannel!.id).collection("messages")
             navBar.topItem?.title = "\(currentChannel!.name)"
@@ -95,6 +95,7 @@ class ChannelMessagesViewController: MessagesViewController, MessagesDataSource,
             }
         }
         
+        //If user selects a contact, get all messages between user and this contact
         if currentContact != nil {
             contactRef = database.collection("contacts").document(sender!.senderId).collection("friends").document(currentContact!.id).collection("messages")
             navBar.topItem?.title = "\(currentContact!.name)"
@@ -132,6 +133,7 @@ class ChannelMessagesViewController: MessagesViewController, MessagesDataSource,
             })
         }
         
+        //if user choose a private channel, fetch all messages in this channel
         if currentGroup != nil{
             privateChannelRef = database.collection("PrivateChannel")
             let messageRef = privateChannelRef?.document(currentGroup!.id).collection("messages")
@@ -179,6 +181,7 @@ class ChannelMessagesViewController: MessagesViewController, MessagesDataSource,
 
     }
     
+    //When this is a private channel, this function is used to add a member to this private channel
     @objc func addFriend(){
         
         let alertController = UIAlertController(title: "Add New Friend to Group", message: "Enter the player's ID(email) below", preferredStyle: .alert)
@@ -235,6 +238,7 @@ class ChannelMessagesViewController: MessagesViewController, MessagesDataSource,
         
     }
     
+    //When this is a private channel, this function can be used to view all current members in this channel
     @objc func viewMembers(){
         let membersRef = privateChannelRef?.document(currentGroup!.id).collection("members")
         membersRef?.getDocuments(completion: { (querySnapshot, error) in
@@ -272,13 +276,14 @@ class ChannelMessagesViewController: MessagesViewController, MessagesDataSource,
         
     }
     
+    //listen for the database
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         //self.messagesList.removeAll()
         databaseListener?.remove()
         
     }
-    
+    //remove firebase listener
     func currentSender() -> SenderType {
         guard let sender = sender else {
             return Sender(id: "",name: "")
@@ -286,6 +291,7 @@ class ChannelMessagesViewController: MessagesViewController, MessagesDataSource,
         return sender
     }
     
+    // configure message data source
     func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageType {
         return messagesList[indexPath.section]
     }
@@ -358,7 +364,7 @@ class ChannelMessagesViewController: MessagesViewController, MessagesDataSource,
         return .bubbleTail(tail, .curved)
     }
     
-    
+    //triggered when user presses back nvigation button：dismiss this view controller
     @IBAction func onCancel(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
