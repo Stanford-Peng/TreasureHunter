@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseFirestore
 
+// Handles the achievement and leaderboard view
 class AchievementsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var pearlOystersCount: UILabel!
@@ -32,6 +33,7 @@ class AchievementsViewController: UIViewController, UITableViewDataSource, UITab
         getTopUsers()
     }
     
+    // Retrieves from firebase the logged in user's achievements
     func getCurrentUserAchievements(){
         let email=UserDefaults.standard.string(forKey: "useremail")
         userReference.document(email!).getDocument { (document, error) in
@@ -53,6 +55,7 @@ class AchievementsViewController: UIViewController, UITableViewDataSource, UITab
         }
     }
     
+    // Retrieves from firebase the top 20 users in each achievement category
     func getTopUsers(){
         //get top users by dig count
         db.collection("User").order(by: "digCount", descending: true).limit(to: 20)
@@ -67,7 +70,7 @@ class AchievementsViewController: UIViewController, UITableViewDataSource, UITab
                             score: document.data()["digCount"] as! Int
                         ))
                     }
-                    self.updateTable()
+                    self.updateInitialTable()
                 }
             }
         //get top users by earned gold
@@ -104,6 +107,7 @@ class AchievementsViewController: UIViewController, UITableViewDataSource, UITab
             }
     }
     
+    // Handles actions for when the achievement section is toggled
     @IBAction func onSegmentToggle(_ sender: Any) {
         let index = segmentedControl.selectedSegmentIndex
         switch index {
@@ -119,6 +123,7 @@ class AchievementsViewController: UIViewController, UITableViewDataSource, UITab
         tableView.reloadData()
     }
     
+    // Function that configures labels to show icons infront of it based on passed icon name and text
     private func configureLabel(label: UILabel, text: String, iconName: String){
          // Create Attachment
          let imageAttachment = NSTextAttachment()
@@ -139,18 +144,19 @@ class AchievementsViewController: UIViewController, UITableViewDataSource, UITab
          label.attributedText = completeText
      }
     
-    func updateTable(){
+    // Called initially to fill the leaderboard with users upon retrieval of top users
+    func updateInitialTable(){
         displayedTable = digsLeaderboard
         tableView.reloadData()
     }
     
     // MARK: - Navigation
+    // Handles actions when the back button is pressed
     @IBAction func onBack(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
     
     // MARK: - Table
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return displayedTable.count
     }

@@ -8,8 +8,9 @@
 import UIKit
 import FirebaseFirestore
 
-private let reuseIdentifier = "SettingsCell"
 
+
+// Handles settings tab view
 class SettingsViewController: UIViewController{
     
     @IBOutlet weak var navBar: UINavigationBar!
@@ -18,7 +19,9 @@ class SettingsViewController: UIViewController{
     var userReference = Firestore.firestore().collection("User")
     var optionsList = [String]()
     let userDefaults = UserDefaults.standard
+    let reuseIdentifier = "SettingsCell"
     
+    // Assign sensitive strings to variables to prevent typos
     struct Keys {
         static let username = "username"
         static let useremail = "useremail"
@@ -28,9 +31,9 @@ class SettingsViewController: UIViewController{
         super.viewDidLoad()
         configureUI()
         
-        //        optionsList.append("Log Out");
-        // Do any additional setup after loading the view.
     }
+    
+    // Configure table view upon view load
     func configureTableView() {
         
         settingsTableView.delegate = self
@@ -47,14 +50,17 @@ class SettingsViewController: UIViewController{
         settingsTableView.tableFooterView = UIView()
     }
     
+    
     func configureUI() {
         configureTableView()
         
+        // Configure navigation bar
         navBar.prefersLargeTitles = true
         navBar.isTranslucent = false
         navBar.barStyle = .black
     }
 
+    // Alert window that allows user input to process Feedback
     func promptForFeedback() {
         let ac = UIAlertController(title: "Leave Feedback", message: nil, preferredStyle: .alert)
         ac.addTextField()
@@ -70,6 +76,7 @@ class SettingsViewController: UIViewController{
         present(ac, animated: true)
     }
     
+    // Firebase function to store a user's feedback
     func storeFeedback(feedback: String){
         let email=UserDefaults.standard.string(forKey: "useremail")
         
@@ -90,9 +97,8 @@ class SettingsViewController: UIViewController{
      }
      */
     
-
+    // Perform logout related functions
     func logoutTapped(){
-        // Perform logout related functions
         
         let ac = UIAlertController(title: "Confirm Logout", message: nil, preferredStyle: .alert)
         
@@ -116,6 +122,7 @@ class SettingsViewController: UIViewController{
 //        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(loginNavController)
     }
         
+    // Performs logout related functions
     @IBAction func logOut(_ sender: Any) {
         self.dismiss(animated: true) { [self] in
             self.userDefaults.set("", forKey: Keys.username)

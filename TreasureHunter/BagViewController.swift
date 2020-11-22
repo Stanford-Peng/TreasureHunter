@@ -15,19 +15,8 @@ protocol BagViewDelegate{
     func showToast(message: String, font: UIFont)
 }
 
+// Handles the bag tab
 class BagViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, CLLocationManagerDelegate, UIPickerViewDataSource, UIPickerViewDelegate, BagViewDelegate{
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return pickerData.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return "\(pickerData[row])"
-    }
     
     @IBOutlet weak var shopButton: UIBarButtonItem!
     @IBOutlet weak var descriptionView: UIView!
@@ -65,9 +54,11 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
     override func viewDidLoad() {
         super.viewDidLoad()
         locationManager.delegate = self
+        // Set up number picker
         pickerView = UIPickerView(frame: CGRect(x: 10, y: 50, width: 250, height: 150))
         pickerView.delegate = self
         pickerView.dataSource = self
+        
         self.setUI()
         self.getAllExistingItems()
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -76,6 +67,7 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Set shop view's gold label upon segue
         if segue.identifier == "shopSegue" {
             let destination = segue.destination as! ShopViewController
             shopViewDelegate = destination
@@ -118,6 +110,7 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
         self.present(ac, animated: true)
     }
     
+    // Function called when user tries to drop item
     @IBAction func dropButton(_ sender: Any) {
         if selectedItem == nil {
             return
@@ -131,6 +124,7 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
         }
     }
     
+    // Firebase transaction to handle user items being dropped
     func dropTransaction(dropAmount: Int){
         let amount = dropAmount
         if amount < 1 {
@@ -139,8 +133,8 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
         // transaction to delete item from UserItems and Add to ItemLocation https://firebase.google.com/docs/firestore/manage-data/transactions
         let email=UserDefaults.standard.string(forKey: "useremail")
         let userItemDocReference = userItemReference.document(email!)
-        //itemLocationReference
         let itemLocationDoc = self.itemLocationReference.document()
+        let userReference = self.userReference.document(email!)
         
         db.runTransaction({ (transaction, errorPointer) -> Any? in
             let dropLocation = GeoPoint(latitude: self.userLocation!.latitude, longitude: self.userLocation!.longitude)
@@ -153,6 +147,12 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
             
             transaction.setData(dropData, forDocument: itemLocationDoc, merge: true)
             transaction.updateData([self.selectedItem!.name! : self.selectedItem!.itemCount! - amount], forDocument: userItemDocReference)
+            
+            // make sure if user drops a pearl oyster, the acheivement is also reduced
+            if self.selectedItem!.name!.contains("Pearl Oyster"){
+                transaction.updateData(["pearlOystersFound" : FieldValue.increment(Int64(-1))], forDocument: userReference)
+            }
+            
             return nil
         }) { (object, error) in
             if let error = error {
@@ -166,6 +166,7 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
         }
     }
     
+    // Firebase transaction for when an item is sold
     func sellItem(forPrice: Int){
         let email=UserDefaults.standard.string(forKey: "useremail")
         let userItemDocReference = userItemReference.document(email!)
@@ -189,6 +190,7 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
         }
     }
     
+    // Increase user's total earned gold achievement whenever an item is sold
     func increaseUserEarnedGold(amount: Int){
         let email = UserDefaults.standard.string(forKey: "useremail")
         userReference.document(email!).updateData([
@@ -210,6 +212,7 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
         self.present(alert, animated: true, completion: nil)
     }
     
+    // UI Alert to let users confirm using an item
     func showUseConfirmation(){
         let alert = UIAlertController(title: "\(useButton!.currentTitle!) \(selectedItem!.name!)?", message: selectedItem?.desc, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Yes", style: UIAlertAction.Style.default, handler: { action in
@@ -226,6 +229,7 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
         showUseConfirmation()
     }
     
+    // Update firebase to reduce user's item by item used
     func confirmItemUsed(){
         let email=UserDefaults.standard.string(forKey: "useremail")
         let userItemDocReference = userItemReference.document(email!)
@@ -236,6 +240,7 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
         self.itemTitleLabel.text = nil
     }
     
+    // Retrieves all items currently available in the game
     private func getAllExistingItems(){
         ItemReference.getDocuments() {(querySnapshot, err) in
             if let err = err {
@@ -254,6 +259,7 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
         }
     }
     
+    // Listens for changes in user's items
     func userItemListener(){
         let email = UserDefaults.standard.string(forKey: "useremail")
         databaseListener = userItemReference.document(email!).addSnapshotListener { (querySnapshot, error) in
@@ -283,6 +289,7 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
         }
     }
     
+    // Set up the UI of the view controller
     private func setUI() {
         descriptionView.backgroundColor = UIColor(patternImage: UIImage(named: "blueWood")!)
         // Register cell classes
@@ -307,7 +314,6 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
         //        navBar.barStyle = .black
         
         //Set button UI
-        
         self.useButton.backgroundColor = UIColor(displayP3Red: 222/255, green: 194/255, blue: 152/255, alpha: 1.0)
         self.useButton.layer.cornerRadius = 7.0
         self.useButton.layer.borderWidth = 5.0
@@ -326,6 +332,7 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
         self.dropButton.layer.shadowRadius = 2.0
         self.dropButton.layer.shadowOffset = CGSize(width: 0, height: 3)
         
+        // Set gold label UI
         userGoldLabel.textColor = .white
         userGoldLabel.shadowColor = .black
         userGoldLabel.shadowOffset = CGSize(width: 0.7, height: 0.7)
@@ -342,6 +349,7 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
         
     }
     
+    // Function to add image icon in front of text label
     private func configureGoldLabel(text: String){
         // Create Attachment
         let imageAttachment = NSTextAttachment()
@@ -421,6 +429,7 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
         return cell
     }
     
+    // Creates a swift entity "Item" from the retrieved database item information (data)
     func createItem(with: Item) -> Item{
         let i = with
         for item in allExistingItems{
@@ -456,6 +465,7 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
             selectedItem = cell.item
             descriptionTextView.text = cell.item?.desc
             itemTitleLabel.text = cell.item?.name
+            //Change use button text based on item type
             if selectedItem!.name!.contains("Map Piece"){
                 self.useButton.setTitle("Read", for: .normal)
             } else if selectedItem!.name!.contains("Normal Oyster") || selectedItem!.name!.contains("Large Treasure Chest"){
@@ -495,6 +505,20 @@ class BagViewController: UIViewController, UICollectionViewDelegate, UICollectio
             userLocation = coordinate
         }
     }
+    
+    //MARK: - Picker view
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return pickerData.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return "\(pickerData[row])"
+    }
+    
 }
 extension UIColor {
     struct Custom {

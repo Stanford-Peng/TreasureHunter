@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+//Class storing properties of a user
 class User: NSObject {
     
     var name: String?

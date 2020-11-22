@@ -7,6 +7,7 @@
 
 import UIKit
 
+// Configures each cell in the settings tab
 class SettingsCell: UITableViewCell {
 
     // MARK: - Properties
@@ -41,6 +42,7 @@ class SettingsCell: UITableViewCell {
     
     // MARK: - Selectors
     
+    // Process logic when the switch accessory is toggled
     @objc func handleSwitchAction(sender: UISwitch){
         if sender.isOn{
             switch sectionType?.description{
@@ -69,6 +71,7 @@ class SettingsCell: UITableViewCell {
         }
     }
     
+    // Set up the cells initially to display correct toggle state of switches
     func setupCell(){
         switch sectionType!.description {
         case "Hybrid Map":

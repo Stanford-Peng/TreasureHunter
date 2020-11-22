@@ -7,7 +7,7 @@
 
 import Foundation
 
-// Handles item use functions and buy from shop
+// Controller class that handles item functions when used from bag
 class ItemFunctionsController{
     
     var homeViewDelegate: HomeViewDelegate?

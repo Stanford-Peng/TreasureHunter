@@ -25,6 +25,7 @@ enum SettingsSection: Int, CaseIterable, CustomStringConvertible {
     }
 }
 
+// Section 1 is profile options
 enum ProfileOptions: Int, CaseIterable, SectionType{
     case achievements
     case logout
@@ -39,6 +40,7 @@ enum ProfileOptions: Int, CaseIterable, SectionType{
     }
 }
 
+// Section 2 is application options
 enum ApplicationOptions: Int, CaseIterable, SectionType{
     case mapType
     case notifications

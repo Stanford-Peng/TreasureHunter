@@ -7,6 +7,8 @@
 
 import UIKit
 import GoogleSignIn
+
+// Handles the login page
 class LoginController: UIViewController {
     
     @IBOutlet var signINButton:GIDSignInButton!
@@ -15,8 +17,6 @@ class LoginController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background-login")!)
         GIDSignIn.sharedInstance()?.presentingViewController = self
-        
-        
         
 //        if GIDSignIn.sharedInstance()?.currentUser != nil{
 //

@@ -25,6 +25,8 @@ protocol HomeViewDelegate{
 //https://medium.com/ios-os-x-development/build-an-stopwatch-with-swift-3-0-c7040818a10f
 
 //https://docs.mapbox.com/help/tutorials/ios-navigation-sdk/#generate-a-route
+
+// Handles the home tab
 class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, HomeViewDelegate{
     func getTimer() -> Int{
         return seconds!
@@ -49,34 +51,38 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     var ItemReference = Firestore.firestore().collection("Item")
     var allExistingItems: [Item] = []
     
-    let COOLDOWN = 20
-    var shakeCounter = 0
-    var digradius = 10.0
-    let DEFAULT_DIG_RADIUS = 10.0
+    let COOLDOWN = 20 // Sets the dig cooldown between each dig
+    var shakeCounter = 0 //Stores the amount of times the phone is shaken by user
+    var digradius = 10.0 // Sets the dig radius on next dig only
+    let DEFAULT_DIG_RADIUS = 10.0 // Sets the default dig radius on every dig
     
     var step:Int?
     
+    // Text attributes for the "Shake to dig"/ "Timer" label
     let strokeTextAttributes = [
       NSAttributedString.Key.strokeColor : UIColor.black,
       NSAttributedString.Key.foregroundColor : UIColor.white,
       NSAttributedString.Key.strokeWidth : -2.0,
         NSAttributedString.Key.font : UIFont.monospacedSystemFont(ofSize: 19, weight: UIFont.Weight(rawValue: 20.0))]
       as [NSAttributedString.Key : Any]
+
     let child = SpinnerViewController()
     @IBOutlet weak var hintButton: UIButton!
     //    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    
     var hasPearl = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         createSpinnerView()
         setupTimerLabel(text: "Loading Dig Status")
         configureUI()
+        // Observes for when an app will enter foreground
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(appMovedToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+        // Location Authorization request
         setUpLocationAuthorisation()
-
         mapView.delegate = self
+        // Sets the map to user's preference from the setting's tab
         setUserMapPreference()
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -91,6 +97,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
 //        addAnnotations(sender: nil)
     }
     
+    // In-Game Tutorial to teach users how to play the game
     @objc func addAnnotations(sender:Any?){
         switch step{
             case 0:
@@ -178,7 +185,8 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
                 break
         }
     }
-        
+    
+    // Testing purpose only
     @objc func tappedTest(){
         print("Label tapped")
     }
@@ -199,6 +207,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         setUserMapPreference()
     }
     
+    // Sets map to user's preference that is configured in the "Settings" tab
     func setUserMapPreference(){
         let userMapType = UserDefaults.standard.string(forKey: "mapType")
         if userMapType == "hybrid" {
@@ -208,6 +217,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         }
     }
     
+    // Beautify the view using this UI configuration function
     func configureUI(){
         self.hintButton.backgroundColor = UIColor(displayP3Red: 222/255, green: 194/255, blue: 152/255, alpha: 1.0)
         self.hintButton.layer.cornerRadius = 7.0
@@ -225,15 +235,18 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         }
     }
     
+    // Set up the timer label with attributed text
     func setupTimerLabel(text: String){
         // F3D38C primary background color
         timerLabel.attributedText = NSMutableAttributedString(string: text, attributes: strokeTextAttributes)
     }
     
+    // Returns the dig radius currently used
     func getDigRadius() -> Double {
         return digradius
     }
     
+    // Dig timer can be reset by using a bottle of water item
     func resetDigTimer() {
         // Function called by bottle of water
         print("reset timer function called")
@@ -245,6 +258,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         setUpTimer()
     }
     
+    // Detects for when the phone is being shaked
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake{
             print("SHAKED")
@@ -256,6 +270,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         }
     }
     
+    // Ask for authorization to use location
     func setUpLocationAuthorisation(){
         locationManager.delegate = self
         let authorisationStatus = locationManager.authorizationStatus
@@ -287,6 +302,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         setUpTimer()
     }
     
+    // Sets up timer label to user's dig status/cooldown
     func setUpTimer(){
         //timer.invalidate()
         let email=UserDefaults.standard.string(forKey: "useremail")
@@ -316,11 +332,13 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         }
     }
     
+    // Function to increase next dig radius, called by using energy drink item
     func increaseDigRadius(by: Double){
         digradius = DEFAULT_DIG_RADIUS
         digradius += by
     }
     
+    // Handles various configurations when the user is logged in for the first time ever
     func isFirstTimeUser(){
         // Set up user timer
         let email=UserDefaults.standard.string(forKey: "useremail")
@@ -360,6 +378,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         ], merge: true)
     }
     
+    // Causes the timer to start running
     func runTimer() {
         self.timer = Timer.scheduledTimer(timeInterval: 1, target: self,   selector: (#selector(HomeViewController.updateTimer)), userInfo: nil, repeats: true)
     }
@@ -369,6 +388,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         dig()
     }
     
+    // Dig at current user's location
     func dig(){
         if canDig! {
             findItems()
@@ -381,9 +401,11 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         }
     }
     
+    // Uses Firebase Functions to find all items within the current dig radius
     func findItems(){
         var items:[Item] = []
         var locationDocIDs: [String] = []
+        let email=UserDefaults.standard.string(forKey: "useremail")
         
 //        //add loading animation
 //        let diggingGif = UIImage.gif(name: "digging")
@@ -426,7 +448,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
             }
         }
         
-        
+        // Firebase function to call the deployed node JS function
         functions.httpsCallable("findItems").call(["radius": digradius, "long":userLocation?.longitude, "lat":userLocation?.latitude]) { (result, error) in
             if let error = error as NSError? {
                 if error.domain == FunctionsErrorDomain {
@@ -463,6 +485,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
                 for item in items {
                     if item.name == "Pearl Oyster"{
                         self.hasPearl = true
+                        self.userReference.document(email!).updateData(["pearlOystersFound": FieldValue.increment(Int64(1))])
                     }
                     itemsDisplay += "\(item.name!) x \(item.itemCount!)\n"
                 }
@@ -490,6 +513,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         }
     }
     
+    // Shows the pearl oyster animation when a pearl oyster is found
     func showPearlOyster(){
 //        let concurrentQueue = DispatchQueue(label: "treasureHunter.concurrent.queue", attributes: .concurrent)
         let pearlOysterView = UIImageView()
@@ -528,6 +552,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         }
     }
 
+    // Adds the item list to bag (Parameters: [Item] // List of items to add to bag, and [String] of document IDs to be removed from firebase
     func addToBag(itemList: [Item], itemDocIDS: [String]){
                 let email=UserDefaults.standard.string(forKey: "useremail")
         let userItemDocReference = userItemReference.document(email!)
@@ -566,6 +591,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
 //        }
     }
     
+    // Gets all types of items the game currently has
     private func getAllExistingItems(){
         ItemReference.getDocuments() {(querySnapshot, err) in
             if let err = err {
@@ -583,6 +609,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         }
     }
 
+    // Generates a random item to bag based on drop rate of items
     func generateRandomItemToBag(){
         // Generate item here
         var totalDropChance = 0
@@ -601,6 +628,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
                 break
             }
         }
+        // If generated item is nothing
         if generatedItem == "Nothing"{
             showAlertWithCompletion(title: "Found nothing", message: "Bad luck :( You found nothing at this location", completion: self.generateRandomItemToMap)
             return
@@ -622,6 +650,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         }
     }
     
+    // Increase user's dig counter. Purpose is to use for achievements & leaderboards
     func increaseUserDigCount(){
         let email = UserDefaults.standard.string(forKey: "useremail")
         userReference.document(email!).updateData([
@@ -633,6 +662,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         }
     }
     
+    // Handles when stashed hint button is tapped by user
     @IBAction func stashedHintTapped(_ sender: Any) {
         let email=UserDefaults.standard.string(forKey: "useremail")
         let userPosition = CLLocation(latitude: userLocation!.latitude, longitude: userLocation!.longitude)
@@ -661,7 +691,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         }
     }
     
-    
+    // Generates a random luxurious item to the map at a random location
     func generateRandomItemToMap(){
         if self.hasPearl == true{
             self.hasPearl = false
@@ -669,6 +699,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         }
         let randonLocationGenerator = RandomLocationGenerator()
         
+        // Generates random location within 3KM of user
         let locations = try? randonLocationGenerator.getMockLocationsFor(location: userLocation!, count: 1, minDistanceKM: 1, maxDistanceKM: 3)
         
         var goodItemList:[Item] = [Item]()
@@ -723,9 +754,9 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
                 }
             }
         }
-
-        
     }
+    
+    // Opens Map applications on the user's phone to navigate to a location
     // reference using url : https://stackoverflow.com/questions/38250397/open-an-alert-asking-to-choose-app-to-open-map-with/60930491#60930491
     func showLocationWithNavigation(title:String, message:String, coordinate:CLLocationCoordinate2D ){
         let alert = UIAlertController(title: title, message:
@@ -745,6 +776,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         self.present(alert, animated: true, completion: nil)
     }
     
+    // Handles each second of the timer
     @objc func updateTimer() {
         if seconds! < 1 {
             timeUp()
@@ -756,6 +788,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         }
     }
     
+    // Called when timer time is up
     func timeUp(){
         self.timer.invalidate()
         setupTimerLabel(text: "Shake to dig")
@@ -771,6 +804,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     //        timerLabel.text = timeString(time: TimeInterval(seconds!))
     //    }
     
+    // Specify time label format
     func timeString(time:TimeInterval) -> String {
         let hours = Int(time) / 3600
         let minutes = Int(time) / 60 % 60
@@ -808,8 +842,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     }
     
     func createSpinnerView() {
-
-
         // add the spinner view controller
         addChild(child)
         child.view.frame = self.view.frame
@@ -817,7 +849,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         child.didMove(toParent: self)
         removeSpinner(child: child)
         // wait two seconds to simulate some work happening
-
     }
     
     func removeSpinner(child:SpinnerViewController){
@@ -858,6 +889,7 @@ extension UIViewController{
         self.present(alert, animated: true, completion: nil)
     }
     
+    // Shows alert with an image on it
     func showAlertWithImage(title: String, message: String, imageName: String){
         let imageView = UIImageView(frame: CGRect(x: 20, y: 20, width: 40, height: 40))
         imageView.image = UIImage(named: imageName)
@@ -911,10 +943,8 @@ extension HomeViewController{
         guard status == .authorizedWhenInUse else {
           return
         }
-
         manager.requestLocation()
     }
-
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
       print("Error requesting location: \(error.localizedDescription)")
@@ -923,6 +953,7 @@ extension HomeViewController{
 
 extension UIView {
 
+    // fade in function to show fade in animation
     func fadeIn(_ duration: TimeInterval = 0.5, delay: TimeInterval = 0.0, completion: @escaping ((Bool) -> Void) = {(finished: Bool) -> Void in}) {
         
         UIView.animate(withDuration: duration, delay: delay, options: UIView.AnimationOptions.curveEaseIn, animations: {
@@ -930,7 +961,8 @@ extension UIView {
     }, completion: completion)
         
     }
-
+    
+    // fade out function to show fade out animation
     func fadeOut(_ duration: TimeInterval = 0.5, delay: TimeInterval = 5, completion: @escaping (Bool) -> Void = {(finished: Bool) -> Void in}) {
         
         UIView.animate(withDuration: duration, delay: delay, options: UIView.AnimationOptions.curveEaseIn, animations: {

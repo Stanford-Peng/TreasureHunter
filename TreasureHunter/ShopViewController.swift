@@ -13,6 +13,7 @@ protocol ShopViewDelegate {
     func configureUserGoldLabel(text: String)
 }
 
+// Handles shop view
 class ShopViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, ShopViewDelegate {
     
     @IBOutlet weak var buyButton: UIButton!
@@ -34,7 +35,6 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
     var ItemReference = Firestore.firestore().collection("Item")
     var initialGoldAmount = "..."
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUI()
@@ -45,6 +45,7 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         itemFunctionsController!.shopViewDelegate = self
     }
     
+    // Function when buy button is pressed
     @IBAction func buyButton(_ sender: Any) {
         if selectedItem == nil {
             return
@@ -58,9 +59,11 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
             return
         }
         
+        // Ask user to confirm
         showBuyConfirmation()
     }
     
+    // Ask user to confirm buying item
     func showBuyConfirmation(){
         let alert = UIAlertController(title: "Buy Confirmation", message: "Would you like to buy \(selectedItem!.name!)", preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Buy", style: UIAlertAction.Style.default, handler: { action in
@@ -70,6 +73,7 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         self.present(alert, animated: true, completion: nil)
     }
     
+    // Firebase item transaction for buying an item
     func buyItemTransaction(){
         let email=UserDefaults.standard.string(forKey: "useremail")
         let userItemDocReference = userItemReference.document(email!)
@@ -92,6 +96,7 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
     }
     
+    // Set up the view's UI
     private func setUI() {
         descriptionView.backgroundColor = UIColor(patternImage: UIImage(named: "redWood")!)
         
@@ -115,6 +120,7 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         configureUserGoldLabel(text: initialGoldAmount)
     }
     
+    // Retrieves all in-game items available to be sold in shop
     func getAllShopItems(){
         ItemReference.getDocuments() {(querySnapshot, err) in
             if let err = err {
@@ -136,7 +142,7 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
     }
     
-    
+    // Function to add an dollar image icon infront of gold label
     func configureUserGoldLabel(text: String) {
         // Create Attachment
         let imageAttachment = NSTextAttachment()
@@ -236,8 +242,6 @@ class ShopViewController: UIViewController, UICollectionViewDelegate, UICollecti
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0.0
     }
-    
-    
     
 
     /*

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-
+// Class storing properties of an item
 class Item: NSObject {
     
     var name: String?

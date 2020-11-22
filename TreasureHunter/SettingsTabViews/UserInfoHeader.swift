@@ -45,6 +45,7 @@ class UserInfoHeader: UIView {
         
         let profileImageDimension: CGFloat = 60
         
+        // Add constraints to the profile image view
         addSubview(profileImageView)
         profileImageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         profileImageView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16).isActive = true
@@ -52,10 +53,12 @@ class UserInfoHeader: UIView {
         profileImageView.heightAnchor.constraint(equalToConstant: profileImageDimension).isActive = true
         profileImageView.layer.cornerRadius = profileImageDimension / 2
         
+        // Add constraints to the user name label
         addSubview(usernameLabel)
         usernameLabel.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor, constant: -10).isActive = true
         usernameLabel.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 12).isActive = true
         
+        // Add constraints to the email label
         addSubview(emailLabel)
         emailLabel.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor, constant: 10).isActive = true
         emailLabel.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 12).isActive = true

@@ -7,6 +7,7 @@
 
 import UIKit
 
+// Class that handles each cell in the shop collection view
 class ShopCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var priceLabel: UILabel!
@@ -15,24 +16,33 @@ class ShopCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var selectedImageView: UIImageView!
     var item: Item?
     
+    // Configure the background of each cell
     func configureBackground(with imageName: String){
         backgroundImageView.image = UIImage(named: imageName)
     }
+    
+    // Configure the image of item of each cell
     func configureItemImage(with imageName: String){
         itemImage.image = UIImage(named: imageName)
     }
+    
+    // Configure the item of each cell
     func configureItem(with item: Item){
         self.item = item
         self.itemImage.image = item.imageIcon
     }
 
+    // Configure the UI to display when a cell is selected
     func selectCell(){
         selectedImageView.image = UIImage(named: "selectFinger")
         
     }
+    // Configures the UI to display when a cell is deselected
     func deselectCell(){
         selectedImageView.image = nil
     }
+    
+    // Configures the price label to display on the top right of the cell
     func configurePrice(with item: Item){
         let strokeTextAttributes = [
           NSAttributedString.Key.strokeColor : UIColor.black,

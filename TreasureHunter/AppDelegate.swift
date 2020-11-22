@@ -20,7 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UIWind
     //var seconds = 180
     //for google sign
     //https://www.youtube.com/watch?v=20Qlho0G3YQ&t=669s
-    
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if let error = error {
             print(error.localizedDescription)
@@ -39,9 +38,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UIWind
             self.goToHome(user: user)
             //sign in
         }
-
     }
     
+    // Application logic for when user goes to home view for the first time
     func goToHome(user: GIDGoogleUser){
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let sceneDelegate = windowScene.delegate as? SceneDelegate
