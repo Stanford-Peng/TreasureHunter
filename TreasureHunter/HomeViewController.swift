@@ -49,7 +49,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     var ItemReference = Firestore.firestore().collection("Item")
     var allExistingItems: [Item] = []
     
-    let COOLDOWN = 50
+    let COOLDOWN = 900
     var shakeCounter = 0
     var digradius = 10.0
     let DEFAULT_DIG_RADIUS = 10.0

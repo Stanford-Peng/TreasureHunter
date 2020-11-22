@@ -12,13 +12,13 @@ class User: NSObject {
     
     var name: String?
     var digCount: Int?
-    var gold: Int?
+    var earnedGold: Int?
     var score: Int?
     
-    init(name: String, digCount: Int, gold: Int){
+    init(name: String, digCount: Int, earnedGold: Int){
         self.name = name
         self.digCount = digCount
-        self.gold = gold
+        self.earnedGold = earnedGold
     }
 
     init(name: String, score: Int){
