@@ -10,8 +10,8 @@ import FirebaseFirestore
 class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var chatNavBar: UINavigationBar!
-    //configure data source and table
     
+    //configure data source and table
     func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 3
@@ -61,6 +61,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
         // for delete contact
         if indexPath.section == 1{
             if editingStyle == .delete {
@@ -148,11 +149,11 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 self.present(alert, animated: true, completion: nil)
             }
         }
-            
-         
-
-}
-    
+        
+        
+        
+    }
+    //different options for selecting a row
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             let channel = channels[indexPath.row]
@@ -185,6 +186,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     //       return "Friends: "
     //    }
     
+    //create header for different table sections
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()
         view.backgroundColor = UIColor.Custom.darkBlue
@@ -223,7 +225,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return footer!
     }
     
-    
+    //Prettify user interface
     func configureUI() {
         chatNavBar.prefersLargeTitles = true
         chatNavBar.isTranslucent = false
@@ -271,6 +273,8 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        //get public chat room channels
         databaseListener = channelsRef?.addSnapshotListener { (querySnapshot, error) in
             if let error = error {
                 print(error)
@@ -292,7 +296,6 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         //get user contacts
         let email=UserDefaults.standard.string(forKey: "useremail")
         userContactsDoc=contactsRef?.document(email!).collection("friends")
-        
         databaseListener = userContactsDoc?.addSnapshotListener({ (querySnapshot, error) in
             if let error = error {
                 print(error)
@@ -313,6 +316,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         )
         
+        //get users private room channels
         databaseListener = groupsRef?.addSnapshotListener({ (querySnapshot, error) in
             if let error = error {
                 print(error)
@@ -340,7 +344,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     
-    
+    //present an action sheet:Add a channel / Add a Contact
     @IBAction func addAction(_ sender: Any) {
         
         let sender = sender as? UIBarButtonItem
@@ -365,6 +369,8 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         
     }
+    
+    //Add a chat contact for user
     func addContact(){
         let alertController = UIAlertController(title: "Add New Friend", message: "Enter the player's ID(email) below", preferredStyle: .alert)
         alertController.addTextField()
@@ -416,6 +422,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         present(alertController, animated: true)
     }
     
+    //create channel for user
     func addChannel(){
         let email=UserDefaults.standard.string(forKey: "useremail")
         let username = UserDefaults.standard.string(forKey: "username")
@@ -462,6 +469,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
      }
      */
     
+    //prepare settings for different chattings: public room, contact chatting or private room chatting
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.

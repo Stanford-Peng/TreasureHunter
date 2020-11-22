@@ -51,7 +51,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     var ItemReference = Firestore.firestore().collection("Item")
     var allExistingItems: [Item] = []
     
-    let COOLDOWN = 20 // Sets the dig cooldown between each dig
+    let COOLDOWN = 900 // Sets the dig cooldown between each dig
     var shakeCounter = 0 //Stores the amount of times the phone is shaken by user
     var digradius = 10.0 // Sets the dig radius on next dig only
     let DEFAULT_DIG_RADIUS = 10.0 // Sets the default dig radius on every dig
@@ -70,6 +70,17 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     @IBOutlet weak var hintButton: UIButton!
     //    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     var hasPearl = false
+    
+    //***
+    //This is used to easily enable and disable a test button
+    //It will be used in demonstration interview
+    //***
+    @IBOutlet weak var testButton: UIButton! {
+        didSet{
+            testButton.isHidden = true
+            testButton.isEnabled = false
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,6 +106,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
        
 //        step = 0
 //        addAnnotations(sender: nil)
+        
     }
     
     // In-Game Tutorial to teach users how to play the game
@@ -383,13 +395,20 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         self.timer = Timer.scheduledTimer(timeInterval: 1, target: self,   selector: (#selector(HomeViewController.updateTimer)), userInfo: nil, repeats: true)
     }
     
-    //convert into shaking
+    //***
+    //This is used to easily enable and disable a test button
+    //It will be used in demonstration interview
+    //***
     @IBAction func testDig(_ sender: Any) {
         dig()
     }
     
     // Dig at current user's location
     func dig(){
+        if self.userLocation == nil{
+            self.showAlert(title: "Notice", message: "User location is currently unavailable! Dig cannot be done.")
+            return
+        }
         if canDig! {
             findItems()
             let email=UserDefaults.standard.string(forKey: "useremail")
@@ -901,7 +920,7 @@ extension UIViewController{
         alert.view.addSubview(imageView)
         self.present(alert, animated: true, completion:nil)
     }
-    
+    // show an alert with a passed closure to be executed after the Ok button is pressed
     func showAlertWithCompletion(title: String, message: String, completion:@escaping () -> Void){
         let alert = UIAlertController(title: title, message:
                                         message, preferredStyle:
@@ -939,13 +958,15 @@ extension UIViewController{
     }
 }
 extension HomeViewController{
+    
+    //request user location
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         guard status == .authorizedWhenInUse else {
           return
         }
         manager.requestLocation()
     }
-
+    //debug when locations are failed to be fetched
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
       print("Error requesting location: \(error.localizedDescription)")
     }
