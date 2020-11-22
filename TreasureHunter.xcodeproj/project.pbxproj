@@ -48,6 +48,9 @@
 		E6CC24FE2543EEF9004EF299 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E6CC24FD2543EEF9004EF299 /* GoogleService-Info.plist */; };
 		E6CC25322543FAEB004EF299 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CC25312543FAEB004EF299 /* LoginController.swift */; };
 		E6DD9FA42569369B0005A4AB /* dig.webp in Resources */ = {isa = PBXBuildFile; fileRef = E68A937D2568FB6B00734D4E /* dig.webp */; };
+		E6DD9FD5256A3C1A0005A4AB /* pearlOyster.webp in Resources */ = {isa = PBXBuildFile; fileRef = E6DD9FD4256A3B8C0005A4AB /* pearlOyster.webp */; };
+		E6DD9FDA256A488A0005A4AB /* sparkle.webp in Resources */ = {isa = PBXBuildFile; fileRef = E6DD9FD9256A48790005A4AB /* sparkle.webp */; };
+		E6DD9FDF256A4C600005A4AB /* sparkle1.webp in Resources */ = {isa = PBXBuildFile; fileRef = E6DD9FDE256A4C460005A4AB /* sparkle1.webp */; };
 		E6E03C09255B9DE1000BF9A4 /* RandomLocationGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E03C08255B9DE1000BF9A4 /* RandomLocationGenerator.swift */; };
 /* End PBXBuildFile section */
 
@@ -122,6 +125,9 @@
 		E6CC24CB2542F2BD004EF299 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E6CC24FD2543EEF9004EF299 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E6CC25312543FAEB004EF299 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		E6DD9FD4256A3B8C0005A4AB /* pearlOyster.webp */ = {isa = PBXFileReference; lastKnownFileType = file; path = pearlOyster.webp; sourceTree = "<group>"; };
+		E6DD9FD9256A48790005A4AB /* sparkle.webp */ = {isa = PBXFileReference; lastKnownFileType = file; path = sparkle.webp; sourceTree = "<group>"; };
+		E6DD9FDE256A4C460005A4AB /* sparkle1.webp */ = {isa = PBXFileReference; lastKnownFileType = file; path = sparkle1.webp; sourceTree = "<group>"; };
 		E6E03C08255B9DE1000BF9A4 /* RandomLocationGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomLocationGenerator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -247,8 +253,11 @@
 		E68A93402568E43300734D4E /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				E6DD9FD4256A3B8C0005A4AB /* pearlOyster.webp */,
 				E68A937D2568FB6B00734D4E /* dig.webp */,
 				E68A933B2568E31800734D4E /* digging.gif */,
+				E6DD9FDE256A4C460005A4AB /* sparkle1.webp */,
+				E6DD9FD9256A48790005A4AB /* sparkle.webp */,
 			);
 			path = resources;
 			sourceTree = "<group>";
@@ -435,6 +444,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6DD9FDF256A4C600005A4AB /* sparkle1.webp in Resources */,
+				E6DD9FDA256A488A0005A4AB /* sparkle.webp in Resources */,
+				E6DD9FD5256A3C1A0005A4AB /* pearlOyster.webp in Resources */,
 				E6DD9FA42569369B0005A4AB /* dig.webp in Resources */,
 				E68A933C2568E31800734D4E /* digging.gif in Resources */,
 				E6CC24B42542F2BD004EF299 /* LaunchScreen.storyboard in Resources */,

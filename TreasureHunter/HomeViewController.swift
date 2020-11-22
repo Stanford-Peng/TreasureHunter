@@ -55,6 +55,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     let DEFAULT_DIG_RADIUS = 10.0
     
     var step:Int?
+    
     let strokeTextAttributes = [
       NSAttributedString.Key.strokeColor : UIColor.black,
       NSAttributedString.Key.foregroundColor : UIColor.white,
@@ -64,6 +65,8 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     let child = SpinnerViewController()
     @IBOutlet weak var hintButton: UIButton!
     //    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
+    var hasPearl = false
     override func viewDidLoad() {
         super.viewDidLoad()
         createSpinnerView()
@@ -382,18 +385,12 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         diggingView.frame.size.height = 200
         diggingView.center = self.view.center
 //        self.view.addSubview(diggingView)
+        self.view.addSubview(diggingView)
         diggingView.fadeIn(0.5, delay: 0) { (bool) in
 //            self.view.addSubview(diggingView)
 //            print(Bundle.main.bundlePath)
 //            print(Bundle.main.bundleURL)
-            
 //            let filepath = Bundle.url(forResource: "dig", withExtension: "webp", subdirectory: nil, in: URL)
-            print(Bundle.main.url(forResource: "dig", withExtension: "webp"))
-//            print(Bundle.main.path(forResource: "dig", ofType: "webp"))
-            guard let localFileUrl = Bundle.main.url(forResource: "dig", withExtension: "webp") else{
-                print("cannot find the webp file")
-                return
-            }
 //            guard let localFileUrl1 = Bundle.main.path(forResource: "dig", ofType: "webp") else{
 //
 //                print("cannot find the webp file")
@@ -402,12 +399,17 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
 //
 //            print(localFileUrl)
 //            print(localFileUrl1)
+//            print(Bundle.main.url(forResource: "dig", withExtension: "webp"))
+//            print(Bundle.main.path(forResource: "dig", ofType: "webp"))
+            guard let localFileUrl = Bundle.main.url(forResource: "dig", withExtension: "webp") else{
+                print("cannot find the webp file")
+                return
+            }
+
             
             //reference add unrecognized static file : https://rambo.codes/posts/2018-10-03-unleashing-the-power-of-asset-catalogs-and-bundles-on-ios
             DispatchQueue.main.async {
-                diggingView.sd_setImage(with: localFileUrl) { (image, error, cacheType, url) in
-                    self.view.addSubview(diggingView)
-                }
+                diggingView.sd_setImage(with: localFileUrl)
                 //diggingView.sd_setImage(with: URL(string: "https://im3.ezgif.com/tmp/ezgif-3-6865b0a6bda9.webp"), completed: nil)
             }
         }
@@ -447,6 +449,9 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
                 }
                 var itemsDisplay = "\n"
                 for item in items {
+                    if item.name == "Pearl Oyster"{
+                        self.hasPearl = true
+                    }
                     itemsDisplay += "\(item.name!) x \(item.itemCount!)\n"
                 }
                 
@@ -465,6 +470,49 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
             }
             diggingView.fadeOut(1, delay: 0) { (bool) in
                     diggingView.removeFromSuperview()
+                
+                //if there is pearl oyster, show an animation:
+                if self.hasPearl == true{
+                        self.showPearlOyster()
+                    }
+            }
+        }
+    }
+    
+    func showPearlOyster(){
+//        let concurrentQueue = DispatchQueue(label: "treasureHunter.concurrent.queue", attributes: .concurrent)
+        let pearlOysterView = UIImageView()
+        let backgroundView = UIImageView()
+        backgroundView.contentMode = .scaleAspectFit
+        backgroundView.frame.size.width = self.view.frame.width
+        backgroundView.frame.size.height = self.view.frame.height
+        backgroundView.center = self.view.center
+        
+        pearlOysterView.contentMode = .scaleAspectFit
+        pearlOysterView.frame.size.width = 200
+        pearlOysterView.frame.size.height = 200
+        pearlOysterView.center = self.view.center
+        
+        backgroundView.fadeIn(0.5, delay: 0) { (bool) in
+            guard let localFileUrl = Bundle.main.url(forResource: "pearlOyster", withExtension: "webp") else{
+                print("cannot find the webp file")
+                return
+            }
+            guard let backgroundFileUrl = Bundle.main.url(forResource: "sparkle1", withExtension: "webp") else{
+                print("cannot find the webp file")
+                return
+            }
+            DispatchQueue.main.async {
+                backgroundView.sd_setImage(with: backgroundFileUrl) { (image, error, cacheType, url) in
+                    pearlOysterView.sd_setImage(with: localFileUrl) { (image, error, cacheType, url) in
+                        self.view.addSubview(pearlOysterView)
+                        self.view.addSubview(backgroundView)
+                        pearlOysterView.fadeOut(0.5, delay:5){ (bool) in
+                            pearlOysterView.removeFromSuperview()
+                            backgroundView.removeFromSuperview()
+                        }
+                    }
+                }
             }
         }
     }
@@ -604,6 +652,10 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     
     
     func generateRandomItemToMap(){
+        if self.hasPearl == true{
+            self.hasPearl = false
+            return
+        }
         let randonLocationGenerator = RandomLocationGenerator()
         
         let locations = try? randonLocationGenerator.getMockLocationsFor(location: userLocation!, count: 1, minDistanceKM: 1, maxDistanceKM: 3)
