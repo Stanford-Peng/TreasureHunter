@@ -98,7 +98,38 @@ exports.findItems = functions.https.onCall(async(data, context) => {
   }
 )
 
-    // Send back a message that we've succesfully written the message
+// exports.fetchTopTen = functions.https.onCall(async(data, context) => {
+//     // Checking that the user is authenticated.
+//     if (!context.auth) {
+//         // Throwing an HttpsError so that the client gets the error details.
+//         throw new functions.https.HttpsError('failed-precondition', 'The function must be called ' +
+//             'while authenticated.');
+//     }
+//     const userReference = db.collection('User');
+//     const snapshot = await userReference.get();
+
+//     let goldRank = []
+//     let digCount = []
+//     snapshot.forEach(
+//         (doc) => {
+
+//         }
+//     )
+
+// }
+
+// {
+//     "forGold":[
+//         {rank:1, name:"", goldCount:1}
+
+//     ],
+//     "forDigCount":[
+//         {name:"", count:1}
+
+//     ]
+    
+// }
+    // Send back a message that we've successfully written the message
     // {
     //     data =     {
     //         itemCount = 1;

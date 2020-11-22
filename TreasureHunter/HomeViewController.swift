@@ -49,7 +49,7 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     var ItemReference = Firestore.firestore().collection("Item")
     var allExistingItems: [Item] = []
     
-    let COOLDOWN = 900
+    let COOLDOWN = 20
     var shakeCounter = 0
     var digradius = 10.0
     let DEFAULT_DIG_RADIUS = 10.0
@@ -694,8 +694,12 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
     }
     
     func timeUp(){
+        self.timer.invalidate()
         setupTimerLabel(text: "Shake to dig")
         canDig = true
+        let nc = NotificationCenter.default
+        nc.post(name: Notification.Name("CanDig"), object: SceneDelegate.self)
+        print("Notifying")
     }
     
     //    func resetTimer(){
