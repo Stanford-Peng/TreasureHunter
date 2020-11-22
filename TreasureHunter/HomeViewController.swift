@@ -342,7 +342,10 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         //tutorial begins when the user is first logging in
         step = 0
         addAnnotations(sender: nil)
+        // Default settings for first time users
         UserDefaults.standard.set("false", forKey: "showTutorial")
+        UserDefaults.standard.set(true, forKey: "notifications")
+        UserDefaults.standard.set("standard", forKey: "mapType")
     }
     
     func runTimer() {

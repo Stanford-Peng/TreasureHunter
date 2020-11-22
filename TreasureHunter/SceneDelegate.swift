@@ -121,6 +121,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //let storyboard = UIStoryboard(name: "Main", bundle: nil)
         //let popVC = storyboard.instantiateViewController(identifier: "PopVC") as! GroupMemberController
         
+        //
+        if !UserDefaults.standard.bool(forKey: "notifications") {
+            return
+        }
+        
         //if user is logged in and left time is > 0, schedule a notification
         if UserDefaults.standard.string(forKey: "useremail") != "" && UserDefaults.standard.string(forKey: "useremail") != nil{
             let tabController = window!.rootViewController as! UITabBarController
@@ -133,6 +138,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 self.notify(interval: leftSeconds!)
             }
         }
+        
         
         
         //        DispatchQueue.global(qos:.background).asyncAfter(deadline: .now() + Double(leftSeconds!)) {
