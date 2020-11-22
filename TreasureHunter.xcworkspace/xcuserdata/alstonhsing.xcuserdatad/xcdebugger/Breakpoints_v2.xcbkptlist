@@ -48,7 +48,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "586"
             endingLineNumber = "586"
-            landmarkName = "generateRandomItemToMap()"
+            landmarkName = "stashedHintTapped(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
