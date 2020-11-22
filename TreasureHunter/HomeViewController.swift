@@ -345,7 +345,19 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
         //tutorial begins when the user is first logging in
         step = 0
         addAnnotations(sender: nil)
+        
+        // Default settings for first time users
         UserDefaults.standard.set("false", forKey: "showTutorial")
+        UserDefaults.standard.set(true, forKey: "notifications")
+        UserDefaults.standard.set("standard", forKey: "mapType")
+        
+        // Set up achievements for new user
+        let userReference = Firestore.firestore().collection("User")
+        userReference.document(email!).setData([
+            "digCount" : 0,
+            "earnedGold" : 0,
+            "pearlOystersFound": 0
+        ], merge: true)
     }
     
     func runTimer() {
@@ -454,7 +466,6 @@ class HomeViewController: UIViewController, MKMapViewDelegate, CLLocationManager
                     }
                     itemsDisplay += "\(item.name!) x \(item.itemCount!)\n"
                 }
-                
                
 //                diggingView.fadeOut(1, delay: 0) { (bool) in
 //                    diggingView.removeFromSuperview()

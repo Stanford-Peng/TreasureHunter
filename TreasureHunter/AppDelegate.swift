@@ -62,7 +62,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate, UIWind
         userReference.document(email!).setData([
             "name":name ?? "",
             "digCount" : 0,
-            "earnedGold" : 0
+            "earnedGold" : 0,
+            "pearlOystersFound": 0
         ], merge: true)
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)

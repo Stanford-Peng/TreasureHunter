@@ -48,6 +48,8 @@ class SettingsCell: UITableViewCell {
                 UserDefaults.standard.set("hybrid", forKey: "mapType")
             case "Show Tutorial":
                 UserDefaults.standard.set("true", forKey: "showTutorial")
+            case "Notifications":
+                UserDefaults.standard.set(true, forKey: "notifications")
             default:
                 break
             }
@@ -58,6 +60,8 @@ class SettingsCell: UITableViewCell {
                 UserDefaults.standard.set("standard", forKey: "mapType")
             case "Show Tutorial":
                 UserDefaults.standard.set("false", forKey: "showTutorial")
+            case "Notifications":
+                UserDefaults.standard.set(false, forKey: "notifications")
             default:
                 break
             }
@@ -75,7 +79,12 @@ class SettingsCell: UITableViewCell {
                 switchControl.isOn = false
             }
         case "Notifications":
-            break
+            let notification = UserDefaults.standard.bool(forKey: "notifications")
+            if notification{
+                switchControl.isOn = true
+            } else {
+                switchControl.isOn = false
+            }
         case "Show Tutorial":
             let tutorial = UserDefaults.standard.string(forKey: "showTutorial")
             if tutorial == "true"{

@@ -38,8 +38,7 @@ class ItemFunctionsController{
             bagViewDelegate?.showToast(message: "Large Treasure Chest sold for 5000 gold" , font: .systemFont(ofSize: 16.0))
             
         case "Pearl Oyster":
-            break
-            
+            homeViewDelegate?.showAlert(title: "Congratulations!", message: "Admin will contact you via E-Mail")
         case "Map Piece 1":
             homeViewDelegate?.showAlertWithImage(title: "Hint 1", message: "P", imageName: "hint-kangaroo")
             
