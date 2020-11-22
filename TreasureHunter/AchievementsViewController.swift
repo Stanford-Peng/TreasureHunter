@@ -10,6 +10,7 @@ import FirebaseFirestore
 
 class AchievementsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    @IBOutlet weak var pearlOystersCount: UILabel!
     @IBOutlet weak var earnedGoldLabel: UILabel!
     @IBOutlet weak var digCountLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
@@ -19,6 +20,7 @@ class AchievementsViewController: UIViewController, UITableViewDataSource, UITab
     let reuseIdentifier = "leaderboardCell"
     var digsLeaderboard: [User] = []
     var goldLeaderboard: [User] = []
+    var pearlLeaderboard: [User] = []
     // master array
     var displayedTable: [User] = []
 
@@ -37,10 +39,12 @@ class AchievementsViewController: UIViewController, UITableViewDataSource, UITab
                 let data = document.data()
                 let user = User(name: data!["name"] as! String,
                                 digCount: data!["digCount"] as! Int,
-                                earnedGold: data!["earnedGold"] as! Int
+                                earnedGold: data!["earnedGold"] as! Int,
+                                pearlOyster: data!["pearlOystersFound"] as! Int
                 )
                 self.configureLabel(label: self.digCountLabel, text: String(user.digCount!), iconName: "homeIcon")
                 self.configureLabel(label: self.earnedGoldLabel, text: String(user.earnedGold!), iconName: "dollar")
+                self.configureLabel(label: self.pearlOystersCount, text: String(user.pearlOyster!), iconName: "pearlOyster")
                 
                 print("Document data: \(data!)")
             } else {
@@ -66,7 +70,7 @@ class AchievementsViewController: UIViewController, UITableViewDataSource, UITab
                     self.updateTable()
                 }
             }
-        //get top userse by earned gold
+        //get top users by earned gold
         userReference.order(by: "earnedGold", descending: true).limit(to: 20)
         db.collection("User").order(by: "earnedGold", descending: true).limit(to: 20)
             .getDocuments() { (querySnapshot, err) in
@@ -81,6 +85,23 @@ class AchievementsViewController: UIViewController, UITableViewDataSource, UITab
                     }
                 }
             }
+        
+        //get top users by pearl oysters
+        db.collection("User").order(by: "pearlOystersFound", descending: true).limit(to: 20)
+            .getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    for document in querySnapshot!.documents {
+                        if document.data()["pearlOystersFound"] as! Int > 0 {
+                            self.pearlLeaderboard.append(User(
+                                name: document.data()["name"] as! String,
+                                score: document.data()["pearlOystersFound"] as! Int
+                            ))
+                        }
+                    }
+                }
+            }
     }
     
     @IBAction func onSegmentToggle(_ sender: Any) {
@@ -90,6 +111,8 @@ class AchievementsViewController: UIViewController, UITableViewDataSource, UITab
             displayedTable = digsLeaderboard
         case 1: // index 1 = gold leaderboard
             displayedTable = goldLeaderboard
+        case 2: // index 2 = pearl oyster leaderboard
+            displayedTable = pearlLeaderboard
         default:
             break
         }
@@ -141,6 +164,9 @@ class AchievementsViewController: UIViewController, UITableViewDataSource, UITab
         }
         if segmentedControl.selectedSegmentIndex == 1 {
             imageName = "dollar"
+        }
+        if segmentedControl.selectedSegmentIndex == 2 {
+            imageName = "pearlOyster"
         }
         self.configureLabel(label: cell!.detailTextLabel!, text: String(displayedTable[indexPath.row].score!), iconName: imageName)
         return cell!

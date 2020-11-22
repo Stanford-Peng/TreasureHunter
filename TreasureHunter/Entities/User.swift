@@ -14,11 +14,13 @@ class User: NSObject {
     var digCount: Int?
     var earnedGold: Int?
     var score: Int?
+    var pearlOyster: Int?
     
-    init(name: String, digCount: Int, earnedGold: Int){
+    init(name: String, digCount: Int, earnedGold: Int, pearlOyster: Int){
         self.name = name
         self.digCount = digCount
         self.earnedGold = earnedGold
+        self.pearlOyster = pearlOyster
     }
 
     init(name: String, score: Int){
