@@ -47,6 +47,7 @@
 		E6CC24CA2542F2BD004EF299 /* TreasureHunterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CC24C92542F2BD004EF299 /* TreasureHunterUITests.swift */; };
 		E6CC24FE2543EEF9004EF299 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E6CC24FD2543EEF9004EF299 /* GoogleService-Info.plist */; };
 		E6CC25322543FAEB004EF299 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CC25312543FAEB004EF299 /* LoginController.swift */; };
+		E6DD9FA42569369B0005A4AB /* dig.webp in Resources */ = {isa = PBXBuildFile; fileRef = E68A937D2568FB6B00734D4E /* dig.webp */; };
 		E6E03C09255B9DE1000BF9A4 /* RandomLocationGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E03C08255B9DE1000BF9A4 /* RandomLocationGenerator.swift */; };
 /* End PBXBuildFile section */
 
@@ -246,6 +247,7 @@
 		E68A93402568E43300734D4E /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				E68A937D2568FB6B00734D4E /* dig.webp */,
 				E68A933B2568E31800734D4E /* digging.gif */,
 			);
 			path = resources;
@@ -298,7 +300,6 @@
 				BAE631ED2544665E005FAA21 /* HomeViewController.swift */,
 				BAE5E3E325453C6800E4FCFA /* SettingsViewController.swift */,
 				BAE5E3E825453C8500E4FCFA /* ChatViewController.swift */,
-				E68A937D2568FB6B00734D4E /* dig.webp */,
 				E6147D5C2546B93D00B799F5 /* ChannelMessagesViewController.swift */,
 				BAE5E3ED25453C9A00E4FCFA /* BagViewController.swift */,
 				BA6F99DD255BDC0A000BC7ED /* ShopViewController.swift */,
@@ -434,6 +435,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6DD9FA42569369B0005A4AB /* dig.webp in Resources */,
 				E68A933C2568E31800734D4E /* digging.gif in Resources */,
 				E6CC24B42542F2BD004EF299 /* LaunchScreen.storyboard in Resources */,
 				E6CC24FE2543EEF9004EF299 /* GoogleService-Info.plist in Resources */,
