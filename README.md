@@ -4,8 +4,17 @@ Final Application Project Proposal
 Application Concept
 Name: Treasure Hunter
 
+## Overall Architecture
+This game app contains two main tiers:client and firebase server and you can refer to the below diagram: 
 
-## Architecture Diagram:
+The client is, of course, written in swift combined with a storyboard. No local database is used due to the characteristics of this game. All the game data have to be available to all game players so that we use Firebase Cloud Firestore to store all the game related data. As for the data related to user preferences about the app settings, they are not sensitive data and are stored in User Defaults and can be accessed everywhere in the application.
+
+Firebase Cloud Firestore is a document-oriented database, similar to MongoDB. It is schemaless and data should be stored for query-oriented purposes (Inner Join should be avoided). Therefore, the collections in Firebase Cloud Firestore are mostly self-contained and can give the client enough information independently. Below is a screenshot of 8 collections we use in this application:
+
+
+Apart from using Firebase to store data, we also use its function feature and delegate heavy calculations to the server side. The client just needs to pass a few parameters to call the function and the server will return the client results after heavy calculation. Any needed user data can be directly fetched from Firestore in the deployed function. This way can greatly reduce the memory and CPU burden of client devices, thus providing users with better experience:
+
+### Architecture Diagram:
 The Google Serverless Function helps improve the performance of the mobile app by delegating resource-intensive firebase query task to the cloud function.
 
 ![architecture](https://github.com/Stanford-Peng/TreasureHunter/blob/main/architecture%20diagram.png)
@@ -60,16 +69,6 @@ Translator - Translates hints to a chosen language
 ![shop](https://user-images.githubusercontent.com/48232605/100333608-e7c0e100-3026-11eb-8e3e-69918a3c65dd.png)
 
 # Treasure Hunter App Documentation
-
-## Overall Architecture
-This game app contains two main tiers:client and firebase server and you can refer to the below diagram: 
-
-The client is, of course, written in swift combined with a storyboard. No local database is used due to the characteristics of this game. All the game data have to be available to all game players so that we use Firebase Cloud Firestore to store all the game related data. As for the data related to user preferences about the app settings, they are not sensitive data and are stored in User Defaults and can be accessed everywhere in the application.
-
-Firebase Cloud Firestore is a document-oriented database, similar to MongoDB. It is schemaless and data should be stored for query-oriented purposes (Inner Join should be avoided). Therefore, the collections in Firebase Cloud Firestore are mostly self-contained and can give the client enough information independently. Below is a screenshot of 8 collections we use in this application:
-
-
-Apart from using Firebase to store data, we also use its function feature and delegate heavy calculations to the server side. The client just needs to pass a few parameters to call the function and the server will return the client results after heavy calculation. Any needed user data can be directly fetched from Firestore in the deployed function. This way can greatly reduce the memory and CPU burden of client devices, thus providing users with better experience:
 
 ## Libraries
 
