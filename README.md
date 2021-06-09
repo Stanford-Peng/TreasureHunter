@@ -4,6 +4,11 @@ Final Application Project Proposal
 Application Concept
 Name: Treasure Hunter
 
+
+## Architecture Diagram:
+
+![architecture](https://github.com/Stanford-Peng/TreasureHunter/blob/main/architecture%20diagram.png)
+
 ## About
 As Shakespeare once said “The world is your oyster”. In “Treasure Hunter”, you can find exciting little gems scattered around the world, ranging from tools, hints, player-dropped items/messages, gold, and much more to help you on the journey to find the most sought-after treasure of all, THE PEARL OYSTER!
 Players who find the Pearl Oyster prize will receive plane tickets and accommodation to travel around the world to 3 different countries. And get recognition in the in-game global leaderboard.
