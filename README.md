@@ -42,6 +42,11 @@ No augmented reality graphics
 ![landingPage](https://user-images.githubusercontent.com/48232605/100333473-bcd68d00-3026-11eb-9a53-8430c9066726.png)
 ![home](https://user-images.githubusercontent.com/48232605/100333524-ccee6c80-3026-11eb-9ee9-382fe3d4e58e.png)
 
+### Shake to dig at user's location:
+
+![digging](https://github.com/Stanford-Peng/TreasureHunter/blob/main/Screen%20Shot%202021-06-10%20at%202.07.41%20am.png)
+
+
 ## Target Audience
 Suitable for all ages
 Suitable for all genders
