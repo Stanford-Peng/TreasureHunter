@@ -6,6 +6,7 @@ Name: Treasure Hunter
 
 
 ## Architecture Diagram:
+The Google Serverless Function helps improve the performance of the mobile app by delegating resource-intensive firebase query task to the cloud function.
 
 ![architecture](https://github.com/Stanford-Peng/TreasureHunter/blob/main/architecture%20diagram.png)
 
