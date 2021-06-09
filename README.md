@@ -26,6 +26,7 @@ No augmented reality graphics
 
 ![landingPage](https://user-images.githubusercontent.com/48232605/100333473-bcd68d00-3026-11eb-9a53-8430c9066726.png)
 ![home](https://user-images.githubusercontent.com/48232605/100333524-ccee6c80-3026-11eb-9ee9-382fe3d4e58e.png)
+
 ## Target Audience
 Suitable for all ages
 Suitable for all genders
@@ -38,6 +39,7 @@ Players can dig (shake their phone for 10 seconds) once every 15 minutes (15 min
 All players start with 3000 points
 Players can buy game items with points
 Players can bury messages or tools for other players to dig up
+
 ![setting](https://user-images.githubusercontent.com/48232605/100333639-f3140c80-3026-11eb-86ef-639ac1dd17f3.png)
 
 ## Game Items
@@ -47,6 +49,7 @@ Metal Detector - Scans in a 100m radius of the user to pinpoint location of high
 Oyster Detector - Scans in a 100m radius of the user to detect whether a Pearl Oyster exists.
 Normal Oyster - Grants the user 500 points.
 Translator - Translates hints to a chosen language
+
 ![bag](https://user-images.githubusercontent.com/48232605/100333578-ded00f80-3026-11eb-9533-628d8e53b839.png)
 ![shop](https://user-images.githubusercontent.com/48232605/100333608-e7c0e100-3026-11eb-8e3e-69918a3c65dd.png)
 
